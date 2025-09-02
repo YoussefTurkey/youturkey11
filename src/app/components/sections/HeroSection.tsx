@@ -2,8 +2,8 @@
 // using Translation
 import { useLanguage } from "@/app/lang/LanguageProvider";
 // Importing Components
-import CodeProfile from "./CodeProfile";
-import Btns from "./Btns";
+import CodeProfile from "../ui/CodeProfile";
+import Btns from "../ui/Btns";
 // Importing React-icons
 import { MdArrowOutward } from "react-icons/md";
 

@@ -20,23 +20,33 @@ import Btns from "../ui/Btns";
 
 const Header = () => {
   const { language } = useLanguage();
-  const { theme } = useTheme()
+  const { theme } = useTheme();
   const [menu, setMenu] = useState(false);
 
   return (
-    <header className="container mx-auto px-10 xl:px-0 py-5 flex items-center justify-between">
+    <header className="container mx-auto px-10 xl:px-0 py-5 flex items-center justify-between border-b border-[hsl(var(--third))]">
       {/* Logo */}
-      <Link href="/" className="flex items-center gap-3 group">
+      <Link href="/" className="flex items-center gap-3">
         <Image
-          src={theme === 'dark' ? "/images/logo-dark.webp" : "/images/logo-light.webp"}
+          src={
+            theme === "dark"
+              ? "/images/logo-dark.webp"
+              : "/images/logo-light.webp"
+          }
           width={30}
           height={30}
           alt="youturkey11"
           loading="lazy"
         />
-        <span className="uppercase text-xl sm:text-3xl font-extrabold text-[hsl(var(--foreground))] sm:text-[hsl(var(--third))] sm:group-hover:text-[hsl(var(--foreground))] transition-colors">
-          {language === 'en' ? 'YouTurkey11' : 'يوتركي11'}
-        </span>
+        {language === "en" ? (
+          <span className="uppercase text-xl sm:text-3xl font-extrabold transition-colors">
+            YouTurkey<sup className="text-[hsl(var(--secondary))]">11</sup>
+          </span>
+        ) : (
+          <span className="uppercase text-xl sm:text-3xl font-extrabold transition-colors">
+            يوتركي<sup className="text-[hsl(var(--secondary))]">11</sup>
+          </span>
+        )}
       </Link>
 
       {/* Desktop & Tablet Btns */}

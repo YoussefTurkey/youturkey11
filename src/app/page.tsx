@@ -1,5 +1,6 @@
 // Importing Components
-import HeroSection from "./components/ui/HeroSection";
+import About from "./components/sections/About";
+import HeroSection from "./components/sections/HeroSection";
 import Logomarquee from "./components/ui/Logomarquee";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <>
       <HeroSection />
       <Logomarquee />
+      <About />
     </>
   );
 }
