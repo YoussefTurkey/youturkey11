@@ -1,15 +1,29 @@
+// Metadata
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// Styles
 import "./globals.css";
+// Fonts
+import { Inter, Cairo  } from "next/font/google";
+// Providers
+import ClientThemeProvider from "@/app/themes/ClientThemeProvider";
+import ClientLanguageProvider from "@/app/lang/ClientLanguageProvider";
+// import React components
+import dynamic from "next/dynamic";
+// import Components
+const Header = dynamic(() => import("@/app/components/layout/Header"));
+const Footer = dynamic(() => import("@/app/components/layout/Footer"));
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Fonts
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const cairo = Cairo({
+  subsets: ["arabic"],
+  weight: ["400", "500", "700"],
+  variable: "--font-cairo",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -19,15 +33,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: { lang: string };
+}) {
+  const direction = params.lang === "ar" ? "rtl" : "ltr";
+
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang={params.lang} dir={direction}>
+      <body className={`${inter.variable} ${cairo.variable}`}>
+        <ClientThemeProvider>
+          <ClientLanguageProvider defaultLanguage={params.lang as "en" | "ar"}>
+            <Header />
+            {children}
+            <Footer />
+          </ClientLanguageProvider>
+        </ClientThemeProvider>
       </body>
     </html>
   );
