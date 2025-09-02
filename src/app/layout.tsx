@@ -7,11 +7,9 @@ import { Inter, Cairo  } from "next/font/google";
 // Providers
 import ClientThemeProvider from "@/app/themes/ClientThemeProvider";
 import ClientLanguageProvider from "@/app/lang/ClientLanguageProvider";
-// import React components
-import dynamic from "next/dynamic";
 // import Components
-const Header = dynamic(() => import("@/app/components/layout/Header"));
-const Footer = dynamic(() => import("@/app/components/layout/Footer"));
+import Header from "@/app/components/layout/Header";
+import Footer from "@/app/components/layout/Footer";
 
 // Fonts
 const inter = Inter({
