@@ -28,6 +28,7 @@ import {
   NPMLogo,
   YarnLogo,
 } from "../svg/logos";
+import Titles from "./Titles";
 
 type ILogos = {
   id: number;
@@ -209,9 +210,7 @@ function Logomarquee() {
 
   return (
     <div className="items-center overflow-hidden mb-10">
-      <h3 className="pb-5 text-center capitalize font-bold text-3xl bg-gradient-to-t from-[#b2b2b2] to-[hsl(var(--foreground))] bg-clip-text text-transparent">
-        {language === 'en' ? 'Tools that I have' : 'حقيبة أدواتي'}
-      </h3>
+      <Titles>{language === 'en' ? 'Tools that I have' : 'حقيبة أدواتي'}</Titles>
       <div className="w-70 md:w-150 lg:w-200 xl:w-full xl:max-w-7xl mx-auto flex flex-col gap-y-6">
         <Marquee
           logos={logos1}

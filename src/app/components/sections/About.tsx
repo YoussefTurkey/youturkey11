@@ -57,7 +57,7 @@ const About = () => {
           height={1000}
           alt={about.heroEn}
           loading="lazy"
-          className="w-full mx-auto lg:w-150 xl:w-200 h-150 object-cover group-hover:scale-105 transition-transform duration-500 rounded-2xl"
+          className="w-full mx-auto lg:w-150 xl:w-200 h-150 object-cover group-hover:scale-105 transition-transform duration-500 rounded-lg"
         />
         <div className="absolute inset-0 flex items-end justify-between p-4 bg-gradient-to-t from-black/50 to-transparent">
           <p className="opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 text-white">
