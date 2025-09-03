@@ -13,6 +13,9 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaSquareWhatsapp } from "react-icons/fa6";
 import { FaGithubSquare } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
+import { MdArrowOutward } from "react-icons/md";
+// Importing Components
+import Btns from "../ui/Btns";
 
 const About = () => {
   const { language } = useLanguage();
@@ -28,25 +31,32 @@ const About = () => {
           {language === "en" ? about.infoEn : about.infoAr}
         </p>
 
-        <div className="flex items-center gap-5">
-          <Link
-            href={"https://www.linkedin.com/in/youturkey11/"}
-            target="_blank"
-          >
-            <FaLinkedin size={40} color="#b2b2b2" />
-          </Link>
-          <Link href={"https://wa.me/201273451052"} target="_blank">
-            <FaSquareWhatsapp size={40} color="#b2b2b2" />
-          </Link>
-          <Link href={"https://github.com/YoussefTurkey"} target="_blank">
-            <FaGithubSquare size={40} color="#b2b2b2" />
-          </Link>
-          <Link
-            href={"https://www.youtube.com/@youssefturkey11"}
-            target="_blank"
-          >
-            <FaYoutube size={40} color="#b2b2b2" />
-          </Link>
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <Btns style="py-3 xl:px-10 my-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2">
+            <span>{language === "en" ? "My Resume" : "سيرتي الذاتية"}</span>
+            <MdArrowOutward size={30} />
+          </Btns>
+
+          <div className="flex items-center gap-5">
+            <Link
+              href={"https://www.linkedin.com/in/youturkey11/"}
+              target="_blank"
+            >
+              <FaLinkedin size={30} color="#b2b2b2" />
+            </Link>
+            <Link href={"https://wa.me/201273451052"} target="_blank">
+              <FaSquareWhatsapp size={30} color="#b2b2b2" />
+            </Link>
+            <Link href={"https://github.com/YoussefTurkey"} target="_blank">
+              <FaGithubSquare size={30} color="#b2b2b2" />
+            </Link>
+            <Link
+              href={"https://www.youtube.com/@youssefturkey11"}
+              target="_blank"
+            >
+              <FaYoutube size={30} color="#b2b2b2" />
+            </Link>
+          </div>
         </div>
       </div>
 
