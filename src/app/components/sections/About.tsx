@@ -21,7 +21,7 @@ const About = () => {
             language === "en" ? "w-60 sm:w-40" : "w-30 sm:w-25"
           }`}
         >
-          {language === "en" ? "About Me" : "عني"}
+          {language === "en" ? "About Me" : "نبذة عني"}
         </p>
         <div className="w-full h-px bg-[hsl(var(--third))]"></div>
       </div>
@@ -31,11 +31,11 @@ const About = () => {
           <h2 className="uppercase text-4xl sm:text-6xl">
             {language === "en" ? about.titleEn : about.titleAr}
           </h2>
-          <p className="py-3 text-[hsl(var(--third))] text-xl md:text-2xl xl:text-3xl leading-8 sm:leading-10 lg:leading-14">
+          <p className="py-3 text-[hsl(var(--third))] text-lg md:text-xl xl:text-2xl leading-8 sm:leading-10 lg:leading-14">
             {language === "en" ? about.infoEn : about.infoAr}
           </p>
 
-          <Btns style="py-3 xl:px-10 my-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2">
+          <Btns href="https://www.youturkey11.com" style="py-3 xl:px-10 my-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2">
             <span>{language === "en" ? "My Resume" : "سيرتي الذاتية"}</span>
             <MdArrowOutward size={30} />
           </Btns>

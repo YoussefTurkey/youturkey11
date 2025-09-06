@@ -33,7 +33,7 @@ const Footer = () => {
             ? "I'm open for freelance projects & full-time roles."
             : "متاح لمشاريع العمل الحر والوظائف بدوام كامل."}
         </h2>
-        <Btns style="w-full sm:w-[50%] md:sm:w-[50%] lg:w-[30%] py-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2">
+        <Btns href="/contact" style="w-full sm:w-[50%] md:sm:w-[50%] lg:w-[30%] py-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2">
           <span>{language === "en" ? "Get in touch" : "تواصل معي الآن"}</span>{" "}
           <MdArrowOutward size={30} />
         </Btns>

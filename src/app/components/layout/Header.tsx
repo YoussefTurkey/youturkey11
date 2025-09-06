@@ -54,10 +54,10 @@ const Header = () => {
         <div className="flex items-center gap-3">
           <LanguageToggle />
           <ThemeToggle />
-          <Btns style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white">
+          <Btns href="/community" style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white">
             {language === "en" ? "Community" : "المجتمع"}
           </Btns>
-          <Btns style="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)_/_90%)] text-white">
+          <Btns href="/contact" style="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)_/_90%)] text-white">
             {language === "en" ? "Get in touch" : "تواصل معي"}
           </Btns>
         </div>
@@ -99,10 +99,10 @@ const Header = () => {
           >
             <IoClose size={40} />
           </button>
-          <Btns style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white">
+          <Btns href="/community" style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white">
             {language === "en" ? "Community" : "المجتمع"}
           </Btns>
-          <Btns style="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)_/_90%)] text-white">
+          <Btns href="/contact" style="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)_/_90%)] text-white">
             {language === "en" ? "Get in touch" : "تواصل معي"}
           </Btns>
           <div className="flex items-center justify-start gap-5">

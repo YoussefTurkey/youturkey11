@@ -11,9 +11,9 @@ export const about: TAbout = {
   titleAr: "مَن أنا",
   titleEn: "Who's Me",
   infoAr:
-    "مطور واجهات أمامية مبدع ويدقق في التفاصيل، لديه أكثر من سنتين من الخبرة في بناء تطبيقات ويب حديثة ومتجاوبة. ماهر في JavaScript وNext.js وSCSS وWordPress (بما في ذلك Elementor وWooCommerce) ضمن مجموعة تقنيات متنوعة. شغوف بتجربة المستخدم وتصميم واجهات مخصصة تُعزز التفاعل وتحسن الأداء.",
+    "أنا يوسف تركي، مطوّر واجهات أمامية (Frontend Developer) ومدرّب تقني. شغوف ببناء مواقع وتطبيقات ويب عصرية بتجربة مستخدم سلسة وتصميم جذاب، باستخدام أحدث التقنيات مثل React, Next.js, TailwindCSS وغيرها. بجانب عملي في التطوير، أقدّم كورسات وورش تدريبية لمساعدة المبتدئين على دخول المجال، مع التركيز على الجانب العملي وبناء المشاريع. هدفي هو الدمج بين الإبداع الفني والبنية التقنية لتقديم منتجات متكاملة تضيف قيمة حقيقية.",
   infoEn:
-    "Creative and detail-oriented Frontend Developer with over 2 years of experience in building modern, responsive web applications. Proficient in JavaScript, Next.js, SCSS, and WordPress (Elementor, WooCommerce) as part of a versatile tech stack. Passionate about UI/UX and delivering tailored digital experiences that drive engagement and performance.",
+    "I’m Youssef Turkey, a Frontend Developer and Technical Instructor. Passionate about creating modern websites and web applications with smooth user experiences and elegant designs, using the latest technologies like React, Next.js, and TailwindCSS. Alongside development, I deliver courses and workshops to help beginners kickstart their journey in web development, with a strong focus on hands-on projects. My goal is to combine artistic creativity with technical structure to build meaningful and impactful digital products.",
   heroAr: "يوسف التركي",
   heroEn: "Youssef Turkey",
   img: "/images/turkey.webp",
@@ -34,7 +34,7 @@ type TWorks = {
   github?: string;
   slug?: string;
 };
-export const works: TWorks[] = [
+export const projects: TWorks[] = [
   {
     id: 1,
     image: "/images/project-4.webp",
@@ -98,6 +98,9 @@ export const works: TWorks[] = [
     shortDescEn: "Logofolio for 2024",
     preview: "https://www.behance.net/gallery/209786459/Logofolio-2024",
   },
+];
+
+export const contents: TWorks[] = [
   {
     id: 7,
     image: "/images/post-1.webp",
@@ -796,4 +799,4 @@ export const works: TWorks[] = [
     preview: "https://youtu.be/Jz2ODo3mycE?si=y7CD7uo9Y2mPrmI3",
     slug: "/",
   },
-];
+]
