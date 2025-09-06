@@ -8,7 +8,7 @@ const Blogs = () => {
   const { language } = useLanguage();
 
   return (
-    <section id="blog" className="container mx-auto mt-20 lg:mt-50 px-10">
+    <section id="blog" className="container mx-auto mt-20 px-10">
         <div className="flex items-center">
         <p
           className={`uppercase text-xl text-[hsl(var(--third))] ${

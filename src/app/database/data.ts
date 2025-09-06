@@ -99,7 +99,6 @@ export const projects: TWorks[] = [
     preview: "https://www.behance.net/gallery/209786459/Logofolio-2024",
   },
 ];
-
 export const contents: TWorks[] = [
   {
     id: 7,
@@ -799,4 +798,61 @@ export const contents: TWorks[] = [
     preview: "https://youtu.be/Jz2ODo3mycE?si=y7CD7uo9Y2mPrmI3",
     slug: "/",
   },
+];
+
+// Importing SVGs 
+import { Code, Palette } from "../components/svg/logos";
+type TExperience = {
+  id: string;
+  title: string;
+  type: string;
+  duration: string;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  responsibilities: string[];
+  skills: string[];
+};
+export const experience: TExperience[] = [
+  {
+      id: "timeline-item-1",
+      title: "Web Designer Instructor @ NTI",
+      type: "Freelance",
+      duration: "7/2025 - 8/2025",
+      icon: Code,
+      responsibilities: [
+        "Teaching HTML5, CSS3, and JavaScript from scratch to intermediate level.",
+        "Introducing students to modern web development practices and tools.",
+        "Guiding learners through hands-on projects and practical tasks.",
+        "Explaining how to work with APIs (fetching, parsing, and integrating external data).",
+        "Supporting students with real-world examples and best practices.",
+        "Assessing progress and providing constructive feedback.",
+      ],
+      skills: ["HTML5", "CSS3", "JavaScript (ES6+)", "REST APIs", "Git/GitHub", "Responsive Design"],
+    },
+    {
+      id: "timeline-item-2",
+      title: "Full-Stack WordPress Developer @ Rawaj",
+      type: "Full-Time",
+      duration: "11/2024 — 7/2025",
+      icon: Palette,
+      responsibilities: [
+        "Built a full e-commerce website from scratch using Elementor and WooCommerce, without relying on pre-made themes.",
+        "Optimized performance using essential plugins, achieving 78% website speed and performance score.",
+        "Designed a modern and responsive UI, ensuring a seamless user experience across devices.",
+        "Company now depends on the platform for 75% of its business operations.",
+      ],
+      skills: ["WordPress", "Elementor", "PHP", "CSS3", "JavaScript (ES6+)"],
+    },
+    {
+      id: "timeline-item-3",
+      title: "Web Development Instructor @ SpaceTeens",
+      type: "Part-Time",
+      duration: "2/2024 - 11/2024",
+      icon: Code,
+      responsibilities: [
+        "Trained over 5 groups of children (ages 9–14) with a total of 40 hours per group.",
+        "Helped students build their own basic websites and successfully complete their graduation projects.",
+        "Supported children in preparing competitive projects for local and international contests.",
+      ],
+      skills: ["HTML5", "CSS3", "JavaScript (ES6+)", "Responsive Design"],
+    },
 ]
