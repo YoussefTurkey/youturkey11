@@ -6,7 +6,7 @@ type TBtns = {
 
 const Btns = ({style, children, action}: TBtns) => {
   return (
-    <button onClick={action} className={`${style} rounded-lg py-2 px-6 cursor-pointer transition-colors`}>
+    <button onClick={action} className={`${style} w-full sm:w-fit rounded-lg py-2 px-6 cursor-pointer transition-colors`}>
         {children}
     </button>
   )

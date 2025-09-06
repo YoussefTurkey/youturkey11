@@ -29,7 +29,7 @@ const Works = () => {
   }, []);
 
   return (
-    <section className="container mx-auto my-20 lg:my-50 px-10">
+    <section id="projects" className="container mx-auto my-20 lg:my-50 px-10">
       <div className="flex items-center">
         <p
           className={`uppercase text-xl text-[hsl(var(--third))] ${

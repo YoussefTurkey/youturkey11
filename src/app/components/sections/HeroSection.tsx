@@ -65,7 +65,7 @@ const HeroSection = () => {
           </p>
         </div>
 
-        <Btns style="w-full py-3 my-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2">
+        <Btns style="sm:w-full py-3 my-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2">
           <span>{language === "en" ? "Get in touch" : "تواصل معي الآن"}</span>{" "}
           <MdArrowOutward size={30} />
         </Btns>

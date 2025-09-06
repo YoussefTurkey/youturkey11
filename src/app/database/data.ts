@@ -9,7 +9,7 @@ type TAbout = {
 };
 export const about: TAbout = {
   titleAr: "مَن أنا",
-  titleEn: "About Us",
+  titleEn: "Who's Me",
   infoAr:
     "مطور واجهات أمامية مبدع ويدقق في التفاصيل، لديه أكثر من سنتين من الخبرة في بناء تطبيقات ويب حديثة ومتجاوبة. ماهر في JavaScript وNext.js وSCSS وWordPress (بما في ذلك Elementor وWooCommerce) ضمن مجموعة تقنيات متنوعة. شغوف بتجربة المستخدم وتصميم واجهات مخصصة تُعزز التفاعل وتحسن الأداء.",
   infoEn:

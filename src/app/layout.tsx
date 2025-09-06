@@ -9,6 +9,7 @@ import ClientThemeProvider from "@/app/themes/ClientThemeProvider";
 import ClientLanguageProvider from "@/app/lang/ClientLanguageProvider";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
+import ScrollUp from "./components/ui/ScrollUp";
 
 // Fonts
 const inter = Inter({
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ClientLanguageProvider defaultLanguage="en">
             <Header />
             {children}
+            <ScrollUp />
             <Footer />
           </ClientLanguageProvider>
         </ClientThemeProvider>
