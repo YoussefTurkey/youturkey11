@@ -5,6 +5,8 @@ import React, { memo, useCallback, useState } from "react";
 import { ChevronDown, ChevronUp, Code, Palette, Badge } from "@/app/components/svg/logos";
 // Importing Data
 import { experience } from "@/app/database/data"; 
+// Importing Language Provider
+import { useLanguage } from "@/app/lang/LanguageProvider";
 
 // --- TYPES ---
 type IconType = React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -168,15 +170,26 @@ export function ProfessionalTimeline({
 
 // --- APP ENTRY POINT ---
 export default function TimelinePage() {
+  const { language } = useLanguage();
+
+  // جهز الداتا للعرض بناءً على اللغة
+  const localizedExperience = experience.map((exp) => ({
+    ...exp,
+    title: language === "en" ? exp.titleEn : exp.titleAr,
+    responsibilities:
+      language === "en" ? exp.responsibilitiesEn : exp.responsibilitiesAr,
+  }));
+
   return (
     <div className="sm:p-8 transition-colors duration-300">
-      <div className="">
+      <div>
         <header className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Professional Experience</h1>
+          <h1 className="text-3xl font-bold">
+            {language === "en" ? "Professional Experience" : "الخبرات المهنية"}
+          </h1>
         </header>
 
-        {/* Set expandMode="single" for accordion behavior */}
-        <ProfessionalTimeline data={experience} expandMode="multi" />
+        <ProfessionalTimeline data={localizedExperience} expandMode="multi" />
       </div>
     </div>
   );

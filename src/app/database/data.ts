@@ -800,59 +800,143 @@ export const contents: TWorks[] = [
   },
 ];
 
-// Importing SVGs 
+// Importing SVGs
 import { Code, Palette } from "../components/svg/logos";
 type TExperience = {
   id: string;
-  title: string;
+  titleAr: string;
+  titleEn: string;
   type: string;
   duration: string;
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
-  responsibilities: string[];
+  responsibilitiesAr: string[];
+  responsibilitiesEn: string[];
   skills: string[];
 };
 export const experience: TExperience[] = [
   {
-      id: "timeline-item-1",
-      title: "Web Designer Instructor @ NTI",
-      type: "Freelance",
-      duration: "7/2025 - 8/2025",
-      icon: Code,
-      responsibilities: [
-        "Teaching HTML5, CSS3, and JavaScript from scratch to intermediate level.",
-        "Introducing students to modern web development practices and tools.",
-        "Guiding learners through hands-on projects and practical tasks.",
-        "Explaining how to work with APIs (fetching, parsing, and integrating external data).",
-        "Supporting students with real-world examples and best practices.",
-        "Assessing progress and providing constructive feedback.",
-      ],
-      skills: ["HTML5", "CSS3", "JavaScript (ES6+)", "REST APIs", "Git/GitHub", "Responsive Design"],
-    },
-    {
-      id: "timeline-item-2",
-      title: "Full-Stack WordPress Developer @ Rawaj",
-      type: "Full-Time",
-      duration: "11/2024 — 7/2025",
-      icon: Palette,
-      responsibilities: [
-        "Built a full e-commerce website from scratch using Elementor and WooCommerce, without relying on pre-made themes.",
-        "Optimized performance using essential plugins, achieving 78% website speed and performance score.",
-        "Designed a modern and responsive UI, ensuring a seamless user experience across devices.",
-        "Company now depends on the platform for 75% of its business operations.",
-      ],
-      skills: ["WordPress", "Elementor", "PHP", "CSS3", "JavaScript (ES6+)"],
-    },
-    {
-      id: "timeline-item-3",
-      title: "Web Development Instructor @ SpaceTeens",
-      type: "Part-Time",
-      duration: "2/2024 - 11/2024",
-      icon: Code,
-      responsibilities: [
-        "Trained over 5 groups of children (ages 9–14) with a total of 40 hours per group.",
-        "Helped students build their own basic websites and successfully complete their graduation projects.",
-        "Supported children in preparing competitive projects for local and international contests.",
-      ],
-      skills: ["HTML5", "CSS3", "JavaScript (ES6+)", "Responsive Design"],
-    },
-]
+    id: "timeline-item-1",
+    titleAr: "محاضر تطوير وتصميم المواقع الإلكترونية ف NTI",
+    titleEn: "Web Designer Instructor @ NTI",
+    type: "Freelance",
+    duration: "7/2025 - 8/2025",
+    icon: Code,
+    responsibilitiesAr: [
+      "تدريب المتعلمين على أساسيات HTML5 وCSS3 وJavaScript.",
+      "تبسيط مفاهيم تطوير الويب الحديثة والأدوات المستخدمة.",
+      "تنفيذ مشاريع تطبيقية وتاسكات عملية لتعزيز الفهم.",
+      "شرح كيفية التعامل مع واجهات برمجة التطبيقات (APIs) بشكل عملي ومتكامل.",
+      "تقديم أمثلة من الواقع العملي ونصائح احترافية.",
+      "تقييم الأداء وتقديم ملاحظات بنّاءة للمشاركين.",
+    ],
+    responsibilitiesEn: [
+      "Teaching HTML5, CSS3, and JavaScript from scratch to intermediate level.",
+      "Introducing students to modern web development practices and tools.",
+      "Guiding learners through hands-on projects and practical tasks.",
+      "Explaining how to work with APIs (fetching, parsing, and integrating external data).",
+      "Supporting students with real-world examples and best practices.",
+      "Assessing progress and providing constructive feedback.",
+    ],
+    skills: [
+      "HTML5",
+      "CSS3",
+      "JavaScript (ES6+)",
+      "REST APIs",
+      "Git/GitHub",
+      "Responsive Design",
+    ],
+  },
+  {
+    id: "timeline-item-2",
+    titleAr: "مطور ووردبريس متكامل في رواج",
+    titleEn: "Full-Stack WordPress Developer @ Rawaj",
+    type: "Full-Time",
+    duration: "11/2024 — 7/2025",
+    icon: Palette,
+    responsibilitiesAr: [
+      "قمت ببناء موقع تجارة إلكترونية متكامل من الصفر باستخدام إليمنتور و ووكومرس، دون الاعتماد على قوالب جاهزة.",
+      "قمت بتحسين الأداء باستخدام الإضافات الأساسية، محققاً نسبة 78% في سرعة وأداء الموقع.",
+      "قمت بتصميم واجهة مستخدم حديثة ومتجاوبة، لضمان تجربة مستخدم سلسة عبر مختلف الأجهزة.",
+      "تعتمد الشركة الآن على المنصة في 75% من عملياتها التجارية.",
+    ],
+    responsibilitiesEn: [
+      "Built a full e-commerce website from scratch using Elementor and WooCommerce, without relying on pre-made themes.",
+      "Optimized performance using essential plugins, achieving 78% website speed and performance score.",
+      "Designed a modern and responsive UI, ensuring a seamless user experience across devices.",
+      "Company now depends on the platform for 75% of its business operations.",
+    ],
+    skills: ["WordPress", "Elementor", "PHP", "CSS3", "JavaScript (ES6+)"],
+  },
+  {
+    id: "timeline-item-3",
+    titleAr: "مدرّب تطوير المواقع الإلكترونية في سبيس تينز",
+    titleEn: "Web Development Instructor @ SpaceTeens",
+    type: "Part-Time",
+    duration: "2/2024 - 11/2024",
+    icon: Code,
+    responsibilitiesAr: [
+      "قمت بتدريب أكثر من 5 مجموعات من الأطفال (الأعمار 9-14 سنة) بإجمالي 40 ساعة لكل مجموعة.",
+      "ساعدت الطلاب في بناء مواقعهم الإلكترونية الأساسية الخاصة بهم وإكمال مشاريع تخرجهم بنجاح.",
+      "دعم الأطفال في إعداد مشاريع تنافسية للمسابقات المحلية والدولية.",
+    ],
+    responsibilitiesEn: [
+      "Trained over 5 groups of children (ages 9–14) with a total of 40 hours per group.",
+      "Helped students build their own basic websites and successfully complete their graduation projects.",
+      "Supported children in preparing competitive projects for local and international contests.",
+    ],
+    skills: ["HTML5", "CSS3", "JavaScript (ES6+)", "Responsive Design"],
+  },
+  {
+    id: "timeline-item-4",
+    titleAr: "مصمم جرافيك في رواج",
+    titleEn: "Graphic Designer @ Rawaj",
+    type: "Full-Time",
+    duration: "25/2023 - 11/2024",
+    icon: Palette,
+    responsibilitiesAr: [
+      "تصميم مرئيات للعملاء لإنتاج سلاسل مفاتيح ومساند أكواب وحوامل هواتف وهدايا شخصية متنوعة.",
+      "تمت ترقيتي لقيادة عملية الإنتاج وإعداد الملفات.",
+      "صممت أكثر من 90% من الأعمال الفنية للمنتجات المعروضة على موقع Spot75.com، مما ساهم في تحقيق 70% من المبيعات الحالية.",
+    ],
+    responsibilitiesEn: [
+      "Designed customer visuals for production of keychains, coasters, phone holders, and various personalized gifts.",
+      "Promoted to lead the production and file preparation process.",
+      "Designed over 90% of the product artwork featured on Spot75.com, contributing to 70% of current sales.",
+    ],
+    skills: ["Photoshop", "Illustrator", "CorelDraw"],
+  },
+  {
+    id: "timeline-item-5",
+    titleAr: "مطور واجهة أمامية في الغرفة العربية الأمريكية للتجارة",
+    titleEn: "Front-End Developer @ US Arab Chamber of Commerce",
+    type: "Full-Time",
+    duration: "9/2022 - 5/2023",
+    icon: Code,
+    responsibilitiesAr: [
+      "أعدت هيكلة وتحديث المواقع القديمة باستخدام ممارسات تطوير الواجهات الأمامية الحديثة، وحللت مشكلات تقنية رئيسية.",
+      "قمنا بتحسين استجابة الموقع وتصميمه العام، مما حقق تحسنًا بنسبة 40٪ في الجاذبية البصرية وسهولة الاستخدام.",
+    ],
+    responsibilitiesEn: [
+      "Revamped outdated websites using modern frontend practices and resolved major technical issues.",
+      "Improved website responsiveness and overall design, achieving a 40% enhancement in visual appeal and usability.",
+    ],
+    skills: ["HTML", "CSS", "Bootstrap", "jQuery", "handling Legacy Code"],
+  },
+  {
+    id: "timeline-item-6",
+    titleAr: "Graphic Designer @ Herbal Globe",
+    titleEn: "Graphic Designer @ Herbal Globe",
+    type: "Remotly",
+    duration: "9/2021 - 5/2022",
+    icon: Palette,
+    responsibilitiesAr: [
+      "تصميم منشورات جذابة لوسائل التواصل الاجتماعي لحملات المنتجات.",
+      "ساهمت في تحقيق أهداف الحملات عبر وسائل التواصل البصري، مما أسهم في تحقيق نسبة نجاح 70% للحملات.",
+    ],
+    responsibilitiesEn: [
+      "Designed engaging social media posts for product campaigns.",
+      "Helped campaigns achieve their goals through visual communication, contributing to 70% campaign success rate.",
+    ],
+    skills: ["Photoshop", "Illustrator"],
+  },
+];
