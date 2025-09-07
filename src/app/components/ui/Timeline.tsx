@@ -1,17 +1,22 @@
 "use client";
 // Importing React Hooks
 import React, { memo, useCallback, useState } from "react";
+// Importing Next Components
+import Image from "next/image";
 // Importing SVGs
-import { ChevronDown, ChevronUp, Code, Palette, Badge } from "@/app/components/svg/logos";
+import { ChevronDown, ChevronUp, Badge } from "@/app/components/svg/logos";
 // Importing Data
-import { experience } from "@/app/database/data"; 
+import { experience } from "@/app/database/data";
 // Importing Language Provider
 import { useLanguage } from "@/app/lang/LanguageProvider";
+// Importing Components
+import Titles from "./Titles";
 
 // --- TYPES ---
 type IconType = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 interface TimelineItemData {
   id: string;
+  img: string;
   title: string;
   type: string;
   duration: string;
@@ -23,14 +28,16 @@ type ExpandMode = "multi" | "single";
 interface ProfessionalTimelineProps {
   data: TimelineItemData[];
   defaultExpandedIds?: string[]; // defaults to all items expanded
-  expandMode?: ExpandMode;       // "multi" | "single" (default: "multi")
+  expandMode?: ExpandMode; // "multi" | "single" (default: "multi")
 }
 // --- COMPONENTS ---
 interface TimelineItemContentProps {
   item: TimelineItemData;
 }
 
-const TimelineItemContent = memo(function TimelineItemContent({ item }: TimelineItemContentProps) {
+const TimelineItemContent = memo(function TimelineItemContent({
+  item,
+}: TimelineItemContentProps) {
   return (
     <div className="mt-6 space-y-4">
       {/* Responsibilities */}
@@ -77,10 +84,14 @@ const TimelineItem = memo(function TimelineItem({
   const headerId = `timeline-header-${item.id}`;
   const contentId = `timeline-content-${item.id}`;
 
+  const { language } = useLanguage();
+
   return (
     <li className="relative">
       {/* Timeline marker with icon */}
-      <div className="absolute left-1 top-5 w-6 h-6 bg-[hsl(var(--secondary))] rounded-full hidden sm:flex items-center justify-center">
+      <div
+        className={`absolute left-1 top-5 w-6 h-6 bg-[hsl(var(--secondary))] rounded-full hidden sm:flex items-center justify-center`}
+      >
         <Icon className="w-3.5 h-3.5 text-[hsl(var(--foreground))]" />
       </div>
 
@@ -95,19 +106,34 @@ const TimelineItem = memo(function TimelineItem({
             aria-controls={contentId}
           >
             <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-semibold text-[hsl(var(--secondary))] transition-colors">
-                  {item.title}
-                </h3>
-                <div className="flex items-center gap-2 text-sm mt-1">
-                  <span>{item.type}</span>
-                  <span aria-hidden>•</span>
-                  <span>{item.duration}</span>
+              <div className="flex items-center gap-4">
+                <Image
+                  src={item.img}
+                  width={500}
+                  height={500}
+                  alt={item.title}
+                  loading="lazy"
+                  className="rounded-full w-10 h-10 border border-[hsl(var(--foreground))]"
+                />
+
+                <div>
+                  <h3 className={`text-lg font-semibold text-[hsl(var(--secondary))] transition-colors ${language === 'en' ? 'text-left' : 'text-right'}`}>
+                    {item.title}
+                  </h3>
+                  <div className="flex items-center gap-2 text-sm mt-1">
+                    <span>{item.type}</span>
+                    <span aria-hidden>•</span>
+                    <span>{item.duration}</span>
+                  </div>
                 </div>
               </div>
 
               <div className="text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
-                {expanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                {expanded ? (
+                  <ChevronUp className="w-5 h-5" />
+                ) : (
+                  <ChevronDown className="w-5 h-5" />
+                )}
               </div>
             </div>
           </button>
@@ -154,7 +180,10 @@ export function ProfessionalTimeline({
   return (
     <ol className="relative">
       {/* Vertical timeline line */}
-      <div className="hidden sm:flex absolute left-4 top-0 bottom-0 w-px bg-slate-300 dark:bg-gray-800" aria-hidden />
+      <div
+        className="hidden sm:flex absolute left-4 top-0 bottom-0 w-px bg-[hsl(var(--third)_/_20%)]"
+        aria-hidden
+      />
 
       {data.map((item) => (
         <TimelineItem
@@ -183,10 +212,14 @@ export default function TimelinePage() {
   return (
     <div className="sm:p-8 transition-colors duration-300">
       <div>
-        <header className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">
+        <header className="flex justify-between items-center">
+          <Titles
+            style={`w-full lg:w-100 xl:w-200 2xl:w-100 ${
+              language === "en" ? "text-left" : "text-right"
+            }`}
+          >
             {language === "en" ? "Professional Experience" : "الخبرات المهنية"}
-          </h1>
+          </Titles>
         </header>
 
         <ProfessionalTimeline data={localizedExperience} expandMode="multi" />

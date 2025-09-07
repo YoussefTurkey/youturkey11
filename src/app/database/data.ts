@@ -6,6 +6,9 @@ type TAbout = {
   heroAr: string;
   heroEn: string;
   img: string;
+  cover: string;
+  descAr: string;
+  descEn: string;
 };
 export const about: TAbout = {
   titleAr: "مَن أنا",
@@ -17,6 +20,15 @@ export const about: TAbout = {
   heroAr: "يوسف التركي",
   heroEn: "Youssef Turkey",
   img: "/images/turkey.webp",
+  cover: '/images/cover.webp',
+  descAr: `لديّ أكثر من عامين من الخبرة العملية في تطوير الواجهة الأمامية (Frontend Development)، باستخدام أدوات وأُطر عمل حديثة مثل React، Next.js، TailwindCSS، TypeScript، وWordPress. ساهمتُ في إعادة هيكلة مشاريع قديمة لدى US Legalization من خلال تحديث وتطوير ثلاثة من منصاتهم الأساسية. كما كنتُ المسؤول الوحيد في Rawaj عن بناء موقع WordPress مخصص بالكامل من الصفر دون الاعتماد على قوالب جاهزة، وهو الموقع المُعتمد حاليًا من الشركة.
+          بالإضافة إلى ذلك، طوّرت عدة صفحات هبوط (Landing Pages) لمشروع Monglish، وعملت كمرشد (Mentor) لعدد من الشركات الناشئة مثل Softa-Solutions، العُصيمي، وKhan Store، حيث دعمت المطورين المبتدئين وساعدت في وضع هيكلية المشاريع.
+          أما في مجال التدريس، فقد عملت كمدرب Frontend للأطفال من عمر 9 إلى 14 عامًا، وقدّمت أكثر من 40 ساعة تدريبية لكل مجموعة عبر 4 دفعات، حيث شرحت أساسيات تطوير الويب بطريقة عملية وتفاعلية. كما شغلت منصب المدرب الرئيسي في برنامج أساسيات الواجهة الأمامية (Frontend Fundamentals) التابع للـ NTI، حيث قدمت 90 ساعة تدريبية عملية ومنظمة غطت HTML، CSS، JavaScript، الـ APIs، والأدوات الحديثة.
+          هذه التجارب ساعدتني على صقل مهاراتي التقنية وتعزيز قدرتي على تبسيط وشرح المفاهيم المعقدة بوضوح وفاعلية لمتعلمين من خلفيات متنوعة.`,
+  descEn: `I have over 2 years of hands-on experience in Frontend Development, working with modern tools and frameworks such as React, Next.js, TailwindCSS, TypeScript, and WordPress. I contributed to revamping legacy projects at US Legalization, helping modernize and develop three of their core web platforms. At Rawaj, I was solely responsible for building a fully customized WordPress website from scratch without using pre-built themes, which is now fully adopted by the company.
+          In addition, I developed multiple landing pages for Monglish and served as a mentor for startups like Softa-Solutions, Al-Osaymi, and Khan Store, supporting junior developers and helping shape project architectures.
+          In terms of teaching, I’ve worked as a Frontend instructor for children aged 9–14, delivering over 40 hours per group across 4 cohorts, teaching web development basics in an engaging, hands-on manner. I also served as a lead instructor in the NTI Frontend Fundamentals Program, delivering 90 hours of structured, practical training covering HTML, CSS, JavaScript, APIs, and modern tooling.
+          These experiences have sharpened both my technical skills and my ability to communicate complex topics clearly and effectively to diverse learners.`,
 };
 
 type TWorks = {
@@ -804,6 +816,7 @@ export const contents: TWorks[] = [
 import { Code, Palette } from "../components/svg/logos";
 type TExperience = {
   id: string;
+  img: string;
   titleAr: string;
   titleEn: string;
   type: string;
@@ -816,6 +829,7 @@ type TExperience = {
 export const experience: TExperience[] = [
   {
     id: "timeline-item-1",
+    img: "/images/company01.webp",
     titleAr: "محاضر تطوير وتصميم المواقع الإلكترونية ف NTI",
     titleEn: "Web Designer Instructor @ NTI",
     type: "Freelance",
@@ -848,6 +862,7 @@ export const experience: TExperience[] = [
   },
   {
     id: "timeline-item-2",
+    img: "/images/company02.webp",
     titleAr: "مطور ووردبريس متكامل في رواج",
     titleEn: "Full-Stack WordPress Developer @ Rawaj",
     type: "Full-Time",
@@ -869,6 +884,8 @@ export const experience: TExperience[] = [
   },
   {
     id: "timeline-item-3",
+    img: "/images/company03.webp",
+
     titleAr: "مدرّب تطوير المواقع الإلكترونية في سبيس تينز",
     titleEn: "Web Development Instructor @ SpaceTeens",
     type: "Part-Time",
@@ -889,6 +906,7 @@ export const experience: TExperience[] = [
   {
     id: "timeline-item-4",
     titleAr: "مصمم جرافيك في رواج",
+    img: "/images/company02.webp",
     titleEn: "Graphic Designer @ Rawaj",
     type: "Full-Time",
     duration: "25/2023 - 11/2024",
@@ -907,6 +925,7 @@ export const experience: TExperience[] = [
   },
   {
     id: "timeline-item-5",
+    img: "/images/company04.webp",
     titleAr: "مطور واجهة أمامية في الغرفة العربية الأمريكية للتجارة",
     titleEn: "Front-End Developer @ US Arab Chamber of Commerce",
     type: "Full-Time",
@@ -924,6 +943,7 @@ export const experience: TExperience[] = [
   },
   {
     id: "timeline-item-6",
+    img: "/images/company05.webp",
     titleAr: "Graphic Designer @ Herbal Globe",
     titleEn: "Graphic Designer @ Herbal Globe",
     type: "Remotly",
@@ -938,5 +958,63 @@ export const experience: TExperience[] = [
       "Helped campaigns achieve their goals through visual communication, contributing to 70% campaign success rate.",
     ],
     skills: ["Photoshop", "Illustrator"],
+  },
+];
+
+type TCertificates = {
+  id: number;
+  img: string;
+  title: string;
+};
+export const certificates: TCertificates[] = [
+  {
+    id: 1,
+    img: "/images/certificates01.webp",
+    title: "دورة تدريب القادة مقدمة من مبادرة تنفيذي",
+  },
+  {
+    id: 2,
+    img: "/images/certificates02.webp",
+    title: 'Gateway English Course "B1 Level"',
+  },
+  {
+    id: 3,
+    img: "/images/certificates03.webp",
+    title: "Optimizing Your LinkedIn Profile Nano Tips with Kim Kaupe",
+  },
+  {
+    id: 4,
+    img: "/images/certificates04.webp",
+    title: "محاضرة الذكاء الاصطناعي في مجال التعليم العالي",
+  },
+  {
+    id: 5,
+    img: "/images/certificates05.webp",
+    title: "Modern JavaScript ES6 and beyond Certificate",
+  },
+  {
+    id: 6,
+    img: "/images/certificates06.webp",
+    title: "JavaScript Certificate",
+  },
+  {
+    id: 7,
+    img: "/images/certificates07.webp",
+    title: "Diploma of Quantum Computing & Programming",
+  },
+  {
+    id: 8,
+    img: "/images/certificates08.webp",
+    title: "WordPress: Building a Secure Site",
+  },
+  {
+    id: 9,
+    img: "/images/certificates09.webp",
+    title: "WordPress Essential Training (2023)",
+  },
+  {
+    id: 10,
+    img: "/images/certificates10.webp",
+    title: "Amplify Your Personal Brand with Generative AI",
   },
 ];
