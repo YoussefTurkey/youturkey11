@@ -1,4 +1,3 @@
-'use client'
 // Importing Components
 import Info from "@/app/components/ui/Info"
 import Masonry from "@/app/components/ui/Masonry"

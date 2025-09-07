@@ -10,6 +10,7 @@ import ClientLanguageProvider from "@/app/lang/ClientLanguageProvider";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import ScrollUp from "./components/ui/ScrollUp";
+import { Toaster } from "react-hot-toast";
 
 // Fonts
 const inter = Inter({
@@ -34,10 +35,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" dir="ltr">
       <body className={`${inter.variable} ${cairo.variable}`}>
         <ClientThemeProvider>
-          {/* مبدئياً خلي defaultLanguage = en */}
           <ClientLanguageProvider defaultLanguage="en">
             <Header />
             {children}
+            <Toaster position="top-right" reverseOrder={false} />
             <ScrollUp />
             <Footer />
           </ClientLanguageProvider>
