@@ -6,7 +6,7 @@ import TimelinePage from "@/app/components/ui/Timeline"
 
 const AboutPage = () => {
   return (
-    <main className='container mx-auto sm:my-20 px-10 xl:px-0'>
+    <main className='container mx-auto my-30 sm:my-20 px-5 xl:px-0'>
         <Info />
         <TimelinePage />
         <Masonry />

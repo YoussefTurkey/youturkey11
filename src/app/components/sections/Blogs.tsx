@@ -47,7 +47,7 @@ const Blogs = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 my-5 sm:my-10">
         {randomBlogs.map((blog) => (
           <Link
-            href={blog.slug || ""}
+            href={`/blogView/${blog.slug}` || ""}
             rel="noopener noreferrer"
             key={blog.id}
             className="rounded-lg border border-[hsl(var(--third)/20%)] hover:border-[hsl(var(--secondary))] hover:scale-102 transition-transform duration-500"

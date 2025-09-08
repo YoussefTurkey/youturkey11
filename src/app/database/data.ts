@@ -42,8 +42,8 @@ type TWorks = {
   descAr?: string;
   descEn?: string;
   preview?: string;
-  behance?: string;
-  github?: string;
+  behance?: boolean;
+  github?: boolean;
   slug?: string;
 };
 export const projects: TWorks[] = [
@@ -56,6 +56,8 @@ export const projects: TWorks[] = [
     shortDescAr: "السيرة الذاتية الديناميكية تشكمل كافية بيانات يوسف التركي",
     shortDescEn: "Dynamic Resume that has all data about Youssef Turkey",
     preview: "https://youturkey11.com/",
+    slug: 'resume',
+    github: true
   },
   {
     id: 2,
@@ -66,6 +68,7 @@ export const projects: TWorks[] = [
     shortDescAr: "متجر إلكتروني لخدمات الأدوات الترفيهية",
     shortDescEn: "E-Commerce for entertainment tools",
     preview: "https://spot75.com/",
+    slug: 'spot75',
   },
   {
     id: 3,
@@ -78,6 +81,8 @@ export const projects: TWorks[] = [
     shortDescEn:
       "Website for Qorra initiative that interesting of Arabic Langauage",
     preview: "https://qorra.vercel.app/",
+    slug: 'qorra',
+    github: true
   },
   {
     id: 4,
@@ -89,6 +94,8 @@ export const projects: TWorks[] = [
     shortDescEn: "Senforra For premium Brazilian coffee",
     preview:
       "https://www.behance.net/gallery/217496887/Senforra-Every-Sip-a-Story",
+    slug: 'senforra',
+    behance: true
   },
   {
     id: 5,
@@ -99,6 +106,8 @@ export const projects: TWorks[] = [
     shortDescAr: "الهوية البصرية لشعار يوسف التركي الجديد",
     shortDescEn: "Visual identity branding for Youssef Turkey",
     preview: "https://www.behance.net/gallery/208797491/_",
+    slug: 'turkey-is-beautiful',
+    behance: true
   },
   {
     id: 6,
@@ -109,6 +118,8 @@ export const projects: TWorks[] = [
     shortDescAr: "جميع الهويات البصرية سنة 2024",
     shortDescEn: "Logofolio for 2024",
     preview: "https://www.behance.net/gallery/209786459/Logofolio-2024",
+    slug: 'logofolio',
+    behance: true
   },
 ];
 export const contents: TWorks[] = [
@@ -180,7 +191,8 @@ export const contents: TWorks[] = [
             }, 2000);
 
             ✅ That’s the beauty of callbacks — they allow us to control the flow of our code and make it more flexible.`,
-    slug: "/",
+    slug: "function-vs-callback-function",
+    preview: 'https://www.linkedin.com/posts/youturkey11_%D8%AF%D8%A7%D9%8A%D9%85%D8%A7-%D8%A8%D9%86%D8%B3%D9%85%D8%B9-%D9%85%D8%B5%D8%B7%D9%84%D8%AD-%D8%A7%D9%84%D9%80callback-function-%D8%A8%D8%B5%D8%B1%D8%A7%D8%AD%D8%A9-activity-7359597169760260097-C57l?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
   },
   {
     id: 8,
@@ -231,7 +243,8 @@ export const contents: TWorks[] = [
             ✅ Flexibility – perfect for large files or streaming (think YouTube videos).
 
             ⚡ That’s why chunks are everywhere in Node.js — they’re the backbone of handling streams and big data.`,
-    slug: "/",
+    slug: "Chunk",
+    preview: 'https://www.linkedin.com/posts/youturkey11_%D8%A8%D9%84%D8%B9%D8%A8-%D8%A8%D8%A7%D9%84%D9%80nodejs-%D9%83%D8%AF%D8%A7-%D9%81%D9%84%D8%A7%D9%82%D9%8A%D8%AA-%D9%83%D9%84%D9%85%D8%A9-chunk-%D9%85%D8%AA%D9%86%D8%AA%D9%88%D8%B1%D8%A9-activity-7359939979994689536-NmMC?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
   },
   {
     id: 9,
@@ -283,7 +296,8 @@ export const contents: TWorks[] = [
 
               #nodejs_tips #js_tips
             `,
-    slug: "/",
+    slug: "Buffer",
+    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7360292949605208065-w2ID?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
   },
   {
     id: 10,
@@ -367,7 +381,8 @@ export const contents: TWorks[] = [
             Rest = Collect
 
             #nodejs_tips #js_tips`,
-    slug: "/",
+    slug: "Spread_VS_Rest",
+    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7361013600175509506-4oqo?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
   },
   {
     id: 11,
@@ -459,7 +474,8 @@ export const contents: TWorks[] = [
               💡 That’s why JavaScript is one of the most powerful and flexible languages out there.
 
               #nodejs_tips #js_tips`,
-    slug: "/",
+    slug: "JavaScript_is_flexable",
+    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7361354562168893440-eedX?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
   },
   {
     id: 12,
@@ -538,7 +554,8 @@ export const contents: TWorks[] = [
             BASE = Speed & scalability ⚡
 
             #nodejs_tips #js_tips`,
-    slug: "/",
+    slug: "ACID_and_BASE",
+    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7361784898468102144-_fnl?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
   },
   {
     id: 13,
@@ -647,7 +664,8 @@ export const contents: TWorks[] = [
 
               #nodejs_tips #js_tips
 `,
-    slug: "/",
+    slug: "Blocking_and_Non-Blocking",
+    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7362477525115031554-gqMc?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
   },
   {
     id: 14,
@@ -704,7 +722,8 @@ export const contents: TWorks[] = [
 
               #nodejs_tips #js_tips
 `,
-    slug: "/",
+    slug: "Syntax_Sugar",
+    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7368265671509504001-Tuq2?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
   },
   {
     id: 15,
@@ -778,7 +797,7 @@ export const contents: TWorks[] = [
 
               #React #ReactHookForm #Zod #Authentication #LoginForm #SignupForm #FormValidation #WebDevelopment #TypeScript #NextJS`,
     preview: "https://youtu.be/4j5SZBTIXLc?si=VUwnIerYa6igz_Jj",
-    slug: "/",
+    slug: "validation",
   },
   {
     id: 16,
@@ -808,7 +827,7 @@ export const contents: TWorks[] = [
             📚 Check out the official docs here:
 `,
     preview: "https://youtu.be/Jz2ODo3mycE?si=y7CD7uo9Y2mPrmI3",
-    slug: "/",
+    slug: "NEXT_THEME",
   },
 ];
 
