@@ -24,7 +24,7 @@ const Header = () => {
   const [menu, setMenu] = useState(false);
 
   return (
-    <header className="container mx-auto px-10 xl:px-0 py-5 flex items-center justify-between border-b border-[hsl(var(--third))]">
+    <header className="container mx-auto px-10 xl:px-0 py-5 flex items-center justify-between border-b border-[hsl(var(--third))] sm:static fixed top-0 z-10 backdrop-blur-sm bg-[hsl(var(--background)_/_50%)]">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-3">
         <Image
@@ -78,7 +78,7 @@ const Header = () => {
           className={`
               fixed top-0 h-[100vh] w-full md:w-100 z-2000
               flex flex-col px-10 py-30 gap-5 lg:hidden
-              backdrop-blur-sm rounded-lg
+              bg-[hsl(var(--background)_/_85%)] rounded-lg
               transition-transform duration-500 ease-in-out
               ${
                 language === "en"

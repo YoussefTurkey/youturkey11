@@ -2,11 +2,10 @@
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { contents, certificates } from "@/app/database/data";
+import { certificates } from "@/app/database/data";
 import { useLanguage } from "@/app/lang/LanguageProvider";
 import Btns from "./Btns";
 import Titles from "./Titles";
-import { MdArrowOutward } from "react-icons/md";
 import Modal from "./Modal"; // ✅ استدعاء المودال
 import Image from "next/image";
 
@@ -105,78 +104,51 @@ export default function Masonry() {
 
   let mappedItems: MasonryItem[] = [];
 
-  if (pathname === "/") {
-    mappedItems = contents.map((content) => ({
-      id: content.id,
-      imageUrl: content.image,
-      title: language === "en" ? content.titleEn : content.titleAr,
-    }));
-
-    if (isMobile) mappedItems = mappedItems.slice(0, 4);
-  }
-
-  if (pathname === "/about") {
-    mappedItems = certificates.map((certif) => ({
-      id: certif.id,
-      imageUrl: certif.img,
-      title: certif.title,
-    }));
-  }
+  mappedItems = certificates.map((certif) => ({
+    id: certif.id,
+    imageUrl: certif.img,
+    title: certif.title,
+  }));
 
   return (
     <div className="font-sans transition-colors">
       <div className="container mx-auto sm:px-6 lg:px-8 py-8">
         <main>
-          {pathname === "/about" && (
-            <Titles
-              style={`w-full lg:w-100 xl:w-200 2xl:w-100 ${
-                language === "en" ? "text-left" : "text-right"
-              }`}
-            >
-              {language === "en"
-                ? "Licenses & certifications"
-                : "التراخيص والشهادات"}
-            </Titles>
-          )}
+          <Titles
+            style={`w-full lg:w-100 xl:w-200 2xl:w-100 ${
+              language === "en" ? "text-left" : "text-right"
+            }`}
+          >
+            {language === "en"
+              ? "Licenses & certifications"
+              : "التراخيص والشهادات"}
+          </Titles>
 
           <MasonryGrid items={mappedItems} onImageClick={setSelectedImage} />
 
-          {pathname === "/" && (
-            <Btns
-              href="/community"
-              style="py-3 xl:px-10 my-10 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center mx-auto gap-2"
-            >
-              <span>{language === "en" ? "Our Community" : "مجتمعنا"}</span>
-              <MdArrowOutward size={30} />
-            </Btns>
-          )}
-
-          {pathname === "/about" && (
-            <Modal
-              isOpen={!!selectedImage}
-              onClose={() => setSelectedImage(null)}
-            >
-              {selectedImage && (
-                <div>
-                  <Image
-                    src={selectedImage}
-                    width={2000}
-                    height={2000}
-                    loading="lazy"
-                    alt="Certificate"
-                    className="rounded-lg w-125 h-auto mx-auto"
-                  />
-                  <h2 className="text-center mt-4 text-lg font-semibold text-white">
-                    {
-                      mappedItems.find(
-                        (item) => item.imageUrl === selectedImage
-                      )?.title
-                    }
-                  </h2>
-                </div>
-              )}
-            </Modal>
-          )}
+          <Modal
+            isOpen={!!selectedImage}
+            onClose={() => setSelectedImage(null)}
+          >
+            {selectedImage && (
+              <div>
+                <Image
+                  src={selectedImage}
+                  width={2000}
+                  height={2000}
+                  loading="lazy"
+                  alt="Certificate"
+                  className="rounded-lg w-125 h-auto mx-auto"
+                />
+                <h2 className="text-center mt-4 text-lg font-semibold text-white">
+                  {
+                    mappedItems.find((item) => item.imageUrl === selectedImage)
+                      ?.title
+                  }
+                </h2>
+              </div>
+            )}
+          </Modal>
         </main>
       </div>
     </div>
