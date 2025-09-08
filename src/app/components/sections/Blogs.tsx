@@ -5,11 +5,11 @@ import { useLanguage } from "@/app/lang/LanguageProvider";
 import { contents } from "@/app/database/data";
 // Importing Next Components
 import Image from "next/image";
+import Link from "next/link";
 // Importing React Hooks
 import { useState, useEffect } from "react";
 // Importing Components
 import Btns from "../ui/Btns";
-import Link from "next/link";
 // Importing React-Icons
 import { MdArrowOutward } from "react-icons/md";
 

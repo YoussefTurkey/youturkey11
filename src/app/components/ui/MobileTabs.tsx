@@ -80,7 +80,7 @@ function ExpandedTabs({ tabs, onChange }: ExpandedTabsProps) {
   return (
     <div
       ref={containerRef}
-      className={`fixed bottom-10 left-[50%] translate-x-[-50%] sm:hidden flex items-center gap-1 rounded-full py-1 px-1 shadow-md backdrop-blur-sm bg-[hsl(var(--background))] border border-[hsl(var(--secondary)_/_50%)]`}
+      className={`z-1 fixed bottom-10 left-[50%] translate-x-[-50%] sm:hidden flex items-center gap-1 rounded-full py-1 px-1 shadow-md backdrop-blur-sm bg-[hsl(var(--background))] border border-[hsl(var(--secondary)_/_50%)]`}
     >
       {tabs.map((tab, index) => {
         if (tab.type === "separator") {
