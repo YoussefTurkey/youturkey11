@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
   
   if (!pathnameHasLocale) {
     // إعادة توجيه إلى النسخة الإنجليزية افتراضيًا
-    return NextResponse.redirect(new URL(`/en${pathname}`, request.url));
+    return NextResponse.redirect(new URL(`${pathname}`, request.url));
   }
 }
 
