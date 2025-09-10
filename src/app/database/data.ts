@@ -1,15 +1,14 @@
-type TAbout = {
-  titleAr: string;
-  titleEn: string;
-  infoAr: string;
-  infoEn: string;
-  heroAr: string;
-  heroEn: string;
-  img: string;
-  cover: string;
-  descAr: string;
-  descEn: string;
-};
+// Importing SVGs
+import { Code, Palette } from "../components/svg/logos";
+// Importing Types
+import {
+  TAbout,
+  TWorks,
+  TExperience,
+  TCertificates,
+  WorkFilter,
+} from "./types";
+
 export const about: TAbout = {
   titleAr: "مَن أنا",
   titleEn: "Who's Me",
@@ -20,7 +19,7 @@ export const about: TAbout = {
   heroAr: "يوسف التركي",
   heroEn: "Youssef Turkey",
   img: "/images/turkey.webp",
-  cover: '/images/cover.webp',
+  cover: "/images/cover.webp",
   descAr: `لديّ أكثر من عامين من الخبرة العملية في تطوير الواجهة الأمامية (Frontend Development)، باستخدام أدوات وأُطر عمل حديثة مثل React، Next.js، TailwindCSS، TypeScript، وWordPress. ساهمتُ في إعادة هيكلة مشاريع قديمة لدى US Legalization من خلال تحديث وتطوير ثلاثة من منصاتهم الأساسية. كما كنتُ المسؤول الوحيد في Rawaj عن بناء موقع WordPress مخصص بالكامل من الصفر دون الاعتماد على قوالب جاهزة، وهو الموقع المُعتمد حاليًا من الشركة.
           بالإضافة إلى ذلك، طوّرت عدة صفحات هبوط (Landing Pages) لمشروع Monglish، وعملت كمرشد (Mentor) لعدد من الشركات الناشئة مثل Softa-Solutions، العُصيمي، وKhan Store، حيث دعمت المطورين المبتدئين وساعدت في وضع هيكلية المشاريع.
           أما في مجال التدريس، فقد عملت كمدرب Frontend للأطفال من عمر 9 إلى 14 عامًا، وقدّمت أكثر من 40 ساعة تدريبية لكل مجموعة عبر 4 دفعات، حيث شرحت أساسيات تطوير الويب بطريقة عملية وتفاعلية. كما شغلت منصب المدرب الرئيسي في برنامج أساسيات الواجهة الأمامية (Frontend Fundamentals) التابع للـ NTI، حيث قدمت 90 ساعة تدريبية عملية ومنظمة غطت HTML، CSS، JavaScript، الـ APIs، والأدوات الحديثة.
@@ -31,49 +30,34 @@ export const about: TAbout = {
           These experiences have sharpened both my technical skills and my ability to communicate complex topics clearly and effectively to diverse learners.`,
 };
 
-type TWorks = {
-  id: number;
-  image: string;
-  filter: string;
-  titleAr: string;
-  titleEn: string;
-  shortDescAr?: string;
-  shortDescEn?: string;
-  descAr?: string;
-  descEn?: string;
-  preview?: string;
-  behance?: boolean;
-  github?: boolean;
-  slug?: string;
-};
 export const projects: TWorks[] = [
   {
     id: 1,
     image: "/images/project-4.webp",
-    filter: "web",
+    filter: WorkFilter.Web,
     titleAr: "السيرة الذاتية",
     titleEn: "Resume",
     shortDescAr: "السيرة الذاتية الديناميكية تشكمل كافية بيانات يوسف التركي",
     shortDescEn: "Dynamic Resume that has all data about Youssef Turkey",
     preview: "https://youturkey11.com/",
-    slug: 'resume',
-    github: true
+    slug: "resume",
+    github: true,
   },
   {
     id: 2,
     image: "/images/project-5.webp",
-    filter: "web",
+    filter: WorkFilter.Web,
     titleAr: "سبوت75",
     titleEn: "Spot75",
     shortDescAr: "متجر إلكتروني لخدمات الأدوات الترفيهية",
     shortDescEn: "E-Commerce for entertainment tools",
     preview: "https://spot75.com/",
-    slug: 'spot75',
+    slug: "spot75",
   },
   {
     id: 3,
     image: "/images/project-6.webp",
-    filter: "web",
+    filter: WorkFilter.Web,
     titleAr: "قُرّاءً",
     titleEn: "Qorra",
     shortDescAr:
@@ -81,52 +65,52 @@ export const projects: TWorks[] = [
     shortDescEn:
       "Website for Qorra initiative that interesting of Arabic Langauage",
     preview: "https://qorra.vercel.app/",
-    slug: 'qorra',
-    github: true
+    slug: "qorra",
+    github: true,
   },
   {
     id: 4,
     image: "/images/project-1.webp",
-    filter: "graphic",
+    filter: WorkFilter.Graphic,
     titleAr: "سنفُرّة",
     titleEn: "Senforra",
     shortDescAr: "سنفُرّة للبن البرازيلي الفاخر",
     shortDescEn: "Senforra For premium Brazilian coffee",
     preview:
       "https://www.behance.net/gallery/217496887/Senforra-Every-Sip-a-Story",
-    slug: 'senforra',
-    behance: true
+    slug: "senforra",
+    behance: true,
   },
   {
     id: 5,
     image: "/images/project-2.webp",
-    filter: "graphic",
+    filter: WorkFilter.Graphic,
     titleAr: "كل ما هو تركي جميل",
     titleEn: "Every Turkey is Beautiful",
     shortDescAr: "الهوية البصرية لشعار يوسف التركي الجديد",
     shortDescEn: "Visual identity branding for Youssef Turkey",
     preview: "https://www.behance.net/gallery/208797491/_",
-    slug: 'turkey-is-beautiful',
-    behance: true
+    slug: "turkey-is-beautiful",
+    behance: true,
   },
   {
     id: 6,
     image: "/images/project-3.webp",
-    filter: "graphic",
+    filter: WorkFilter.Graphic,
     titleAr: "جميع أعمالي 2024",
     titleEn: "All My Projects 2024",
     shortDescAr: "جميع الهويات البصرية سنة 2024",
     shortDescEn: "Logofolio for 2024",
     preview: "https://www.behance.net/gallery/209786459/Logofolio-2024",
-    slug: 'logofolio',
-    behance: true
+    slug: "logofolio",
+    behance: true,
   },
 ];
 export const contents: TWorks[] = [
   {
     id: 7,
     image: "/images/post-1.webp",
-    filter: "post",
+    filter: WorkFilter.Post,
     titleAr: "الفرق بين الوظيفة واستدعاء الوظيفة",
     titleEn: "Function VS Callback Function",
     descAr: `دايمًا بنسمع مصطلح الـcallback function
@@ -192,12 +176,13 @@ export const contents: TWorks[] = [
 
             ✅ That’s the beauty of callbacks — they allow us to control the flow of our code and make it more flexible.`,
     slug: "function-vs-callback-function",
-    preview: 'https://www.linkedin.com/posts/youturkey11_%D8%AF%D8%A7%D9%8A%D9%85%D8%A7-%D8%A8%D9%86%D8%B3%D9%85%D8%B9-%D9%85%D8%B5%D8%B7%D9%84%D8%AD-%D8%A7%D9%84%D9%80callback-function-%D8%A8%D8%B5%D8%B1%D8%A7%D8%AD%D8%A9-activity-7359597169760260097-C57l?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
+    preview:
+      "https://www.linkedin.com/posts/youturkey11_%D8%AF%D8%A7%D9%8A%D9%85%D8%A7-%D8%A8%D9%86%D8%B3%D9%85%D8%B9-%D9%85%D8%B5%D8%B7%D9%84%D8%AD-%D8%A7%D9%84%D9%80callback-function-%D8%A8%D8%B5%D8%B1%D8%A7%D8%AD%D8%A9-activity-7359597169760260097-C57l?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE",
   },
   {
     id: 8,
     image: "/images/post-2.webp",
-    filter: "post",
+    filter: WorkFilter.Post,
     titleAr: "تشانك",
     titleEn: "Chunk",
     descAr: `بلعب بالـNode.js كدا فلاقيت كلمة chunk متنتورة ف كل حتة ومش فاهم معناها اية!!
@@ -244,12 +229,13 @@ export const contents: TWorks[] = [
 
             ⚡ That’s why chunks are everywhere in Node.js — they’re the backbone of handling streams and big data.`,
     slug: "Chunk",
-    preview: 'https://www.linkedin.com/posts/youturkey11_%D8%A8%D9%84%D8%B9%D8%A8-%D8%A8%D8%A7%D9%84%D9%80nodejs-%D9%83%D8%AF%D8%A7-%D9%81%D9%84%D8%A7%D9%82%D9%8A%D8%AA-%D9%83%D9%84%D9%85%D8%A9-chunk-%D9%85%D8%AA%D9%86%D8%AA%D9%88%D8%B1%D8%A9-activity-7359939979994689536-NmMC?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
+    preview:
+      "https://www.linkedin.com/posts/youturkey11_%D8%A8%D9%84%D8%B9%D8%A8-%D8%A8%D8%A7%D9%84%D9%80nodejs-%D9%83%D8%AF%D8%A7-%D9%81%D9%84%D8%A7%D9%82%D9%8A%D8%AA-%D9%83%D9%84%D9%85%D8%A9-chunk-%D9%85%D8%AA%D9%86%D8%AA%D9%88%D8%B1%D8%A9-activity-7359939979994689536-NmMC?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE",
   },
   {
     id: 9,
     image: "/images/post-3.webp",
-    filter: "post",
+    filter: WorkFilter.Post,
     titleAr: "بفار",
     titleEn: "Buffer",
     descAr: `💡 ليه بنحتاج Buffer؟
@@ -297,12 +283,13 @@ export const contents: TWorks[] = [
               #nodejs_tips #js_tips
             `,
     slug: "Buffer",
-    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7360292949605208065-w2ID?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
+    preview:
+      "https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7360292949605208065-w2ID?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE",
   },
   {
     id: 10,
     image: "/images/post-4.webp",
-    filter: "post",
+    filter: WorkFilter.Post,
     titleAr: "Spread VS Rest",
     titleEn: "Spread VS Rest",
     descAr: `انا مش كريم انا كرم 😂
@@ -382,12 +369,13 @@ export const contents: TWorks[] = [
 
             #nodejs_tips #js_tips`,
     slug: "Spread_VS_Rest",
-    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7361013600175509506-4oqo?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
+    preview:
+      "https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7361013600175509506-4oqo?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE",
   },
   {
     id: 11,
     image: "/images/post-5.webp",
-    filter: "post",
+    filter: WorkFilter.Post,
     titleAr: "ليه JavaScript لغة ذكية ومرنة؟",
     titleEn: "Why JavaScript is flexable and inteligiant langauage?",
     descAr: `ليه JavaScript لغة ذكية ومرنة؟ 8 حقائق لازم تعرفها
@@ -475,12 +463,13 @@ export const contents: TWorks[] = [
 
               #nodejs_tips #js_tips`,
     slug: "JavaScript_is_flexable",
-    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7361354562168893440-eedX?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
+    preview:
+      "https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7361354562168893440-eedX?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE",
   },
   {
     id: 12,
     image: "/images/post-6.webp",
-    filter: "post",
+    filter: WorkFilter.Post,
     titleAr: "اية الفرق بين الACID والBASE؟",
     titleEn: "What is difference between ACID and BASE?",
     descAr: `اية الفرق بين الACID والBASE؟
@@ -555,12 +544,13 @@ export const contents: TWorks[] = [
 
             #nodejs_tips #js_tips`,
     slug: "ACID_and_BASE",
-    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7361784898468102144-_fnl?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
+    preview:
+      "https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7361784898468102144-_fnl?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE",
   },
   {
     id: 13,
     image: "/images/post-7.webp",
-    filter: "post",
+    filter: WorkFilter.Post,
     titleAr: "اية الفرق بين Blocking والـNon-Blocking ؟",
     titleEn: "What is difference between Blocking and Non-Blocking?",
     descAr: `اية الفرق بين Blocking والـNon-Blocking 
@@ -665,12 +655,13 @@ export const contents: TWorks[] = [
               #nodejs_tips #js_tips
 `,
     slug: "Blocking_and_Non-Blocking",
-    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7362477525115031554-gqMc?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
+    preview:
+      "https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7362477525115031554-gqMc?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE",
   },
   {
     id: 14,
     image: "/images/post-8.webp",
-    filter: "post",
+    filter: WorkFilter.Post,
     titleAr: "معنى Syntax Sugar",
     titleEn: "What is Syntax Sugar?",
     descAr: `✅ معنى Syntax Sugar
@@ -723,12 +714,13 @@ export const contents: TWorks[] = [
               #nodejs_tips #js_tips
 `,
     slug: "Syntax_Sugar",
-    preview: 'https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7368265671509504001-Tuq2?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE'
+    preview:
+      "https://www.linkedin.com/posts/youturkey11_nodejsabrtips-jsabrtips-activity-7368265671509504001-Tuq2?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFHlpRQBHEvZCejfB6PIFiqiuTIdAEgMktE",
   },
   {
     id: 15,
     image: "/images/VALIDATION.webp",
-    filter: "video",
+    filter: WorkFilter.Video,
     titleAr: "التأكد من صحة البيانات",
     titleEn: "VALIDATION",
     descAr: `🚀 عاوز تبني فورمات تسجيل دخول (Login) وتسجيل حساب (Signup) قوية وسهلة الاستخدام في React؟
@@ -802,7 +794,7 @@ export const contents: TWorks[] = [
   {
     id: 16,
     image: "/images/NEXT-THEME.webp",
-    filter: "video",
+    filter: WorkFilter.Video,
     titleAr: "القالب النهاري والليلي",
     titleEn: "NEXT-THEME",
     descAr: `🌓 عاوز تضيف Dark Mode لموقعك بـ Next.js؟
@@ -831,20 +823,6 @@ export const contents: TWorks[] = [
   },
 ];
 
-// Importing SVGs
-import { Code, Palette } from "../components/svg/logos";
-type TExperience = {
-  id: string;
-  img: string;
-  titleAr: string;
-  titleEn: string;
-  type: string;
-  duration: string;
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
-  responsibilitiesAr: string[];
-  responsibilitiesEn: string[];
-  skills: string[];
-};
 export const experience: TExperience[] = [
   {
     id: "timeline-item-1",
@@ -980,11 +958,6 @@ export const experience: TExperience[] = [
   },
 ];
 
-type TCertificates = {
-  id: number;
-  img: string;
-  title: string;
-};
 export const certificates: TCertificates[] = [
   {
     id: 1,

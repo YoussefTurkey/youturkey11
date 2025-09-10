@@ -1,35 +1,53 @@
 "use client";
 import { useEffect, useState } from "react";
-// using Translation
 import { useLanguage } from "@/app/lang/LanguageProvider";
-// Importing Components
 import Titles from "../ui/Titles";
 import Btns from "../ui/Btns";
-// Importing Next Components
 import Image from "next/image";
 import Link from "next/link";
-// Importing Data
-import { projects } from "@/app/database/data";
-// Importing React-Icons
 import { MdArrowOutward } from "react-icons/md";
 
-// دالة Shuffle
+// Firebase
+import { db } from "@/lib/firebase";
+import { collection, getDocs } from "firebase/firestore";
+
+// Shuffle function
 const shuffleArray = <T,>(array: T[]): T[] => {
   return [...array].sort(() => Math.random() - 0.5);
 };
 
+type Project = {
+  id: string;
+  titleEn: string;
+  titleAr: string;
+  shortDescEn: string;
+  shortDescAr: string;
+  filter: string;
+  image: string;
+  preview?: string;
+};
+
 const Projects = () => {
   const { language } = useLanguage();
-
-  const [randomProjects, setRandomProjects] = useState<typeof projects>([]);
+  const [randomProjects, setRandomProjects] = useState<Project[]>([]);
 
   useEffect(() => {
-    // فلترة الأول بحيث يكون filter = web أو graphic فقط
-    const filteredProjects = projects.filter(
-      (project) => project.filter === "web" || project.filter === "graphic"
-    );
-    // shuffle once only on client
-    setRandomProjects(shuffleArray(filteredProjects).slice(0, 4));
+    const fetchProjects = async () => {
+      const querySnapshot = await getDocs(collection(db, "projects"));
+      const fetched: Project[] = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Project[];
+
+      // فلترة الأول بحيث يكون filter = web أو graphic فقط
+      const filteredProjects = fetched.filter(
+        (project) => project.filter === "web" || project.filter === "graphic"
+      );
+
+      setRandomProjects(shuffleArray(filteredProjects).slice(0, 4));
+    };
+
+    fetchProjects();
   }, []);
 
   return (
@@ -69,7 +87,7 @@ const Projects = () => {
             key={proj.id}
           >
             <Image
-              src={proj.image}
+              src={proj.image || "/placeholder.png"}
               width={1000}
               height={1000}
               alt={proj.titleEn}

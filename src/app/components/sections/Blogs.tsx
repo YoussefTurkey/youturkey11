@@ -1,8 +1,9 @@
 "use client";
 // using Translation
 import { useLanguage } from "@/app/lang/LanguageProvider";
-// Importing Data
-import { contents } from "@/app/database/data";
+// Importing Firebase
+import { db } from "@/lib/firebase";
+import { collection, getDocs } from "firebase/firestore";
 // Importing Next Components
 import Image from "next/image";
 import Link from "next/link";
@@ -13,6 +14,20 @@ import Btns from "../ui/Btns";
 // Importing React-Icons
 import { MdArrowOutward } from "react-icons/md";
 
+// نوع البيانات
+type Blog = {
+  id: string;
+  titleEn: string;
+  titleAr: string;
+  filter: "web" | "graphic" | "post" | "video";
+  state: "content" | "project";
+  image: string;
+  preview?: string;
+  slug: string;
+  shortDescEn?: string;
+  shortDescAr?: string;
+};
+
 // دالة Shuffle
 const shuffleArray = <T,>(array: T[]): T[] => {
   return [...array].sort(() => Math.random() - 0.5);
@@ -20,15 +35,26 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 
 const Blogs = () => {
   const { language } = useLanguage();
-  const [randomBlogs, setRandomBlogs] = useState<typeof contents>([]);
+  const [randomBlogs, setRandomBlogs] = useState<Blog[]>([]);
 
   useEffect(() => {
-    // فلترة الأول بحيث يكون filter = web أو graphic فقط
-    const filteredBlogs = contents.filter(
-      (blog) => blog.filter === "post" || blog.filter === "video"
-    );
-    // shuffle once only on client
-    setRandomBlogs(shuffleArray(filteredBlogs).slice(0, 4));
+    const fetchBlogs = async () => {
+      // 🟢 هجيب من الـ blogs collection
+      const snap = await getDocs(collection(db, "projects"));
+      const blogs = snap.docs.map(
+        (doc) => ({ id: doc.id, ...doc.data() } as Blog)
+      );
+
+      // 🟢 فلترة بحيث filter = post | video فقط
+      const filteredBlogs = blogs.filter(
+        (blog) => blog.filter === "post" || blog.filter === "video"
+      );
+
+      // 🟢 Shuffle once + خذ 4 بس
+      setRandomBlogs(shuffleArray(filteredBlogs).slice(0, 4));
+    };
+
+    fetchBlogs();
   }, []);
 
   return (
@@ -47,19 +73,25 @@ const Blogs = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 my-5 sm:my-10">
         {randomBlogs.map((blog) => (
           <Link
-            href={`/blogView/${blog.slug}` || ""}
+            href={`/blogView/${blog.slug}`}
             rel="noopener noreferrer"
             key={blog.id}
             className="rounded-lg border border-[hsl(var(--third)/20%)] hover:border-[hsl(var(--secondary))] hover:scale-102 transition-transform duration-500"
           >
-            <Image
-              src={blog.image}
-              width={1000}
-              height={1000}
-              alt={language === "en" ? blog.titleEn : blog.titleAr}
-              loading="lazy"
-              className="rounded-t-lg"
-            />
+            {blog.image && blog.image.trim() !== "" ? (
+              <Image
+                src={blog.image}
+                width={1000}
+                height={1000}
+                alt={language === "en" ? blog.titleEn : blog.titleAr}
+                loading="lazy"
+                className="rounded-t-lg"
+              />
+            ) : (
+              <div className="w-full h-[200px] bg-gray-200 flex items-center justify-center rounded-t-lg">
+                <span className="text-gray-500 text-sm">No image</span>
+              </div>
+            )}
             <div className="rounded-b-lg p-3 border-t border-[hsl(var(--third)/20%)]">
               <div className="flex items-center justify-between">
                 <h2 className="text-sm sm:text-lg capitalize font-bold w-40 sm:w-64 truncate">
@@ -70,7 +102,7 @@ const Blogs = () => {
                 </p>
               </div>
               {blog.shortDescEn && blog.shortDescAr && (
-                <p className="text-lg text-[hsl(var(--third))] pt-1">
+                <p className="text-md text-[hsl(var(--third))] pt-1">
                   {language === "en" ? blog.shortDescEn : blog.shortDescAr}
                 </p>
               )}

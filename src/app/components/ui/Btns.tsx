@@ -1,18 +1,38 @@
-import Link from "next/link"
+import Link from "next/link";
 
 type TBtns = {
-  children: React.ReactNode,
-  style?: string
-  action? : () => void
-  href?: string
-}
+  children: React.ReactNode;
+  style?: string;
+  action?: () => void;
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+};
 
-const Btns = ({style, children, action, href}: TBtns) => {
-  return (
-    <Link href={href || ''} onClick={action} className={`${style} w-full sm:w-fit rounded-lg py-2 px-6 cursor-pointer transition-colors`}>
+const Btns = ({ style, children, action, href, type = "button", disabled }: TBtns) => {
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className={`${style} w-full sm:w-fit rounded-lg py-2 px-6 cursor-pointer transition-colors`}
+      >
         {children}
-    </Link>
-  )
-}
+      </Link>
+    );
+  }
 
-export default Btns
+  return (
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={action}
+      className={`${style} w-full sm:w-fit rounded-lg py-2 px-6 cursor-pointer transition-colors ${
+        disabled ? "opacity-50 cursor-not-allowed" : ""
+      }`}
+    >
+      {children}
+    </button>
+  );
+};
+
+export default Btns;

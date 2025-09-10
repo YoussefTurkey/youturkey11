@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 // Importing React Hooks
 import { useState } from "react";
 // Importing Components
@@ -15,13 +16,19 @@ import { useTheme } from "@/app/themes/ThemeProvider";
 // Importing React-Icons
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
+import { AiFillDashboard } from "react-icons/ai";
+import { TbLogout } from "react-icons/tb";
 // Importing Components
 import Btns from "../ui/Btns";
+// Auth
+import { useAuth, logout } from "@/lib/auth";
 
 const Header = () => {
   const { language } = useLanguage();
   const { theme } = useTheme();
   const [menu, setMenu] = useState(false);
+  const { user } = useAuth(); // ✅ هل الأدمن عامل لوجين
+  const pathname = usePathname();
 
   return (
     <header className="container mx-auto px-10 xl:px-0 py-5 flex items-center justify-between border-b border-[hsl(var(--third))] sm:static fixed top-0 z-10 backdrop-blur-sm bg-[hsl(var(--background)_/_50%)]">
@@ -54,12 +61,37 @@ const Header = () => {
         <div className="flex items-center gap-3">
           <LanguageToggle />
           <ThemeToggle />
-          <Btns href="/community" style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white">
+          <Btns
+            href="/community"
+            style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white"
+          >
             {language === "en" ? "Community" : "المجتمع"}
           </Btns>
-          <Btns href="/contact" style="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)_/_90%)] text-white">
+          <Btns
+            href="/contact"
+            style="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)_/_90%)] text-white"
+          >
             {language === "en" ? "Get in touch" : "تواصل معي"}
           </Btns>
+          {/* ✅ لو الأدمن عامل Login */}
+          {user && (
+            <>
+              {pathname !== "/dashboard" && (
+                <Btns
+                  href="/dashboard"
+                  style="bg-[hsl(var(--secondary))] text-white flex items-center gap-1"
+                >
+                  <AiFillDashboard size={25} />
+                </Btns>
+              )}
+              <Btns
+                action={logout}
+                style="flex items-center gap-1 border border-[hsl(var(--secondary))]"
+              >
+                <TbLogout size={25} />
+              </Btns>
+            </>
+          )}
         </div>
       </section>
 
@@ -99,12 +131,39 @@ const Header = () => {
           >
             <IoClose size={40} />
           </button>
-          <Btns href="/community" style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white">
+          <Btns
+            href="/community"
+            style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white"
+          >
             {language === "en" ? "Community" : "المجتمع"}
           </Btns>
-          <Btns href="/contact" style="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)_/_90%)] text-white">
+          <Btns
+            href="/contact"
+            style="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)_/_90%)] text-white"
+          >
             {language === "en" ? "Get in touch" : "تواصل معي"}
           </Btns>
+
+          {/* ✅ Mobile Admin Btns */}
+          {user && (
+            <>
+              <Btns
+                href="/dashboard"
+                style="bg-[hsl(var(--secondary))] text-white flex items-center gap-1"
+              >
+                <AiFillDashboard />
+                {language === "en" ? "Dashboard" : "لوحة التحكم"}
+              </Btns>
+              <Btns
+                action={logout}
+                style="flex items-center gap-1 border border-[hsl(var(--secondary))]"
+              >
+                <TbLogout />
+                {language === "en" ? "Logout" : "تسجيل الخروج"}
+              </Btns>
+            </>
+          )}
+
           <div className="flex items-center justify-start gap-5">
             <LanguageToggle />
             <ThemeToggle />
