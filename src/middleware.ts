@@ -4,14 +4,19 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  const pathnameHasLocale = /^\/[a-z]{2}/.test(pathname);
+  // ✅ لو الراوت الأساسي "/" سيبه زي ما هو
+  if (pathname === "/") {
+    return NextResponse.next();
+  }
+
+  // ✅ لو مفيش locale في بداية الـ path (زي /about)
+  const pathnameHasLocale = /^\/(en|ar)(\/|$)/.test(pathname);
 
   if (!pathnameHasLocale) {
-    // 👇 لو عاوز دايمًا يحول للإنجليزي
+    // هنا تقدر تختار تضيف /en أو تخليها زي ما هي
     return NextResponse.redirect(new URL(`/en${pathname}`, request.url));
   }
 
-  // 👇 لو عاوز يسيب الـ routes زي ما هي من غير أي تحويل
   return NextResponse.next();
 }
 
