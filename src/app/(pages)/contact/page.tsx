@@ -122,7 +122,7 @@ const Contact = () => {
             {inputData.map((input, i) => (
               <div key={i} className="flex flex-col gap-2">
                 <Input
-                  type={input.type}
+                  type={input.type as "text" | "textarea" | "select" | "file" | "email" | "password"}
                   placeholder={input.placeholder}
                   register={input.register}
                 />

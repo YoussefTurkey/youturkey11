@@ -7,6 +7,7 @@ import { Inter, Cairo } from "next/font/google";
 // Providers
 import ClientThemeProvider from "@/app/themes/ClientThemeProvider";
 import ClientLanguageProvider from "@/app/lang/ClientLanguageProvider";
+// Components
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import ScrollUp from "./components/ui/ScrollUp";
@@ -30,7 +31,11 @@ export const metadata: Metadata = {
   description: "Youssef Turkey is a frontend engineer.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ 
+  children 
+}: { 
+  children: React.ReactNode 
+}) {
   return (
     <html lang="en" dir="ltr">
       <body className={`${inter.variable} ${cairo.variable}`}>
