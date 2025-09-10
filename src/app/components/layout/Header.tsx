@@ -84,12 +84,14 @@ const Header = () => {
                   <AiFillDashboard size={25} />
                 </Btns>
               )}
-              <Btns
-                action={logout}
-                style="flex items-center gap-1 border border-[hsl(var(--secondary))]"
-              >
-                <TbLogout size={25} />
-              </Btns>
+              {pathname === "/dashboard" && (
+                <Btns
+                  action={logout}
+                  style="flex items-center gap-1 border border-[hsl(var(--secondary))]"
+                >
+                  <TbLogout size={25} />
+                </Btns>
+              )}
             </>
           )}
         </div>
