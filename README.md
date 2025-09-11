@@ -38,17 +38,17 @@ A personal website showcasing my **blog**, **projects**, and other content, with
 ---
 
 ## 📦 Project Structure
-📁 components → Reusable UI + auth + layout + sections + SVGs
-📁 dashboard → Admin dashboard pages
-📁 pages → Next.js pages (Home, Blog, Login, etc.)
-📁 database → For static information  
-📁 lang → For language provider
-📁 themes → For theme provider
-📁 login → For dashboard login
-📁 validation → For Contact page validation
-📁 api → For visitors counter api
-📁 lib → For Firebase configuration
-📁 utils → Utility functions (firesotre, cloudnary)
+- 📁 components → Reusable UI + auth + layout + sections + SVGs
+- 📁 dashboard → Admin dashboard pages
+- 📁 pages → Next.js pages (Home, Blog, Login, etc.)
+- 📁 database → For static information  
+- 📁 lang → For language provider
+- 📁 themes → For theme provider
+- 📁 login → For dashboard login
+- 📁 validation → For Contact page validation
+- 📁 api → For visitors counter api
+- 📁 lib → For Firebase configuration
+- 📁 utils → Utility functions (firesotre, cloudnary)
 
 ---
 
