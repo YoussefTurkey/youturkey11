@@ -20,6 +20,7 @@ import { AiFillDashboard } from "react-icons/ai";
 import { TbLogout } from "react-icons/tb";
 // Importing Components
 import Btns from "../ui/Btns";
+import TrackVisit from "../ui/TrackVisit";
 // Auth
 import { useAuth, logout } from "@/lib/auth";
 
@@ -31,7 +32,7 @@ const Header = () => {
   const pathname = usePathname();
 
   return (
-    <header className="container mx-auto px-10 xl:px-0 py-5 flex items-center justify-between border-b border-[hsl(var(--third))] sm:static fixed top-0 z-10 backdrop-blur-sm bg-[hsl(var(--background)_/_50%)]">
+    <header className="container mx-auto px-10 xl:px-0 py-5 flex lg:flex-row lg:gap-0 md:flex-col md:gap-5 items-center justify-between border-b border-[hsl(var(--third))] sm:static fixed top-0 z-10 backdrop-blur-sm bg-[hsl(var(--background)_/_50%)]">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-3">
         <Image
@@ -61,6 +62,7 @@ const Header = () => {
         <div className="flex items-center gap-3">
           <LanguageToggle />
           <ThemeToggle />
+          <TrackVisit />
           <Btns
             href="/community"
             style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white"
@@ -168,6 +170,8 @@ const Header = () => {
               </Btns>
             </>
           )}
+
+          <TrackVisit />
 
           <div className="flex items-center justify-start gap-5">
             <LanguageToggle />
