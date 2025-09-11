@@ -27,6 +27,8 @@ import {
   GitLogo,
   NPMLogo,
   YarnLogo,
+  FirebaseLogo,
+  CloudnaryLogo
 } from "../svg/logos";
 import Titles from "./Titles";
 
@@ -119,6 +121,14 @@ function Logomarquee() {
     {
       id: 20,
       component: <YarnLogo fill={theme === "dark" ? "#b2b2b2" : "#000"} />,
+    },
+    {
+      id: 21,
+      component: <FirebaseLogo fill={theme === "dark" ? "#b2b2b2" : "#000"} />,
+    },
+    {
+      id: 22,
+      component: <CloudnaryLogo fill={theme === "dark" ? "#b2b2b2" : "#000"} />,
     },
   ];
   // We need to inject the keyframes animation into the document's head
