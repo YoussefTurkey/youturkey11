@@ -32,6 +32,8 @@ const coderData = {
     "Strapi",
     "Git",
     "NPM & Yarn",
+    "Firebase",
+    "Cloudnary",
   ],
 };
 
