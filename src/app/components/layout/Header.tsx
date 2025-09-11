@@ -26,7 +26,7 @@ import { useAuth, logout } from "@/lib/auth";
 const Header = () => {
   const { language } = useLanguage();
   const { theme } = useTheme();
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState(false);  
   const { user } = useAuth(); // ✅ هل الأدمن عامل لوجين
   const pathname = usePathname();
 
@@ -134,12 +134,14 @@ const Header = () => {
             <IoClose size={40} />
           </button>
           <Btns
+            action={() => setMenu(!menu)}
             href="/community"
             style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white"
           >
             {language === "en" ? "Community" : "المجتمع"}
           </Btns>
           <Btns
+            action={() => setMenu(!menu)}
             href="/contact"
             style="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)_/_90%)] text-white"
           >
@@ -150,6 +152,7 @@ const Header = () => {
           {user && (
             <>
               <Btns
+                action={() => setMenu(!menu)}
                 href="/dashboard"
                 style="bg-[hsl(var(--secondary))] text-white flex items-center gap-1"
               >

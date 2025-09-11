@@ -103,7 +103,7 @@ const Contact = () => {
   ];
 
   return (
-    <main className="container mx-auto my-50 md:my-20 px-5 md:px-10 xl:px-0">
+    <main className="container mx-auto mb-10 mt-30 md:my-20 px-5 md:px-10 xl:px-0">
       <section className="flex flex-col lg:flex-row items-start gap-5 md:gap-10">
         <div className="rounded-lg p-5 md:p-10 border border-[hsl(var(--third)_/_20%)] w-full">
           <p className="text-xl sm:text-2xl lg:text-4xl capitalize text-[hsl(var(--secondary))]">
