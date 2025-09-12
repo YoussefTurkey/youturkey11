@@ -59,7 +59,7 @@ const CommunityPage = () => {
           href={`/blogView/${blog.slug}`}
           rel="noopener noreferrer"
           key={blog.id}
-          className="rounded-lg border border-[hsl(var(--third)/20%)] hover:border-[hsl(var(--secondary))] hover:scale-102 transition-transform duration-500"
+          className="group rounded-lg border border-[hsl(var(--third)/20%)] hover:border-[hsl(var(--secondary))] hover:scale-102 transition-transform duration-500"
         >
           {blog.image && blog.image.trim() !== "" ? (
             <Image
@@ -81,12 +81,12 @@ const CommunityPage = () => {
               <h2 className="text-sm sm:text-lg capitalize font-bold w-40 sm:w-64 truncate">
                 {language === "en" ? blog.titleEn : blog.titleAr}
               </h2>
-              <p className="text-sm text-[hsl(var(--third))] pt-1">
+              <p className="text-sm text-white bg-[hsl(var(--secondary))] py-1 px-5 rounded-2xl">
                 {blog.filter}
               </p>
             </div>
             {blog.shortDescEn && blog.shortDescAr && (
-              <p className="text-lg text-[hsl(var(--third))] pt-1">
+              <p className="text-lg text-[hsl(var(--third))] pt-1 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
                 {language === "en" ? blog.shortDescEn : blog.shortDescAr}
               </p>
             )}
