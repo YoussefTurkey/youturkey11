@@ -97,12 +97,12 @@ const Blogs = () => {
                 <h2 className="text-sm sm:text-lg capitalize font-bold w-40 sm:w-64 truncate">
                   {language === "en" ? blog.titleEn : blog.titleAr}
                 </h2>
-                <p className="text-sm text-white bg-[hsl(var(--secondary))] py-1 px-5 rounded-2xl">
+                <p className="text-sm text-[hsl(var(--third))]">
                   {blog.filter}
                 </p>
               </div>
               {blog.shortDescEn && blog.shortDescAr && (
-                <p className="text-md pt-1 text-[hsl(var(--third))] line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
+                <p className="text-md text-[hsl(var(--third))] line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
                   {language === "en" ? blog.shortDescEn : blog.shortDescAr}
                 </p>
               )}
