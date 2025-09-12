@@ -64,6 +64,7 @@ A personal website showcasing my **blog**, **projects**, and other content, with
 - **Form validation** with react-hook-form & Zod
 - **Image uploads** handled via Cloudinary
 - **Visitor Counter** handled via Firebase
+- **Like Counter** handled via Firebase
 - **Vercel & Firebase & Cloudnary** for Hosting
 
 ---
