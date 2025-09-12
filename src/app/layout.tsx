@@ -11,6 +11,7 @@ import ClientLanguageProvider from "@/app/lang/ClientLanguageProvider";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import ScrollUp from "./components/ui/ScrollUp";
+import LoaderWrapper from "./components/ui/LoaderWrapper";
 import { Toaster } from "react-hot-toast";
 
 // Fonts
@@ -31,23 +32,25 @@ export const metadata: Metadata = {
   description: "Youssef Turkey is a frontend engineer.",
 };
 
-export default function RootLayout({ 
-  children 
-}: { 
-  children: React.ReactNode 
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" dir="ltr">
       <body className={`${inter.variable} ${cairo.variable}`}>
-        <ClientThemeProvider>
-          <ClientLanguageProvider defaultLanguage="en">
-            <Header />
-            {children}
-            <Toaster position="top-right" reverseOrder={false} />
-            <ScrollUp />
-            <Footer />
-          </ClientLanguageProvider>
-        </ClientThemeProvider>
+        <LoaderWrapper>
+          <ClientThemeProvider>
+            <ClientLanguageProvider defaultLanguage="en">
+              <Header />
+              {children}
+              <Toaster position="top-right" reverseOrder={false} />
+              <ScrollUp />
+              <Footer />
+            </ClientLanguageProvider>
+          </ClientThemeProvider>
+        </LoaderWrapper>
       </body>
     </html>
   );
