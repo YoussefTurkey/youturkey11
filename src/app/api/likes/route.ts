@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/firebase";
-import { doc, getDoc, setDoc, updateDoc, increment } from "firebase/firestore";
+import { doc, getDoc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
 
 type LikePayload = {
   slug: string;
@@ -42,27 +42,16 @@ export async function POST(req: Request) {
         liked: true,
         createdAt: Date.now(),
       });
-
-      // زود counter للبوست
-      const projectRef = doc(db, "projects", slug);
-      const projectSnap = await getDoc(projectRef);
-
-      if (projectSnap.exists()) {
-        await updateDoc(projectRef, { likes: increment(1) });
-      } else {
-        await setDoc(projectRef, { likes: 1 });
-      }
-
       liked = true;
     } else {
       // لو موجود يبقى هو عامل لايك قبل كدا
-      liked = true;
+      liked = likeSnap.data().liked === true;
     }
 
-    // رجع عدد اللايكات
-    const projectRef = doc(db, "projects", slug);
-    const projectSnap = await getDoc(projectRef);
-    const count = projectSnap.exists() ? projectSnap.data().likes || 0 : 0;
+    // احسب عدد اللايكات من collection likes
+    const q = query(collection(db, "likes"), where("slug", "==", slug), where("liked", "==", true));
+    const snapshot = await getDocs(q);
+    const count = snapshot.size;
 
     return NextResponse.json({ success: true, liked, count });
   } catch (error) {
@@ -92,10 +81,12 @@ export async function GET(req: Request) {
       req.headers.get("x-real-ip") ||
       "unknown";
 
-    const projectRef = doc(db, "projects", slug);
-    const projectSnap = await getDoc(projectRef);
-    const count = projectSnap.exists() ? projectSnap.data().likes || 0 : 0;
+    // احسب عدد اللايكات
+    const q = query(collection(db, "likes"), where("slug", "==", slug), where("liked", "==", true));
+    const snapshot = await getDocs(q);
+    const count = snapshot.size;
 
+    // شوف هل المستخدم عامل لايك
     let liked = false;
     if (ip !== "unknown") {
       const likeRef = doc(db, "likes", `${slug}_${ip}`);
