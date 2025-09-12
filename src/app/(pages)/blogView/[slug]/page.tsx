@@ -9,6 +9,7 @@ import { db } from "@/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import Titles from "@/app/components/ui/Titles";
 import Loading from "@/app/components/ui/Loading";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 type Project = {
   id?: string;
@@ -22,6 +23,7 @@ type Project = {
   shortDescAr: string;
   descEn?: string;
   descAr?: string;
+  likes?: number;
 };
 
 interface BlogViewProps {
@@ -35,6 +37,7 @@ export default function BlogViewPage({ params }: BlogViewProps) {
   const { language } = useLanguage();
   const [view, setView] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -50,10 +53,26 @@ export default function BlogViewPage({ params }: BlogViewProps) {
     fetchProjects();
   }, [slug]);
 
+  // 🟦 عند تحميل الصفحة: نجيب اللايكات
+  useEffect(() => {
+    const fetchLikes = async () => {
+      try {
+        const res = await fetch(`/api/likes?slug=${slug}`);
+        const data = await res.json();
+        if (data.success) {
+          setView((prev) => (prev ? { ...prev, likes: data.count } : prev));
+          setLiked(data.liked);
+        }
+      } catch (err) {
+        console.error("Error fetching likes:", err);
+      }
+    };
+
+    fetchLikes();
+  }, [slug]);
+
   if (loading) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   if (!view) {
@@ -74,8 +93,37 @@ export default function BlogViewPage({ params }: BlogViewProps) {
           />
         )}
 
-        <div className="flex flex-col gap-5">
+        <div className="flex items-center justify-between gap-3 w-full">
           <Titles>{language === "en" ? view.titleEn : view.titleAr}</Titles>
+
+          <button
+            onClick={async () => {
+              try {
+                const res = await fetch("/api/likes", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ slug }),
+                });
+                const data = await res.json();
+                if (data.success) {
+                  setView((prev) =>
+                    prev ? { ...prev, likes: data.count } : prev
+                  );
+                  setLiked(true);
+                }
+              } catch (err) {
+                console.error("Error liking:", err);
+              }
+            }}
+            className="flex items-center gap-2 group cursor-pointer"
+            >
+            {liked ? (
+              <FaHeart className="w-7 h-7 text-red-500 transition-transform duration-300 group-active:scale-125" />
+            ) : (
+              <FaRegHeart className="w-7 h-7 text-red-500 transition-transform duration-300 group-hover:scale-110" />
+            )}
+            <span className="text-lg">{view.likes || 0}</span>
+          </button>
         </div>
       </div>
 
@@ -98,7 +146,9 @@ export default function BlogViewPage({ params }: BlogViewProps) {
         <Link
           href={view.preview}
           target="_blank"
-          className={`text-[hsl(var(--secondary))] hover:underline mt-5 block text-center ${language === 'en' ? 'sm:text-left' : 'sm:text-right'}`}
+          className={`text-[hsl(var(--secondary))] hover:underline mt-5 block text-center ${
+            language === "en" ? "sm:text-left" : "sm:text-right"
+          }`}
         >
           {language === "en" ? "Preview here" : "اطلع من هنا"}
         </Link>
