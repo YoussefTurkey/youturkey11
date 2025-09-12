@@ -118,9 +118,9 @@ export default function BlogViewPage({ params }: BlogViewProps) {
             className="flex items-center gap-2 group cursor-pointer"
             >
             {liked ? (
-              <FaHeart className="w-7 h-7 text-red-500 transition-transform duration-300 group-active:scale-125" />
+              <FaHeart className="w-7 h-7 text-[hsl(var(--secondary))] transition-transform duration-300 group-active:scale-125" />
             ) : (
-              <FaRegHeart className="w-7 h-7 text-red-500 transition-transform duration-300 group-hover:scale-110" />
+              <FaRegHeart className="w-7 h-7 text-[hsl(var(--secondary))] transition-transform duration-300 group-hover:scale-110" />
             )}
             <span className="text-lg">{view.likes || 0}</span>
           </button>
