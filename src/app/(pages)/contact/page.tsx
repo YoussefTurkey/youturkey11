@@ -160,10 +160,10 @@ const Contact = () => {
                 target="_blank"
                 className="cursor-pointer flex items-center gap-2 md:gap-5 p-5"
               >
-                <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--forenground))] text-[hsl(var(--background))] md:text-2xl">
+                <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--secondary))] text-[hsl(var(--background))] md:text-2xl">
                   <SlEnvolope />
                 </span>
-                <span className="md:text-2xl">you.turkey11@gmail.com</span>
+                <span className="md:text-2xl group-hover:text-white">you.turkey11@gmail.com</span>
               </Link>
             </div>
 
@@ -173,10 +173,10 @@ const Contact = () => {
                 target="_blank"
                 className="cursor-pointer flex items-center gap-2 md:gap-5 p-5"
               >
-                <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--forenground))] text-[hsl(var(--background))] md:text-2xl">
+                <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--secondary))] text-[hsl(var(--background))] md:text-2xl">
                   <ImWhatsapp />
                 </span>
-                <span className="md:text-2xl">
+                <span className="md:text-2xl group-hover:text-white">
                   {language === "en"
                     ? "(+20) 127 345 1052"
                     : "1052 345 127 (20+)"}
@@ -190,10 +190,10 @@ const Contact = () => {
                 target="_blank"
                 className="cursor-pointer flex items-center gap-2 md:gap-5 p-5"
               >
-                <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--forenground))] text-[hsl(var(--background))] md:text-2xl">
+                <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--secondary))] text-[hsl(var(--background))] md:text-2xl">
                   <IoCall />
                 </span>
-                <span className="md:text-2xl">
+                <span className="md:text-2xl group-hover:text-white">
                   {language === "en"
                     ? "(+20) 115 410 2459"
                     : "2459 410 115 (20+)"}
