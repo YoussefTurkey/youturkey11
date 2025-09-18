@@ -75,20 +75,29 @@ const CommunityPage = () => {
               <span className="text-gray-500 text-sm">No image</span>
             </div>
           )}
-
-          <div className="rounded-b-lg p-3 border-t border-[hsl(var(--third)/20%)]">
+          
+          <div className="relative rounded-b-lg p-3 border-t border-[hsl(var(--third)/20%)]">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm sm:text-lg capitalize font-bold w-40 sm:w-64 truncate">
+              <h2 className="text-sm sm:text-lg capitalize font-bold w-40 sm:w-64 truncate text-[hsl(var(--third))] group-hover:text-[hsl(var(--foreground))] transition-colors">
                 {language === "en" ? blog.titleEn : blog.titleAr}
               </h2>
-              <p className="text-sm text-white bg-[hsl(var(--secondary))] py-1 px-5 rounded-2xl">
+              <p className="text-sm border border-[hsl(var(--third)/20%)] py-1 px-5 rounded-2xl">
                 {blog.filter}
               </p>
             </div>
+
             {blog.shortDescEn && blog.shortDescAr && (
-              <p className="text-lg text-[hsl(var(--third))] pt-1 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
-                {language === "en" ? blog.shortDescEn : blog.shortDescAr}
-              </p>
+              <div
+                className="
+                  max-h-15 overflow-hidden opacity-70
+                  group-hover:max-h-40 group-hover:opacity-100
+                  transition-all duration-500 ease-in-out
+                "
+              >
+                <p className="text-lg text-[hsl(var(--third))] pt-2">
+                  {language === "en" ? blog.shortDescEn : blog.shortDescAr}
+                </p>
+              </div>
             )}
           </div>
         </Link>
