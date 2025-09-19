@@ -71,16 +71,13 @@ function ExpandedTabs({ tabs, onChange }: ExpandedTabsProps) {
   };
 
   const SeparatorComponent = () => (
-    <div
-      className="h-7 w-px"
-      aria-hidden="true"
-    />
+    <div className="h-7 w-px" aria-hidden="true" />
   );
 
   return (
     <div
       ref={containerRef}
-      className={`z-1 fixed bottom-10 left-[50%] translate-x-[-50%] sm:hidden flex items-center gap-1 rounded-full py-1 px-1 shadow-md backdrop-blur-sm bg-[hsl(var(--background))] border border-[hsl(var(--secondary)_/_50%)]`}
+      className={`z-1 sticky bottom-10 mx-auto w-fit sm:hidden flex items-center justify-center gap-1 rounded-full py-1 px-4 shadow-md backdrop-blur-sm bg-[hsl(var(--background))] border border-[hsl(var(--secondary)_/_50%)]`}
     >
       {tabs.map((tab, index) => {
         if (tab.type === "separator") {
@@ -137,10 +134,26 @@ export default function MobileTabs() {
   const { language } = useLanguage();
 
   const TABS: TabItem[] = [
-    { title: language === 'en' ? "Home" : 'الرئيسية', icon: HomeIcon, targetId: "top" },
-    { title: language === 'en' ? "Who's Me" : 'من أنا', icon: UserIcon, targetId: "me" },
-    { title: language === 'en' ? "Projects" : 'مشاريعي', icon: WorksIcon, targetId: "projects" },
-    { title: language === 'en' ? "Contents" : 'محتوايا', icon: BlogIcon, targetId: "blog" },
+    {
+      title: language === "en" ? "Home" : "الرئيسية",
+      icon: HomeIcon,
+      targetId: "top",
+    },
+    {
+      title: language === "en" ? "Who's Me" : "من أنا",
+      icon: UserIcon,
+      targetId: "me",
+    },
+    {
+      title: language === "en" ? "Projects" : "مشاريعي",
+      icon: WorksIcon,
+      targetId: "projects",
+    },
+    {
+      title: language === "en" ? "Contents" : "محتوايا",
+      icon: BlogIcon,
+      targetId: "blog",
+    },
   ];
 
   return <ExpandedTabs tabs={TABS} />;

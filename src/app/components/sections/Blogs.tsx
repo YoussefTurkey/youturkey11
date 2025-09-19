@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import Btns from "../ui/Btns";
 // Importing React-Icons
 import { MdArrowOutward } from "react-icons/md";
+import Loading from "../ui/Loading";
 
 // نوع البيانات
 type Blog = {
@@ -36,22 +37,38 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 const Blogs = () => {
   const { language } = useLanguage();
   const [randomBlogs, setRandomBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      // 🟢 هجيب من الـ blogs collection
-      const snap = await getDocs(collection(db, "projects"));
-      const blogs = snap.docs.map(
-        (doc) => ({ id: doc.id, ...doc.data() } as Blog)
-      );
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // 🟢 هجيب من الـ blogs collection
+        const snap = await getDocs(collection(db, "projects"));
+        const blogs = snap.docs.map(
+          (doc) => ({ id: doc.id, ...doc.data() } as Blog)
+        );
 
-      // 🟢 فلترة بحيث filter = post | video فقط
-      const filteredBlogs = blogs.filter(
-        (blog) => blog.filter === "post" || blog.filter === "video"
-      );
+        // 🟢 فلترة بحيث filter = post | video فقط
+        const filteredBlogs = blogs.filter(
+          (blog) => blog.filter === "post" || blog.filter === "video"
+        );
 
-      // 🟢 Shuffle once + خذ 4 بس
-      setRandomBlogs(shuffleArray(filteredBlogs).slice(0, 4));
+        if (filteredBlogs.length === 0) {
+          setError("no_data");
+        } else {
+          // 🟢 Shuffle once + خذ 4 بس
+          setRandomBlogs(shuffleArray(filteredBlogs).slice(0, 4));
+        }
+      } catch (err) {
+        setError("fetch_error");
+        console.error("Error fetching blogs:", err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchBlogs();
@@ -70,8 +87,33 @@ const Blogs = () => {
         <div className="w-full h-px bg-[hsl(var(--third))]"></div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 my-5 sm:my-10">
-        {randomBlogs.map((blog) => (
+      {loading ? (
+        <div className="flex justify-center items-center py-20">
+          <Loading />
+        </div>
+      ) : error ? (
+        <div className="flex flex-col items-center justify-center py-20 text-center">
+          <div className="text-6xl mb-4">📝</div>
+          <h3 className="text-xl font-semibold text-[hsl(var(--third))] mb-2">
+            {error === "no_data" 
+              ? (language === "en" ? "No blog content available" : "لا يوجد محتوى مقالات متاح")
+              : (language === "en" ? "Failed to load content" : "فشل في تحميل المحتوى")
+            }
+          </h3>
+          <p className="text-[hsl(var(--third))] opacity-70">
+            {error === "no_data"
+              ? (language === "en" 
+                  ? "Check back later for new blog posts and videos." 
+                  : "تحقق لاحقاً للحصول على مقالات وفيديوهات جديدة.")
+              : (language === "en" 
+                  ? "Please try refreshing the page or contact support if the problem persists." 
+                  : "يرجى محاولة تحديث الصفحة أو الاتصال بالدعم إذا استمرت المشكلة.")
+            }
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 my-5 sm:my-10">
+          {randomBlogs.map((blog) => (
           <Link
             href={`/blogView/${blog.slug}`}
             rel="noopener noreferrer"
@@ -119,7 +161,8 @@ const Blogs = () => {
           </div>
           </Link>
         ))}
-      </div>
+        </div>
+      )}
 
       <Btns
         href="/community"
