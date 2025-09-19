@@ -9,6 +9,7 @@ import { useLanguage } from "@/app/lang/LanguageProvider";
 import { useTheme } from "@/app/themes/ThemeProvider";
 // Importing Components
 import Btns from "../ui/Btns";
+import Flag from "../svg/Flag";
 // Importing React-icons
 import { MdArrowOutward } from "react-icons/md";
 import { TbBrandLinkedin } from "react-icons/tb";
@@ -32,19 +33,24 @@ const Footer = () => {
           <div className="w-full h-px bg-[hsl(var(--third))]"></div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-start gap-5 my-10 sm:my-20">
-          <h2 className="w-full sm:w-[50%] lg:w-[70%] text-2xl sm:text-3xl lg:text-5xl xl:text-7xl font-black uppercase bg-gradient-to-t from-[#b2b2b2] to-[hsl(var(--foreground))] bg-clip-text text-transparent">
-            {language === "en"
-              ? "I'm open for freelance projects & full-time roles."
-              : "متاح لمشاريع العمل الحر والوظائف بدوام كامل."}
-          </h2>
-          <Btns
-            href="/contact"
-            style="w-full sm:w-[50%] md:sm:w-[50%] lg:w-[30%] py-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2"
-          >
-            <span>{language === "en" ? "Get in touch" : "تواصل معي الآن"}</span>{" "}
-            <MdArrowOutward size={30} />
-          </Btns>
+        <div className="my-10 sm:my-20">
+          <Flag />
+          <div className="flex flex-col md:flex-row items-start gap-5">
+            <h2 className="w-full sm:w-[50%] lg:w-[70%] text-2xl sm:text-3xl lg:text-5xl xl:text-7xl font-black uppercase bg-gradient-to-t from-[#b2b2b2] to-[hsl(var(--foreground))] bg-clip-text text-transparent">
+              {language === "en"
+                ? "I'm open for freelance projects & full-time roles."
+                : "متاح لمشاريع العمل الحر والوظائف بدوام كامل."}
+            </h2>
+            <Btns
+              href="/contact"
+              style="w-full sm:w-[50%] md:sm:w-[50%] lg:w-[30%] py-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2"
+            >
+              <span>
+                {language === "en" ? "Get in touch" : "تواصل معي الآن"}
+              </span>{" "}
+              <MdArrowOutward size={30} />
+            </Btns>
+          </div>
         </div>
 
         <div className="flex items-end justify-between">
