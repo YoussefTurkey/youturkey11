@@ -122,8 +122,8 @@ export default function Dashboard() {
 
       if (editId) {
         console.log("Updating doc id:", editId, "with:", formData);
-        const projectRef = doc(db, collectionName, editId);
-        await updateDoc(projectRef, formData);
+        const workRef = doc(db, collectionName, editId);
+        await updateDoc(workRef, formData);
         // clear edit state
         setEditId(null);
       } else {
@@ -157,6 +157,8 @@ export default function Dashboard() {
       shortDescAr: rest.shortDescAr ?? "",
       descEn: rest.descEn ?? "",
       descAr: rest.descAr ?? "",
+      answerAr: rest.answerAr ?? "",
+      answerEn: rest.answerEn ?? "",
     });
     setEditId(id || null);
     // reset imageFile because we didn't pick a new file yet
