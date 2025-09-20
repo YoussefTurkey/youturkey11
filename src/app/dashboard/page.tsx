@@ -15,13 +15,14 @@ import Titles from "../components/ui/Titles";
 import Input from "../components/ui/Input";
 import { useLanguage } from "@/app/lang/LanguageProvider";
 import Btns from "../components/ui/Btns";
+import Link from "next/link";
 
-type Project = {
+type Work = {
   id?: string;
   titleEn: string;
   titleAr: string;
   filter: "web" | "graphic" | "post" | "video";
-  state: "content" | "project";
+  state: "article" | "project";
   image: string;
   preview: string;
   slug: string;
@@ -54,14 +55,14 @@ async function uploadToCloudinary(file: File): Promise<string> {
   return data.secure_url;
 }
 
-export default function ProjectsDashboard() {
+export default function Dashboard() {
   const { language } = useLanguage();
 
-  const emptyForm: Omit<Project, "id"> = {
+  const emptyForm: Omit<Work, "id"> = {
     titleEn: "",
     titleAr: "",
     filter: "web",
-    state: "content",
+    state: "article",
     image: "",
     preview: "",
     slug: "",
@@ -71,20 +72,26 @@ export default function ProjectsDashboard() {
     descAr: "",
   };
 
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [form, setForm] = useState<Omit<Project, "id">>(emptyForm);
+  const [works, setWorks] = useState<Work[]>([]);
+  const [form, setForm] = useState<Omit<Work, "id">>(emptyForm);
   const [editId, setEditId] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [collectionName, setCollectionName] = useState<"articles" | "projects">(
+    "articles"
+  );
 
   // Real-time listener (onSnapshot)
   useEffect(() => {
-    const colRef = collection(db, "projects");
+    const colRef = collection(db, collectionName);
     const unsub = onSnapshot(
       colRef,
       (snapshot) => {
-        const items = snapshot.docs.map((d) => ({ id: d.id, ...(d.data() as any) })) as Project[];
-        setProjects(items);
+        const items = snapshot.docs.map((d) => ({
+          id: d.id,
+          ...(d.data() as any),
+        })) as Work[];
+        setWorks(items);
       },
       (err) => {
         console.error("onSnapshot error:", err);
@@ -92,7 +99,7 @@ export default function ProjectsDashboard() {
     );
 
     return () => unsub();
-  }, []);
+  }, [collectionName]);
 
   // --- Add or Update ---
   const handleSubmit = async (e: React.FormEvent) => {
@@ -111,13 +118,13 @@ export default function ProjectsDashboard() {
 
       if (editId) {
         console.log("Updating doc id:", editId, "with:", formData);
-        const projectRef = doc(db, "projects", editId);
+        const projectRef = doc(db, collectionName, editId);
         await updateDoc(projectRef, formData);
         // clear edit state
         setEditId(null);
       } else {
         console.log("Adding new doc:", formData);
-        await addDoc(collection(db, "projects"), formData);
+        await addDoc(collection(db, collectionName), formData);
       }
 
       // reset form
@@ -132,13 +139,13 @@ export default function ProjectsDashboard() {
   };
 
   // Edit: exclude id from form state (store id in editId only)
-  const handleEdit = (project: Project) => {
-    const { id, ...rest } = project as any;
+  const handleEdit = (work: Work) => {
+    const { id, ...rest } = work as any;
     setForm({
       titleEn: rest.titleEn ?? "",
       titleAr: rest.titleAr ?? "",
       filter: rest.filter ?? "web",
-      state: rest.state ?? "content",
+      state: rest.state ?? "article",
       image: rest.image ?? "",
       preview: rest.preview ?? "",
       slug: rest.slug ?? "",
@@ -155,7 +162,7 @@ export default function ProjectsDashboard() {
   const handleDelete = async (id: string) => {
     if (!confirm(language === "en" ? "Sure to delete?" : "متأكد تحذف؟")) return;
     try {
-      await deleteDoc(doc(db, "projects", id));
+      await deleteDoc(doc(db, collectionName, id));
     } catch (err) {
       console.error("delete error:", err);
       alert("Delete error: " + (err as any)?.message);
@@ -166,87 +173,237 @@ export default function ProjectsDashboard() {
     <div className="container mx-auto my-30 sm:my-10 px-5">
       <Titles>{language === "en" ? "Dashboard" : "لوحة التحكم"}</Titles>
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 my-5">
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 my-5"
+      >
         <Input
           type="text"
-          placeholder={language === "en" ? "Title (EN)" : "العنوان (بالإنجليزية)"}
+          placeholder={
+            language === "en" ? "Title (EN)" : "العنوان (بالإنجليزية)"
+          }
           value={form.titleEn}
-          onChange={(e) => setForm({ ...form, titleEn: (e.target as HTMLInputElement).value })}
+          onChange={(e) =>
+            setForm({ ...form, titleEn: (e.target as HTMLInputElement).value })
+          }
         />
         <Input
           type="text"
           placeholder={language === "en" ? "Title (AR)" : "العنوان (بالعربية)"}
           value={form.titleAr}
-          onChange={(e) => setForm({ ...form, titleAr: (e.target as HTMLInputElement).value })}
+          onChange={(e) =>
+            setForm({ ...form, titleAr: (e.target as HTMLInputElement).value })
+          }
         />
 
         <Input
           type="select"
           value={form.filter}
-          onChange={(e) => setForm({ ...form, filter: (e.target as HTMLSelectElement).value as Project["filter"] })}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              filter: (e.target as HTMLSelectElement).value as Work["filter"],
+            })
+          }
           options={[
-            { value: "web", label: language === "en" ? "Web" : "موقع إلكتروني" },
-            { value: "graphic", label: language === "en" ? "Graphic" : "تصميم جرافيكي" },
+            {
+              value: "web",
+              label: language === "en" ? "Web" : "موقع إلكتروني",
+            },
+            {
+              value: "graphic",
+              label: language === "en" ? "Graphic" : "تصميم جرافيكي",
+            },
             { value: "post", label: language === "en" ? "Post" : "مقال" },
-            { value: "video", label: language === "en" ? "Video" : "محتوى مرئي" },
+            {
+              value: "video",
+              label: language === "en" ? "Video" : "محتوى مرئي",
+            },
           ]}
         />
 
         <Input
           type="select"
           value={form.state}
-          onChange={(e) => setForm({ ...form, state: (e.target as HTMLSelectElement).value as Project["state"] })}
+          onChange={(e) => {
+            const newState = e.target.value as "article" | "project";
+            setForm({ ...form, state: newState });
+            setCollectionName(newState === "article" ? "articles" : "projects");
+          }}
           options={[
-            { value: "content", label: language === "en" ? "Content" : "محتوى" },
-            { value: "project", label: language === "en" ? "Project" : "مشروع" },
+            {
+              value: "article",
+              label: language === "en" ? "Article" : "محتوى",
+            },
+            {
+              value: "project",
+              label: language === "en" ? "Project" : "مشروع",
+            },
           ]}
         />
 
         <Input
           type="file"
           accept="image/*"
-          placeholder={language === "en" ? "Insert Photo (.webp)" : "ارفق صورة (.webp)"}
+          placeholder={
+            language === "en" ? "Insert Photo (.webp)" : "ارفق صورة (.webp)"
+          }
           onChange={(e) => {
             const t = e.target as HTMLInputElement;
             setImageFile(t.files?.[0] || null);
           }}
         />
 
-        <Input type="text" placeholder={language === "en" ? "Preview Link" : "لينك المعينة"} value={form.preview} onChange={(e) => setForm({ ...form, preview: (e.target as HTMLInputElement).value })} />
-        <Input type="text" placeholder={language === "en" ? "Slug" : "لينك الURL"} value={form.slug} onChange={(e) => setForm({ ...form, slug: (e.target as HTMLInputElement).value })} />
-        <Input type="text" placeholder={language === "en" ? "Short Desc (EN)" : "وصف قصير (بالإنجليزي)"} value={form.shortDescEn} onChange={(e) => setForm({ ...form, shortDescEn: (e.target as HTMLInputElement).value })} />
-        <Input type="text" placeholder={language === "en" ? "Short Desc (AR)" : "وصف قصير (بالعربية)"} value={form.shortDescAr} onChange={(e) => setForm({ ...form, shortDescAr: (e.target as HTMLInputElement).value })} />
-        <Input type="textarea" placeholder={language === "en" ? "full Desc (EN)" : "محتوى الموضوع (بالإنجليزية)"} value={form.descEn} onChange={(e) => setForm({ ...form, descEn: (e.target as HTMLTextAreaElement).value })} />
-        <Input type="textarea" placeholder={language === "en" ? "full Desc (Ar)" : "محتوى الموضوع (بالعربية)"} value={form.descAr} onChange={(e) => setForm({ ...form, descAr: (e.target as HTMLTextAreaElement).value })} />
+        <Input
+          type="text"
+          placeholder={language === "en" ? "Preview Link" : "لينك المعينة"}
+          value={form.preview}
+          onChange={(e) =>
+            setForm({ ...form, preview: (e.target as HTMLInputElement).value })
+          }
+        />
+        <Input
+          type="text"
+          placeholder={language === "en" ? "Slug" : "لينك الURL"}
+          value={form.slug}
+          onChange={(e) =>
+            setForm({ ...form, slug: (e.target as HTMLInputElement).value })
+          }
+        />
+        <Input
+          type="text"
+          placeholder={
+            language === "en" ? "Short Desc (EN)" : "وصف قصير (بالإنجليزي)"
+          }
+          value={form.shortDescEn}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              shortDescEn: (e.target as HTMLInputElement).value,
+            })
+          }
+        />
+        <Input
+          type="text"
+          placeholder={
+            language === "en" ? "Short Desc (AR)" : "وصف قصير (بالعربية)"
+          }
+          value={form.shortDescAr}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              shortDescAr: (e.target as HTMLInputElement).value,
+            })
+          }
+        />
+        <Input
+          type="textarea"
+          placeholder={
+            language === "en" ? "full Desc (EN)" : "محتوى الموضوع (بالإنجليزية)"
+          }
+          value={form.descEn}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              descEn: (e.target as HTMLTextAreaElement).value,
+            })
+          }
+        />
+        <Input
+          type="textarea"
+          placeholder={
+            language === "en" ? "full Desc (Ar)" : "محتوى الموضوع (بالعربية)"
+          }
+          value={form.descAr}
+          onChange={(e) =>
+            setForm({
+              ...form,
+              descAr: (e.target as HTMLTextAreaElement).value,
+            })
+          }
+        />
 
-        <Btns type="submit" style="col-span-2 py-3 xl:px-10 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center w-full mx-auto gap-2" disabled={isSubmitting}>
-          {isSubmitting ? (language === "en" ? "Saving..." : "جارٍ الحفظ...") : editId ? (language === "en" ? "Update Blog" : "تعديل المحتوى") : (language === "en" ? "Add Blog" : "إضافة المحتوى")}
+        <Btns
+          type="submit"
+          style="col-span-2 py-3 xl:px-10 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center w-full mx-auto gap-2"
+          disabled={isSubmitting}
+        >
+          {isSubmitting
+            ? language === "en"
+              ? "Saving..."
+              : "جارٍ الحفظ..."
+            : editId
+            ? language === "en"
+              ? "Update Work"
+              : "تعديل العمل"
+            : language === "en"
+            ? "Add Work"
+            : "إضافة العمل"}
         </Btns>
       </form>
 
       {/* List */}
       <div className="grid gap-4 my-10">
-        {projects.map((project) => (
-          <div key={project.id} className="border border-[hsl(var(--third)/20%)] p-4 rounded flex justify-between items-center">
-            <div className="flex items-center gap-5">
-              {project.image && project.image.trim() !== "" && (
-                <Image src={project.image} alt={project.titleEn} width={400} height={300} loading="lazy" className="rounded-full w-10 h-10" />
-              )}
-              <div className="flex flex-col gap-3">
-                <h2 className="font-bold">{language === 'en' ? project.titleEn : project.titleAr}</h2>
-                <p className="text-sm text-gray-600">{project.filter}</p>
+        {works.length === 0 ? (
+          language === "en" ? (
+            <div className="flex flex-col items-center justify-center py-20 text-center">
+              <div className="text-6xl mb-4">📝</div>
+              <h3 className="text-xl font-semibold text-[hsl(var(--third))] mb-2">
+                No data available
+              </h3>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-20 text-center">
+              <div className="text-6xl mb-4">📝</div>
+              <h3 className="text-xl font-semibold text-[hsl(var(--third))] mb-2">
+                لا يوجد بيانات متاحة
+              </h3>
+            </div>
+          )
+        ) : (
+          works.map((work) => (
+            <div
+              key={work.id}
+              className="border border-[hsl(var(--third)/20%)] p-4 rounded flex justify-between items-center"
+            >
+              <Link
+                href={`blogView/${work.slug}`}
+                className="flex items-center gap-5"
+              >
+                {work.image && work.image.trim() !== "" && (
+                  <Image
+                    src={work.image}
+                    alt={work.titleEn}
+                    width={400}
+                    height={300}
+                    loading="lazy"
+                    className="rounded-full w-10 h-10"
+                  />
+                )}
+                <div className="flex flex-col gap-3">
+                  <h2 className="font-bold">
+                    {language === "en" ? work.titleEn : work.titleAr}
+                  </h2>
+                  <p className="text-sm text-gray-600">{work.filter}</p>
+                </div>
+              </Link>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleEdit(work)}
+                  className="px-3 py-1 border border-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary))] hover:text-white cursor-pointer rounded-lg"
+                >
+                  {language === "en" ? "Edit" : "تعديل"}
+                </button>
+                <button
+                  onClick={() => handleDelete(work.id!)}
+                  className="px-3 py-1 bg-[hsl(var(--secondary))] text-white cursor-pointer rounded-lg"
+                >
+                  {language === "en" ? "Delete" : "حذف"}
+                </button>
               </div>
             </div>
-            <div className="flex gap-2">
-              <button onClick={() => handleEdit(project)} className="px-3 py-1 border border-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary))] hover:text-white cursor-pointer rounded-lg">
-                {language === "en" ? "Edit" : "تعديل"}
-              </button>
-              <button onClick={() => handleDelete(project.id!)} className="px-3 py-1 bg-[hsl(var(--secondary))] text-white cursor-pointer rounded-lg">
-                {language === "en" ? "Delete" : "حذف"}
-              </button>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

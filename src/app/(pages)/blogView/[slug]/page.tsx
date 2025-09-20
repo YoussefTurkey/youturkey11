@@ -11,7 +11,7 @@ import Titles from "@/app/components/ui/Titles";
 import Loading from "@/app/components/ui/Loading";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-type Project = {
+type Blog = {
   id?: string;
   titleEn: string;
   titleAr: string;
@@ -24,6 +24,7 @@ type Project = {
   descEn?: string;
   descAr?: string;
   likes?: number;
+  state?: "article" | "project"; // 🟢 إضافة state
 };
 
 interface BlogViewProps {
@@ -35,22 +36,41 @@ export default function BlogViewPage({ params }: BlogViewProps) {
   const { slug } = use(params);
 
   const { language } = useLanguage();
-  const [view, setView] = useState<Project | null>(null);
+  const [view, setView] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(false);
 
+  // 🟢 جلب البيانات من الكولكشنين
   useEffect(() => {
-    const fetchProjects = async () => {
-      const querySnapshot = await getDocs(collection(db, "projects"));
-      const allProjects = querySnapshot.docs.map(
-        (doc) => ({ id: doc.id, ...doc.data() } as Project)
-      );
-      const matched = allProjects.find((item) => item.slug === slug);
-      setView(matched || null);
-      setLoading(false);
+    const fetchData = async () => {
+      try {
+        // Get projects
+        const projectsSnap = await getDocs(collection(db, "projects"));
+        const projectsData = projectsSnap.docs.map(
+          (doc) => ({ id: doc.id, state: "project", ...doc.data() } as Blog)
+        );
+
+        // Get articles
+        const articlesSnap = await getDocs(collection(db, "articles"));
+        const articlesData = articlesSnap.docs.map(
+          (doc) => ({ id: doc.id, state: "article", ...doc.data() } as Blog)
+        );
+
+        // Combine both
+        const allData = [...projectsData, ...articlesData];
+
+        // Match by slug
+        const matched = allData.find((item) => item.slug === slug);
+
+        setView(matched || null);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    fetchProjects();
+    fetchData();
   }, [slug]);
 
   // 🟦 عند تحميل الصفحة: نجيب اللايكات
@@ -71,13 +91,8 @@ export default function BlogViewPage({ params }: BlogViewProps) {
     fetchLikes();
   }, [slug]);
 
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (!view) {
-    return notFound();
-  }
+  if (loading) return <Loading />;
+  if (!view) return notFound();
 
   return (
     <main className="container mx-auto my-30 sm:my-20 p-5 xl:border xl:border-[hsl(var(--third)/20%)] rounded-lg">
@@ -116,7 +131,7 @@ export default function BlogViewPage({ params }: BlogViewProps) {
               }
             }}
             className="flex items-center gap-2 group cursor-pointer"
-            >
+          >
             {liked ? (
               <FaHeart className="w-7 h-7 text-[hsl(var(--secondary))] transition-transform duration-300 group-active:scale-125" />
             ) : (

@@ -16,6 +16,7 @@ export type TAbout = {
   heroEn: string;
   img: string;
   cover: string;
+  cover2: string;
   descAr: string;
   descEn: string;
 };
