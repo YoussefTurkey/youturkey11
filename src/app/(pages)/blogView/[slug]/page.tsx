@@ -15,7 +15,7 @@ type Blog = {
   id?: string;
   titleEn: string;
   titleAr: string;
-  filter: "web" | "graphic" | "post" | "video";
+  filter: "web" | "graphic" | "post" | "video" | "quiz";
   image: string;
   preview: string;
   slug: string;
@@ -24,7 +24,9 @@ type Blog = {
   descEn?: string;
   descAr?: string;
   likes?: number;
-  state?: "article" | "project"; // 🟢 إضافة state
+  state?: "article" | "project" | "Q&A-Hub"; // 🟢 إضافة state
+  answerAr?: string;
+  answerEn?: string;
 };
 
 interface BlogViewProps {
@@ -39,6 +41,7 @@ export default function BlogViewPage({ params }: BlogViewProps) {
   const [view, setView] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(false);
+  const [answer, setAnswer] = useState(false);
 
   // 🟢 جلب البيانات من الكولكشنين
   useEffect(() => {
@@ -56,8 +59,14 @@ export default function BlogViewPage({ params }: BlogViewProps) {
           (doc) => ({ id: doc.id, state: "article", ...doc.data() } as Blog)
         );
 
-        // Combine both
-        const allData = [...projectsData, ...articlesData];
+        // Get Q&A-Hub
+        const qaSnap = await getDocs(collection(db, "Q&A-Hub"));
+        const qaData = qaSnap.docs.map(
+          (doc) => ({ id: doc.id, state: "Q&A-Hub", ...doc.data() } as Blog)
+        );
+
+        // Combine all
+        const allData = [...projectsData, ...articlesData, ...qaData];
 
         // Match by slug
         const matched = allData.find((item) => item.slug === slug);
@@ -157,16 +166,52 @@ export default function BlogViewPage({ params }: BlogViewProps) {
         </div>
       )}
 
-      {view.preview && (
-        <Link
-          href={view.preview}
-          target="_blank"
-          className={`text-[hsl(var(--secondary))] hover:underline mt-5 block text-center ${
-            language === "en" ? "sm:text-left" : "sm:text-right"
-          }`}
-        >
-          {language === "en" ? "Preview here" : "اطلع من هنا"}
-        </Link>
+      {view.state === "article" || view.state === "project" ? (
+        view.preview && (
+          <Link
+            href={view.preview}
+            target="_blank"
+            className={`text-[hsl(var(--secondary))] hover:underline mt-5 block text-center ${
+              language === "en" ? "sm:text-left" : "sm:text-right"
+            }`}
+          >
+            {language === "en" ? "Preview here" : "اطلع من هنا"}
+          </Link>
+        )
+      ) : (
+        <>
+          <button
+            className="text-[hsl(var(--secondary))] cursor-pointer my-5"
+            onClick={() => setAnswer(!answer)}
+          >
+            {answer
+              ? language === "en"
+                ? "hide solution ❌"
+                : "اخف الحل ❌"
+              : language === "en"
+              ? "show solution 👇"
+              : "اكتشف الحل 👇"}
+          </button>
+          {answer && (
+            <div>
+              <p className="text-xl p-5 bg-[hsl(var(--third)/5%)] rounded-lg">
+                {language === "en"
+                  ? view.answerEn?.split("\n").map((line, i) => (
+                      <span key={i}>
+                        {line}
+                        <br />
+                      </span>
+                    ))
+                  : view.answerAr?.split("\n").map((line, i) => (
+                      <span key={i}>
+                        {line}
+                        <br />
+                      </span>
+                    ))}
+              </p>
+            </div>
+          )}
+        </>
       )}
     </main>
   );

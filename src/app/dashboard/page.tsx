@@ -21,8 +21,8 @@ type Work = {
   id?: string;
   titleEn: string;
   titleAr: string;
-  filter: "web" | "graphic" | "post" | "video";
-  state: "article" | "project";
+  filter: "web" | "graphic" | "post" | "video" | "quiz";
+  state: "article" | "project" | "Q&A-Hub";
   image: string;
   preview: string;
   slug: string;
@@ -30,6 +30,8 @@ type Work = {
   shortDescAr: string;
   descEn: string;
   descAr: string;
+  answerAr?: string;
+  answerEn?: string;
 };
 
 // Utility Cloudinary
@@ -70,6 +72,8 @@ export default function Dashboard() {
     shortDescAr: "",
     descEn: "",
     descAr: "",
+    answerAr: "",
+    answerEn: "",
   };
 
   const [works, setWorks] = useState<Work[]>([]);
@@ -77,9 +81,9 @@ export default function Dashboard() {
   const [editId, setEditId] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [collectionName, setCollectionName] = useState<"articles" | "projects">(
-    "articles"
-  );
+  const [collectionName, setCollectionName] = useState<
+    "articles" | "projects" | "Q&A-Hub"
+  >("articles");
 
   // Real-time listener (onSnapshot)
   useEffect(() => {
@@ -219,6 +223,10 @@ export default function Dashboard() {
               value: "video",
               label: language === "en" ? "Video" : "محتوى مرئي",
             },
+            {
+              value: "quiz",
+              label: language === "en" ? "quiz" : "اختبار",
+            },
           ]}
         />
 
@@ -226,9 +234,19 @@ export default function Dashboard() {
           type="select"
           value={form.state}
           onChange={(e) => {
-            const newState = e.target.value as "article" | "project";
+            const newState = e.target.value as
+              | "article"
+              | "project"
+              | "Q&A-Hub";
             setForm({ ...form, state: newState });
-            setCollectionName(newState === "article" ? "articles" : "projects");
+
+            if (newState === "article") {
+              setCollectionName("articles");
+            } else if (newState === "project") {
+              setCollectionName("projects");
+            } else if (newState === "Q&A-Hub") {
+              setCollectionName("Q&A-Hub");
+            }
           }}
           options={[
             {
@@ -238,6 +256,10 @@ export default function Dashboard() {
             {
               value: "project",
               label: language === "en" ? "Project" : "مشروع",
+            },
+            {
+              value: "Q&A-Hub",
+              label: language === "en" ? "Q&A-Hub" : "مراكز الأسئلة",
             },
           ]}
         />
@@ -253,6 +275,38 @@ export default function Dashboard() {
             setImageFile(t.files?.[0] || null);
           }}
         />
+
+        {form.state === "Q&A-Hub" && (
+          <>
+            <Input
+              type="textarea"
+              placeholder={
+                language === "en" ? "Answer (EN)" : "الإجابة (بالإنجليزي)"
+              }
+              value={form.answerEn}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  answerEn: (e.target as HTMLInputElement).value,
+                })
+              }
+            />
+
+            <Input
+              type="textarea"
+              placeholder={
+                language === "en" ? "Answer (AR)" : "الإجابة (بالعربية)"
+              }
+              value={form.answerAr}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  answerAr: (e.target as HTMLInputElement).value,
+                })
+              }
+            />
+          </>
+        )}
 
         <Input
           type="text"

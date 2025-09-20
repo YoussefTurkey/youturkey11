@@ -16,8 +16,8 @@ type Blog = {
   id: string;
   titleEn: string;
   titleAr: string;
-  filter: "web" | "graphic" | "post" | "video";
-  state: "article" | "project";
+  filter: "web" | "graphic" | "post" | "video" | 'quiz';
+  state: "article" | "project" | 'Q&A-Hub';
   image: string;
   preview: string;
   slug: string;
@@ -31,7 +31,7 @@ const CommunityPage = () => {
   const [allBlogs, setAllBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const [filter, setFilter] = useState<"all" | "article" | "project">("all");
+  const [filter, setFilter] = useState<"all" | "article" | "project" | 'Q&A-Hub'>("all");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,8 +47,14 @@ const CommunityPage = () => {
         (doc) => ({ id: doc.id, state: "article", ...doc.data() } as Blog)
       );
 
+      // Get Q&A-Hub Data
+      const qaSnap = await getDocs(collection(db, "Q&A-Hub"));
+      const qaData = qaSnap.docs.map(
+        (doc) => ({ id: doc.id, state: "Q&A-Hub", ...doc.data() } as Blog)
+      );
+
       // Combine
-      const allData = [...projectData, ...articleData];
+      const allData = [...projectData, ...articleData, ...qaData];
 
       setAllBlogs(allData);
       setLoading(false);
@@ -195,7 +201,18 @@ const CommunityPage = () => {
               </Btns>
             </SwiperSlide>
 
-            
+            <SwiperSlide className="w-auto">
+              <Btns
+                action={() => setFilter("Q&A-Hub")}
+                style={`py-1 px-4 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+                  filter === "Q&A-Hub"
+                    ? "bg-[hsl(var(--secondary))]! text-white"
+                    : ""
+                } hover:text-white`}
+              >
+                {language === "en" ? "Q&A-Hub" : "مركز الاسئلة"}
+              </Btns>
+            </SwiperSlide>
           </Swiper>
         </div>
 
@@ -230,6 +247,17 @@ const CommunityPage = () => {
             } hover:text-white`}
           >
             {language === "en" ? "Projects" : "مشاريعي"}
+          </Btns>
+
+          <Btns
+            action={() => setFilter("Q&A-Hub")}
+            style={`py-1 sm:py-3 xl:px-10 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+              filter === "Q&A-Hub"
+                ? "bg-[hsl(var(--secondary))]! text-white"
+                : ""
+            } hover:text-white`}
+          >
+            {language === "en" ? "Q&A-Hub" : "مركز الاسئلة"}
           </Btns>
         </div>
       </div>

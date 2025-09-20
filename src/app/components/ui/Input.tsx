@@ -7,7 +7,7 @@ interface Option {
 }
 
 interface InputProps {
-  type: "text" | "textarea" | "select" | "file" | "email" | 'password';
+  type: "text" | "textarea" | "select" | "file" | "email" | "password";
   placeholder?: string;
   register?: UseFormRegisterReturn;
   value?: string;
@@ -39,7 +39,7 @@ const Input: React.FC<InputProps> = ({
         cols={10}
         rows={10}
         onChange={onChange}
-        className="col-span-2 sm:col-span-1 border border-[hsl(var(--third)_/_20%)] focus:border-[hsl(var(--secondary))] text-[hsl(var(--third))] rounded-lg p-3 w-full h-40 resize-none"
+        className={`col-span-2 sm:col-span-1 border border-[hsl(var(--third)_/_20%)] focus:border-[hsl(var(--secondary))] text-[hsl(var(--third))] rounded-lg p-3 w-full h-40 resize-none`}
       />
     );
   }
@@ -83,7 +83,7 @@ const Input: React.FC<InputProps> = ({
       {...register}
       value={value}
       onChange={onChange}
-      className="col-span-2 sm:col-span-1 border border-[hsl(var(--third)_/_20%)] focus:border-[hsl(var(--secondary))] text-[hsl(var(--third))] rounded-lg p-3 w-full"
+      className={`col-span-2 sm:col-span-1 border border-[hsl(var(--third)_/_20%)] focus:border-[hsl(var(--secondary))] text-[hsl(var(--third))] rounded-lg p-3 w-full`}
     />
   );
 };
