@@ -9,6 +9,9 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp,
 } from "firebase/firestore";
 import Image from "next/image";
 import Titles from "../components/ui/Titles";
@@ -32,6 +35,7 @@ type Work = {
   descAr: string;
   answerAr?: string;
   answerEn?: string;
+  createdAt?: any;
 };
 
 // Utility Cloudinary
@@ -85,11 +89,13 @@ export default function Dashboard() {
     "articles" | "projects" | "Q&A-Hub"
   >("articles");
 
-  // Real-time listener (onSnapshot)
+  // Real-time listener with orderBy createdAt
   useEffect(() => {
     const colRef = collection(db, collectionName);
+    const q = query(colRef, orderBy("createdAt", "desc"));
+
     const unsub = onSnapshot(
-      colRef,
+      q,
       (snapshot) => {
         const items = snapshot.docs.map((d) => ({
           id: d.id,
@@ -117,18 +123,20 @@ export default function Dashboard() {
         imageUrl = await uploadToCloudinary(imageFile);
       }
 
-      // prepare data to send (exclude any id)
+      // prepare data to send
       const { /*id,*/ ...formData } = { ...form, image: imageUrl } as any;
 
       if (editId) {
         console.log("Updating doc id:", editId, "with:", formData);
         const workRef = doc(db, collectionName, editId);
-        await updateDoc(workRef, formData);
-        // clear edit state
+        await updateDoc(workRef, { ...formData });
         setEditId(null);
       } else {
         console.log("Adding new doc:", formData);
-        await addDoc(collection(db, collectionName), formData);
+        await addDoc(collection(db, collectionName), {
+          ...formData,
+          createdAt: serverTimestamp(),
+        });
       }
 
       // reset form
@@ -142,7 +150,6 @@ export default function Dashboard() {
     }
   };
 
-  // Edit: exclude id from form state (store id in editId only)
   const handleEdit = (work: Work) => {
     const { id, ...rest } = work as any;
     setForm({
@@ -161,7 +168,6 @@ export default function Dashboard() {
       answerEn: rest.answerEn ?? "",
     });
     setEditId(id || null);
-    // reset imageFile because we didn't pick a new file yet
     setImageFile(null);
   };
 

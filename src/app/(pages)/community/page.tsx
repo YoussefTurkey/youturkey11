@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/app/lang/LanguageProvider";
 import { db } from "@/lib/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
 import Btns from "@/app/components/ui/Btns";
@@ -11,18 +11,18 @@ import { about } from "@/app/database/data";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-
 type Blog = {
   id: string;
   titleEn: string;
   titleAr: string;
-  filter: "web" | "graphic" | "post" | "video" | 'quiz';
-  state: "article" | "project" | 'Q&A-Hub';
+  filter: "web" | "graphic" | "post" | "video" | "quiz";
+  state: "article" | "project" | "Q&A-Hub";
   image: string;
   preview: string;
   slug: string;
   shortDescEn: string;
   shortDescAr: string;
+  createdAt?: { seconds: number; nanoseconds: number };
 };
 
 const CommunityPage = () => {
@@ -31,30 +31,43 @@ const CommunityPage = () => {
   const [allBlogs, setAllBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const [filter, setFilter] = useState<"all" | "article" | "project" | 'Q&A-Hub'>("all");
+  const [filter, setFilter] = useState<
+    "all" | "article" | "project" | "Q&A-Hub"
+  >("all");
 
   useEffect(() => {
     const fetchData = async () => {
       // Get Projects Data
-      const projectSnap = await getDocs(collection(db, "projects"));
+      const projectSnap = await getDocs(
+        query(collection(db, "projects"), orderBy("createdAt", "desc"))
+      );
       const projectData = projectSnap.docs.map(
         (doc) => ({ id: doc.id, state: "project", ...doc.data() } as Blog)
       );
 
       // Get Articles Data
-      const articleSnap = await getDocs(collection(db, "articles"));
+      const articleSnap = await getDocs(
+        query(collection(db, "articles"), orderBy("createdAt", "desc"))
+      );
       const articleData = articleSnap.docs.map(
         (doc) => ({ id: doc.id, state: "article", ...doc.data() } as Blog)
       );
 
       // Get Q&A-Hub Data
-      const qaSnap = await getDocs(collection(db, "Q&A-Hub"));
+      const qaSnap = await getDocs(
+        query(collection(db, "Q&A-Hub"), orderBy("createdAt", "desc"))
+      );
       const qaData = qaSnap.docs.map(
         (doc) => ({ id: doc.id, state: "Q&A-Hub", ...doc.data() } as Blog)
       );
 
       // Combine
       const allData = [...projectData, ...articleData, ...qaData];
+      allData.sort((a, b) => {
+        const aTime = a.createdAt?.seconds || 0;
+        const bTime = b.createdAt?.seconds || 0;
+        return bTime - aTime;
+      });
 
       setAllBlogs(allData);
       setLoading(false);
