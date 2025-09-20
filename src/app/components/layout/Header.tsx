@@ -171,9 +171,11 @@ const Header = () => {
             </>
           )}
 
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center">
-          <div className="border border-[hsl(var(--secondary))] p-2 rounded-full">👀</div>
-          <TrackVisit />
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center w-full">
+            <div className="border border-[hsl(var(--secondary))] p-2 rounded-full">
+              👀
+            </div>
+            <TrackVisit />
           </div>
 
           <div

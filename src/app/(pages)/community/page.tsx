@@ -230,7 +230,7 @@ const CommunityPage = () => {
         </div>
 
         {/* للشاشات الكبيرة: ثابت */}
-        <div className="hidden sm:flex items-center justify-center gap-5">
+        <div className="hidden sm:flex items-center justify-start gap-5">
           <Btns
             action={() => setFilter("all")}
             style={`py-1 sm:py-3 xl:px-10 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
