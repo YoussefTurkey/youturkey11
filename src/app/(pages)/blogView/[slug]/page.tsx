@@ -186,8 +186,8 @@ export default function BlogViewPage({ params }: BlogViewProps) {
           >
             {answer
               ? language === "en"
-                ? "hide solution ❌"
-                : "اخف الحل ❌"
+                ? "hide solution ✅"
+                : "اخف الحل ✅"
               : language === "en"
               ? "show solution 👇"
               : "اكتشف الحل 👇"}
