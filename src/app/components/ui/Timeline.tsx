@@ -24,11 +24,11 @@ interface TimelineItemData {
   responsibilities: string[];
   skills: string[];
 }
-type ExpandMode = "multi" | "single";
+type ExpandMode = "single" | "multi" ;
 interface ProfessionalTimelineProps {
   data: TimelineItemData[];
   defaultExpandedIds?: string[]; // defaults to all items expanded
-  expandMode?: ExpandMode; // "multi" | "single" (default: "multi")
+  expandMode?: ExpandMode; // "single" | "multi" (default: "single")
 }
 // --- COMPONENTS ---
 interface TimelineItemContentProps {
@@ -154,16 +154,16 @@ TimelineItem.displayName = "TimelineItem";
 export function ProfessionalTimeline({
   data,
   defaultExpandedIds,
-  expandMode = "multi",
+  expandMode = "single",
 }: ProfessionalTimelineProps) {
-  const initial = defaultExpandedIds ?? data.map((d) => d.id);
+  const initial = defaultExpandedIds ?? [];
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set(initial));
 
   const onToggle = useCallback(
     (id: string) => {
       setExpanded((prev) => {
         const next = new Set(prev);
-        if (expandMode === "single") {
+        if (expandMode === "multi") {
           return prev.has(id) ? new Set() : new Set([id]);
         }
         if (next.has(id)) {
@@ -222,7 +222,7 @@ export default function TimelinePage() {
           </Titles>
         </header>
 
-        <ProfessionalTimeline data={localizedExperience} expandMode="multi" />
+        <ProfessionalTimeline data={localizedExperience} expandMode="single" />
       </div>
     </div>
   );
