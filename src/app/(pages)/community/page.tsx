@@ -173,12 +173,12 @@ const CommunityPage = () => {
       {/* 🔘 Filter Buttons */}
       <div className="my-10">
         {/* للشاشات الصغيرة: Swiper */}
-        <div className="block sm:hidden">
-          <Swiper spaceBetween={10} slidesPerView={3} freeMode={true}>
-            <SwiperSlide className="w-auto">
+        <div className="flex sm:hidden">
+          <Swiper className="w-full!" spaceBetween={10} slidesPerView={3} freeMode={true} dir={language === 'en' ? 'ltr': 'ltr'}>
+            <SwiperSlide className="w-fit!">
               <Btns
                 action={() => setFilter("all")}
-                style={`py-1 px-4 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+                style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
                   filter === "all"
                     ? "bg-[hsl(var(--secondary))]! text-white"
                     : ""
@@ -188,10 +188,10 @@ const CommunityPage = () => {
               </Btns>
             </SwiperSlide>
 
-            <SwiperSlide className="w-auto">
+            <SwiperSlide className="w-fit!">
               <Btns
                 action={() => setFilter("article")}
-                style={`py-1 px-4 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+                style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
                   filter === "article"
                     ? "bg-[hsl(var(--secondary))]! text-white"
                     : ""
@@ -201,10 +201,10 @@ const CommunityPage = () => {
               </Btns>
             </SwiperSlide>
 
-            <SwiperSlide className="w-auto">
+            <SwiperSlide className="w-fit!">
               <Btns
                 action={() => setFilter("project")}
-                style={`py-1 px-4 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+                style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
                   filter === "project"
                     ? "bg-[hsl(var(--secondary))]! text-white"
                     : ""
@@ -214,10 +214,10 @@ const CommunityPage = () => {
               </Btns>
             </SwiperSlide>
 
-            <SwiperSlide className="w-auto">
+          <SwiperSlide className="w-fit!">
               <Btns
                 action={() => setFilter("Q&A-Hub")}
-                style={`py-1 px-4 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+                style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
                   filter === "Q&A-Hub"
                     ? "bg-[hsl(var(--secondary))]! text-white"
                     : ""
