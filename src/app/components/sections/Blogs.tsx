@@ -47,7 +47,7 @@ const Blogs = () => {
         setError(null);
         
         // 🟢 هجيب من الـ blogs collection
-        const snap = await getDocs(collection(db, "projects"));
+        const snap = await getDocs(collection(db, "articles"));
         const blogs = snap.docs.map(
           (doc) => ({ id: doc.id, ...doc.data() } as Blog)
         );
