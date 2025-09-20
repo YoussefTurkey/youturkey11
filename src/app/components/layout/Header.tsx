@@ -138,14 +138,14 @@ const Header = () => {
           <Btns
             action={() => setMenu(!menu)}
             href="/community"
-            style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white"
+            style="border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex justify-center"
           >
             {language === "en" ? "Community" : "المجتمع"}
           </Btns>
           <Btns
             action={() => setMenu(!menu)}
             href="/contact"
-            style="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)_/_90%)] text-white"
+            style="bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)_/_90%)] text-white flex justify-center"
           >
             {language === "en" ? "Get in touch" : "تواصل معي"}
           </Btns>
@@ -156,14 +156,14 @@ const Header = () => {
               <Btns
                 action={() => setMenu(!menu)}
                 href="/dashboard"
-                style="bg-[hsl(var(--secondary))] text-white flex items-center gap-1"
+                style="bg-[hsl(var(--secondary))] text-white flex items-center justify-center gap-1"
               >
                 <AiFillDashboard />
                 {language === "en" ? "Dashboard" : "لوحة التحكم"}
               </Btns>
               <Btns
                 action={logout}
-                style="flex items-center gap-1 border border-[hsl(var(--secondary))]"
+                style="flex items-center justify-center gap-1 border border-[hsl(var(--secondary))]"
               >
                 <TbLogout />
                 {language === "en" ? "Logout" : "تسجيل الخروج"}
