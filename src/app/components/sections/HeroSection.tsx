@@ -11,7 +11,7 @@ const HeroSection = () => {
   const { language } = useLanguage();
 
   return (
-    <section className="container mx-auto my-20 flex flex-col xl:flex-row items-center justify-between gap-5">
+    <section className="container mx-auto my-30 sm:my-20 flex flex-col xl:flex-row items-center justify-between gap-5">
       <div className="flex flex-col items-center xl:items-start">
         <div
           className={`flex items-center gap-2 group ${

@@ -58,7 +58,7 @@ export default function TrackVisit() {
   }
 
   return (
-    <div className="border border-[hsl(var(--secondary))] rounded-lg py-2 px-6">
+    <div className="sm:border sm:border-[hsl(var(--secondary))] sm:rounded-lg py-2 px-6">
       {count !== null ? 
         language === 'en' ? `Visitors Count: ${count}` : `عدد الزوار: ${count}`
       : 

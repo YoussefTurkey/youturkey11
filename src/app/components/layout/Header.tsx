@@ -27,7 +27,7 @@ import { useAuth, logout } from "@/lib/auth";
 const Header = () => {
   const { language } = useLanguage();
   const { theme } = useTheme();
-  const [menu, setMenu] = useState(false);  
+  const [menu, setMenu] = useState(false);
   const { user } = useAuth(); // ✅ هل الأدمن عامل لوجين
   const pathname = usePathname();
 
@@ -114,7 +114,7 @@ const Header = () => {
           className={`
               fixed top-0 h-[100vh] w-full md:w-100 z-2000
               flex flex-col px-10 py-30 gap-5 lg:hidden
-              bg-[hsl(var(--background)_/_85%)] rounded-lg
+              bg-[hsl(var(--background)_/_98%)] rounded-lg
               transition-transform duration-500 ease-in-out
               ${
                 language === "en"
@@ -171,9 +171,16 @@ const Header = () => {
             </>
           )}
 
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center">
+          <div className="border border-[hsl(var(--secondary))] p-2 rounded-full">👀</div>
           <TrackVisit />
+          </div>
 
-          <div className="flex items-center justify-start gap-5">
+          <div
+            className={`flex items-center justify-start gap-5 absolute top-5 ${
+              language === "en" ? "right-5" : "left-5"
+            }`}
+          >
             <LanguageToggle />
             <ThemeToggle />
           </div>
