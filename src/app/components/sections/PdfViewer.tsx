@@ -6,11 +6,13 @@ import { useLanguage } from "@/app/lang/LanguageProvider";
 
 export default function PdfViewer({ url }: { url: string }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const renderTaskRef = useRef<any>(null);
   const [pdfDoc, setPdfDoc] = useState<any>(null);
   const [pageNum, setPageNum] = useState(1);
   const [scale, setScale] = useState(1);
   const [numPages, setNumPages] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRendering, setIsRendering] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { language } = useLanguage();
 
@@ -46,7 +48,14 @@ export default function PdfViewer({ url }: { url: string }) {
     if (!pdfDoc) return;
 
     const renderPage = async (num: number) => {
+      // Cancel any ongoing render task
+      if (renderTaskRef.current) {
+        renderTaskRef.current.cancel();
+        renderTaskRef.current = null;
+      }
+
       try {
+        setIsRendering(true);
         const page = await pdfDoc.getPage(num);
 
         // نخلي الـscale حسب عرض الشاشة
@@ -58,33 +67,63 @@ export default function PdfViewer({ url }: { url: string }) {
         const finalViewport = page.getViewport({ scale: responsiveScale });
 
         const canvas = canvasRef.current;
-        if (!canvas) return;
+        if (!canvas) {
+          setIsRendering(false);
+          return;
+        }
 
         const context = canvas.getContext("2d");
-        if (!context) return;
+        if (!context) {
+          setIsRendering(false);
+          return;
+        }
 
         canvas.height = finalViewport.height;
         canvas.width = finalViewport.width;
 
-        await page.render({
+        // Clear canvas before rendering
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        const renderTask = page.render({
           canvasContext: context,
           viewport: finalViewport,
-        }).promise;
-      } catch (error) {
-        console.error("Error rendering page:", error);
+        });
+
+        renderTaskRef.current = renderTask;
+
+        await renderTask.promise;
+        renderTaskRef.current = null;
+        setIsRendering(false);
+      } catch (error: any) {
+        if (error.name !== 'RenderingCancelledException') {
+          console.error("Error rendering page:", error);
+        }
+        setIsRendering(false);
       }
     };
 
     renderPage(pageNum);
+
+    // Cleanup function
+    return () => {
+      if (renderTaskRef.current) {
+        renderTaskRef.current.cancel();
+        renderTaskRef.current = null;
+      }
+    };
   }, [pdfDoc, pageNum, scale]);
 
   // تحكم في الصفحات
   const nextPage = () => {
-    if (pdfDoc && pageNum < numPages) setPageNum(pageNum + 1);
+    if (pdfDoc && pageNum < numPages && !isRendering) {
+      setPageNum(pageNum + 1);
+    }
   };
 
   const prevPage = () => {
-    if (pageNum > 1) setPageNum(pageNum - 1);
+    if (pageNum > 1 && !isRendering) {
+      setPageNum(pageNum - 1);
+    }
   };
 
   if (isLoading) {
@@ -128,21 +167,26 @@ export default function PdfViewer({ url }: { url: string }) {
       {/* رقم الصفحة */}
       <div>
         {language === 'en' ? `Page ${pageNum} / ${numPages}` : `صفحة ${pageNum} / ${numPages}` }
+        {isRendering && (
+          <span className="ml-2 text-sm text-gray-500">
+            {language === 'en' ? '(Rendering...)' : '(جاري العرض...)'}
+          </span>
+        )}
       </div>
 
       {/* أزرار التحكم */}
       <div className="flex flex-wrap justify-center gap-3">
         <button
           onClick={prevPage}
-          disabled={pageNum <= 1}
-          className="cursor-pointer px-5 sm:px-7 py-1 text-lg rounded-lg border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center mx-auto gap-2"
+          disabled={pageNum <= 1 || isRendering}
+          className="cursor-pointer px-5 sm:px-7 py-1 text-lg rounded-lg border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center mx-auto gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {language === 'en' ? 'Prev' : 'رجوع'}
         </button>
         <button
           onClick={nextPage}
-          disabled={pageNum >= numPages}
-          className="cursor-pointer px-5 sm:px-7 py-1 text-lg rounded-lg border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center mx-auto gap-2"
+          disabled={pageNum >= numPages || isRendering}
+          className="cursor-pointer px-5 sm:px-7 py-1 text-lg rounded-lg border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center mx-auto gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {language === 'en' ? 'Next' : 'التالي'}
         </button>
