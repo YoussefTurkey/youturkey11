@@ -4,7 +4,9 @@ const nextConfig = {
     domains: ["res.cloudinary.com"],
   },
   experimental: {
-    turbo: false,
+    turbo: {
+      rules: {} // سيبها فاضية لو مش هتستخدم إعدادات خاصة
+    },
   },
 };
 
