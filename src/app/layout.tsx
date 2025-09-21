@@ -13,7 +13,8 @@ import Footer from "@/app/components/layout/Footer";
 import ScrollUp from "./components/ui/ScrollUp";
 import LoaderWrapper from "./components/ui/LoaderWrapper";
 import { Toaster } from "react-hot-toast";
-
+// Vercel Analytics
+import { Analytics } from "@vercel/analytics/next";
 // Fonts
 const inter = Inter({
   subsets: ["latin"],
@@ -48,6 +49,7 @@ export default function RootLayout({
               <Toaster position="top-right" reverseOrder={false} />
               <ScrollUp />
               <Footer />
+              <Analytics />
             </ClientLanguageProvider>
           </ClientThemeProvider>
         </LoaderWrapper>
