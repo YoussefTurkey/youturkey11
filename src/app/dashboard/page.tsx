@@ -19,6 +19,7 @@ import Input from "../components/ui/Input";
 import { useLanguage } from "@/app/lang/LanguageProvider";
 import Btns from "../components/ui/Btns";
 import Link from "next/link";
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
 
 type Work = {
   id?: string;
@@ -476,15 +477,17 @@ export default function Dashboard() {
               <div className="flex gap-2">
                 <button
                   onClick={() => handleEdit(work)}
-                  className="px-3 py-1 border border-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary))] hover:text-white cursor-pointer rounded-lg"
+                  className="flex items-center gap-2 px-3 py-1 border border-[#F4991A] hover:bg-[#F4991A] hover:text-white cursor-pointer rounded-lg"
                 >
-                  {language === "en" ? "Edit" : "تعديل"}
+                  <span><FaEdit size={15} /></span>
+                  <span>{language === "en" ? "Edit" : "تعديل"}</span>
                 </button>
                 <button
                   onClick={() => handleDelete(work.id!)}
-                  className="px-3 py-1 bg-[hsl(var(--secondary))] text-white cursor-pointer rounded-lg"
+                  className="flex items-center gap-2 px-3 py-1 bg-[#b71533] hover:bg-[#b71533bd] text-white cursor-pointer rounded-lg"
                 >
-                  {language === "en" ? "Delete" : "حذف"}
+                  <span><FaTrashAlt size={15} /></span>
+                  <span>{language === "en" ? "Delete" : "حذف"}</span>
                 </button>
               </div>
             </div>
