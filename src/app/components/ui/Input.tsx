@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, RefObject } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 interface Option {
@@ -20,6 +20,7 @@ interface InputProps {
   ) => void;
   options?: Option[];
   disabled? : boolean
+  ref? : RefObject<HTMLInputElement | null>
 }
 
 const Input: React.FC<InputProps> = ({
@@ -30,7 +31,8 @@ const Input: React.FC<InputProps> = ({
   onChange,
   accept,
   options,
-  disabled
+  disabled,
+  ref
 }) => {
   if (type === "textarea") {
     return (
@@ -73,6 +75,7 @@ const Input: React.FC<InputProps> = ({
         type="file"
         accept={accept}
         onChange={onChange}
+        ref={ref}
         className="col-span-2 w-full cursor-pointer border border-[hsl(var(--third)_/_20%)] focus:border-[hsl(var(--secondary))] text-[hsl(var(--third))] rounded-lg p-3"
       />
     );

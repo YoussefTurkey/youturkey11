@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { db } from "@/lib/firebase";
 import {
   collection,
@@ -20,6 +20,7 @@ import { useLanguage } from "@/app/lang/LanguageProvider";
 import Btns from "../components/ui/Btns";
 import Link from "next/link";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 type Work = {
   id?: string;
@@ -98,6 +99,7 @@ export default function Dashboard() {
   const [collectionName, setCollectionName] = useState<
     "articles" | "projects" | "Q&A-Hub"
   >("articles");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // Real-time listener with orderBy createdAt
   useEffect(() => {
@@ -151,20 +153,36 @@ export default function Dashboard() {
         const workRef = doc(db, collectionName, editId);
         await updateDoc(workRef, { ...formData });
         setEditId(null);
+        toast.success(
+          language === "en"
+            ? "✅ Work updated successfully"
+            : "✅ تم تعديل العمل"
+        );
       } else {
         console.log("Adding new doc:", formData);
         await addDoc(collection(db, collectionName), {
           ...formData,
           createdAt: serverTimestamp(),
         });
+        toast.success(
+          language === "en" ? "✅ Work added successfully" : "✅ تم إضافة العمل"
+        );
       }
 
       // reset form
       setForm(emptyForm);
       setImageFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ""; // reset file input
+      }
     } catch (err: any) {
       console.error("submit error:", err);
       alert("Error: " + (err?.message || String(err)));
+      toast.error(
+        "❌ " +
+          (err?.message ||
+            (language === "en" ? "Something went wrong" : "حدث خطأ ما"))
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -195,6 +213,9 @@ export default function Dashboard() {
     if (!confirm(language === "en" ? "Sure to delete?" : "متأكد تحذف؟")) return;
     try {
       await deleteDoc(doc(db, collectionName, id));
+      toast.success(
+        language === "en" ? "🗑️ Work deleted successfully" : "🗑️ تم حذف العمل"
+      );
     } catch (err) {
       console.error("delete error:", err);
       alert("Delete error: " + (err as any)?.message);
@@ -298,6 +319,7 @@ export default function Dashboard() {
           placeholder={
             language === "en" ? "Insert Photo (.webp)" : "ارفق صورة (.webp)"
           }
+          ref={fileInputRef}
           onChange={(e) => {
             const t = e.target as HTMLInputElement;
             setImageFile(t.files?.[0] || null);
@@ -342,7 +364,10 @@ export default function Dashboard() {
             placeholder={language === "en" ? "Preview Link" : "لينك المعينة"}
             value={form.preview}
             onChange={(e) =>
-              setForm({ ...form, preview: (e.target as HTMLInputElement).value })
+              setForm({
+                ...form,
+                preview: (e.target as HTMLInputElement).value,
+              })
             }
           />
         )}
@@ -479,14 +504,18 @@ export default function Dashboard() {
                   onClick={() => handleEdit(work)}
                   className="flex items-center gap-2 px-3 py-1 border border-[#F4991A] hover:bg-[#F4991A] hover:text-white cursor-pointer rounded-lg"
                 >
-                  <span><FaEdit size={15} /></span>
+                  <span>
+                    <FaEdit size={15} />
+                  </span>
                   <span>{language === "en" ? "Edit" : "تعديل"}</span>
                 </button>
                 <button
                   onClick={() => handleDelete(work.id!)}
                   className="flex items-center gap-2 px-3 py-1 bg-[#b71533] hover:bg-[#b71533bd] text-white cursor-pointer rounded-lg"
                 >
-                  <span><FaTrashAlt size={15} /></span>
+                  <span>
+                    <FaTrashAlt size={15} />
+                  </span>
                   <span>{language === "en" ? "Delete" : "حذف"}</span>
                 </button>
               </div>
