@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { IoDownloadOutline } from "react-icons/io5";
 import { useLanguage } from "@/app/lang/LanguageProvider";
+import Loading from "../ui/Loading";
 
 export default function PdfViewer({ url }: { url: string }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -127,13 +128,7 @@ export default function PdfViewer({ url }: { url: string }) {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center p-8">
-        <div className="text-lg">
-          {language === 'en' ? 'Loading PDF...' : 'جاري تحميل الملف...'}
-        </div>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (error) {
