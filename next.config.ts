@@ -2,9 +2,8 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   webpack: (config: any, { isServer }: { isServer: boolean }) => {
-    // Ignore canvas and other node-specific modules in client build
+    // Handle react-pdf and canvas issues
     if (!isServer) {
-      config.resolve = config.resolve || {};
       config.resolve.fallback = {
         ...config.resolve.fallback,
         canvas: false,
@@ -15,12 +14,18 @@ const nextConfig: NextConfig = {
       };
     }
 
-    // Ignore pdfjs canvas import
-    config.resolve = config.resolve || {};
+    // Handle react-pdf worker
     config.resolve.alias = {
       ...config.resolve.alias,
       canvas: false,
     };
+
+    // Handle .mjs files
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: 'javascript/auto',
+    });
 
     return config;
   },

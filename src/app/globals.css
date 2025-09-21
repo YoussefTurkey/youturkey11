@@ -41,4 +41,17 @@
   main {
     min-height: calc(100vh - 267.02px);
   }
+
+  .react-pdf__Page__canvas {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .react-pdf__Page__textContent {
+    border-radius: 8px;
+  }
+  
+  .react-pdf__Page__annotations {
+    border-radius: 8px;
+  }
 }
