@@ -24,11 +24,32 @@ const Info = () => {
   const pathname = usePathname();
 
   return (
-    <div className={`py-10 flex ${pathname === '/about' ? 'flex-col-reverse' : 'flex-col lg:flex-row'} items-center lg:items-start justify-between gap-10`}>
-      <div className={`w-full ${pathname === '/about' ? '' : 'lg:w-150 xl:w-200'}`}>
-        <h2 className="uppercase text-4xl sm:text-6xl">
-          {language === "en" ? about.titleEn : about.titleAr}
-        </h2>
+    <div
+      className={`py-10 flex ${
+        pathname === "/about" ? "flex-col-reverse" : "flex-col lg:flex-row"
+      } items-center lg:items-start justify-between gap-10`}
+    >
+      <div
+        className={`w-full ${pathname === "/about" ? "" : "lg:w-150 xl:w-200"}`}
+      >
+        {pathname === "/about" ? (
+          <div className="flex justify-between items-center">
+            <h2 className="uppercase text-4xl sm:text-6xl">
+              {language === "en" ? about.titleEn : about.titleAr}
+            </h2>
+
+            <Btns
+              href="/resume"
+              style="py-3 xl:px-10 my-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2"
+            >
+              {language === "en" ? "View Resume" : "السيرة الذاتية"}
+            </Btns>
+          </div>
+        ) : (
+          <h2 className="uppercase text-4xl sm:text-6xl">
+            {language === "en" ? about.titleEn : about.titleAr}
+          </h2>
+        )}
         <p className="py-3 text-[hsl(var(--third))] text-lg md:text-xl xl:text-2xl leading-8 sm:leading-10 lg:leading-14">
           {language === "en" ? about.infoEn : about.infoAr}
         </p>
@@ -43,7 +64,9 @@ const Info = () => {
             href="/about"
             style="py-3 xl:px-10 my-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2"
           >
-            <span>{language === "en" ? "View Full Bio" : "عرض السيرة الكاملة"}</span>
+            <span>
+              {language === "en" ? "View Full Bio" : "عرض السيرة الكاملة"}
+            </span>
             <MdArrowOutward size={30} />
           </Btns>
         )}
@@ -129,12 +152,16 @@ const Info = () => {
       {pathname === "/about" && (
         <div className="relative rounded-2xl overflow-hidden shadow-lg group">
           <Image
-            src={pathname === '/about' ? about.cover : about.img}
+            src={pathname === "/about" ? about.cover : about.img}
             width={1000}
             height={1000}
             alt={about.heroEn}
             loading="lazy"
-            className={`mx-auto ${pathname === '/about' ? 'w-400 h-20 sm:h-100' : 'w-full lg:w-150 xl:w-200 h-150'} object-cover group-hover:scale-105 transition-transform duration-500 rounded-sm sm:rounded-lg`}
+            className={`mx-auto ${
+              pathname === "/about"
+                ? "w-400 h-20 sm:h-100"
+                : "w-full lg:w-150 xl:w-200 h-150"
+            } object-cover group-hover:scale-105 transition-transform duration-500 rounded-sm sm:rounded-lg`}
           />
 
           <div className="absolute inset-0 flex items-end justify-between p-4 bg-gradient-to-t from-black/50 to-transparent">
