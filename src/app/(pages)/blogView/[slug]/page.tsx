@@ -9,7 +9,8 @@ import { db } from "@/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import Titles from "@/app/components/ui/Titles";
 import Loading from "@/app/components/ui/Loading";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaLinkedin } from "react-icons/fa";
+
 
 type Blog = {
   id?: string;
@@ -171,11 +172,12 @@ export default function BlogViewPage({ params }: BlogViewProps) {
           <Link
             href={view.preview}
             target="_blank"
-            className={`text-[hsl(var(--secondary))] hover:underline mt-5 block text-center ${
+            className={`flex items-center gap-2 text-[hsl(var(--secondary))] hover:underline mt-5 text-center ${
               language === "en" ? "sm:text-left" : "sm:text-right"
             }`}
           >
-            {language === "en" ? "Preview here" : "اطلع من هنا"}
+            <span><FaLinkedin size={30} /></span>
+            <span>{language === "en" ? "Preview post" : "شاهد المنشور"}</span>
           </Link>
         )
       ) : (
