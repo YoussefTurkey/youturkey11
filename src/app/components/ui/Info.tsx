@@ -67,7 +67,7 @@ const Info = () => {
             style="py-3 xl:px-10 my-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2"
           >
             <span>
-              {language === "en" ? "View Full Bio" : "عرض السيرة الكاملة"}
+              {language === "en" ? "View Full Bio" : "تعرف عليّ أكثر"}
             </span>
             <MdArrowOutward size={30} />
           </Btns>
