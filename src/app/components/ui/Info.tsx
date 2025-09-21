@@ -12,6 +12,7 @@ import { FaBehanceSquare } from "react-icons/fa";
 import { FaGithubSquare } from "react-icons/fa";
 import { AiFillTikTok } from "react-icons/ai";
 import { FaSquareInstagram } from "react-icons/fa6";
+import { PiReadCvLogo } from "react-icons/pi";
 // Importing Components
 import Btns from "../ui/Btns";
 // Importing Next Components
@@ -25,7 +26,7 @@ const Info = () => {
 
   return (
     <div
-      className={`py-10 flex ${
+      className={`sm:py-10 flex ${
         pathname === "/about" ? "flex-col-reverse" : "flex-col lg:flex-row"
       } items-center lg:items-start justify-between gap-10`}
     >
@@ -33,16 +34,17 @@ const Info = () => {
         className={`w-full ${pathname === "/about" ? "" : "lg:w-150 xl:w-200"}`}
       >
         {pathname === "/about" ? (
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center flex-col sm:flex-row">
             <h2 className="uppercase text-4xl sm:text-6xl">
               {language === "en" ? about.titleEn : about.titleAr}
             </h2>
 
             <Btns
               href="/resume"
-              style="py-3 xl:px-10 my-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2"
+              style="py-3 xl:px-10 my-5 text-xl sm:text-2xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2"
             >
-              {language === "en" ? "View Resume" : "السيرة الذاتية"}
+              <span><PiReadCvLogo size={20} /></span>
+              <span>{language === "en" ? "Resume" : "السيرة الذاتية"}</span>
             </Btns>
           </div>
         ) : (
