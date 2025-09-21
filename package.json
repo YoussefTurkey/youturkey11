@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "copy-pdf-worker": "node copy-worker.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -16,12 +17,13 @@
     "firebase": "^12.2.1",
     "framer-motion": "^12.23.12",
     "next": "15.5.2",
-    "pdfjs-dist": "^3.11.174",
+    "pdfjs-dist": "^5.4.149",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
     "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
+    "react-pdf": "^10.1.0",
     "simple-icons": "^15.13.0",
     "swiper": "^12.0.2",
     "zod": "^4.1.5"

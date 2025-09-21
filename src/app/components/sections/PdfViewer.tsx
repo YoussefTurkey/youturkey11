@@ -1,29 +1,43 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
-import pdfWorker from "pdfjs-dist/build/pdf.worker.min?url";
 import Link from "next/link";
 import { IoDownloadOutline } from "react-icons/io5";
 import { useLanguage } from "@/app/lang/LanguageProvider";
-
-// ربط الـ worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 export default function PdfViewer({ url }: { url: string }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [pdfDoc, setPdfDoc] = useState<any>(null);
   const [pageNum, setPageNum] = useState(1);
-  const [scale, setScale] = useState(1); // التكبير الأساسي
+  const [scale, setScale] = useState(1);
   const [numPages, setNumPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const { language } = useLanguage();
 
-  // تحميل الـ PDF
+  // تحميل الـ PDF with dynamic import
   useEffect(() => {
     const loadPdf = async () => {
-      const pdf = await pdfjsLib.getDocument(url).promise;
-      setPdfDoc(pdf);
-      setNumPages(pdf.numPages);
+      try {
+        // Only run on client side
+        if (typeof window === 'undefined') return;
+        
+        // Dynamic import of pdfjs-dist
+        const pdfjsLib = await import("pdfjs-dist");
+        
+        // Set worker source - using local worker file
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
+        
+        const pdf = await pdfjsLib.getDocument(url).promise;
+        setPdfDoc(pdf);
+        setNumPages(pdf.numPages);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error loading PDF:", error);
+        setError("Failed to load PDF");
+        setIsLoading(false);
+      }
     };
+    
     loadPdf();
   }, [url]);
 
@@ -32,29 +46,33 @@ export default function PdfViewer({ url }: { url: string }) {
     if (!pdfDoc) return;
 
     const renderPage = async (num: number) => {
-      const page = await pdfDoc.getPage(num);
+      try {
+        const page = await pdfDoc.getPage(num);
 
-      // نخلي الـscale حسب عرض الشاشة
-      const containerWidth =
-        canvasRef.current?.parentElement?.clientWidth || 600;
-      const viewport = page.getViewport({ scale });
-      const responsiveScale = (containerWidth / viewport.width) * scale;
+        // نخلي الـscale حسب عرض الشاشة
+        const containerWidth =
+          canvasRef.current?.parentElement?.clientWidth || 600;
+        const viewport = page.getViewport({ scale });
+        const responsiveScale = (containerWidth / viewport.width) * scale;
 
-      const finalViewport = page.getViewport({ scale: responsiveScale });
+        const finalViewport = page.getViewport({ scale: responsiveScale });
 
-      const canvas = canvasRef.current;
-      if (!canvas) return;
+        const canvas = canvasRef.current;
+        if (!canvas) return;
 
-      const context = canvas.getContext("2d");
-      if (!context) return;
+        const context = canvas.getContext("2d");
+        if (!context) return;
 
-      canvas.height = finalViewport.height;
-      canvas.width = finalViewport.width;
+        canvas.height = finalViewport.height;
+        canvas.width = finalViewport.width;
 
-      await page.render({
-        canvasContext: context,
-        viewport: finalViewport,
-      }).promise;
+        await page.render({
+          canvasContext: context,
+          viewport: finalViewport,
+        }).promise;
+      } catch (error) {
+        console.error("Error rendering page:", error);
+      }
     };
 
     renderPage(pageNum);
@@ -68,6 +86,26 @@ export default function PdfViewer({ url }: { url: string }) {
   const prevPage = () => {
     if (pageNum > 1) setPageNum(pageNum - 1);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center p-8">
+        <div className="text-lg">
+          {language === 'en' ? 'Loading PDF...' : 'جاري تحميل الملف...'}
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center p-8">
+        <div className="text-red-500 text-lg">
+          {language === 'en' ? 'Error loading PDF' : 'خطأ في تحميل الملف'}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center space-y-4 w-full" dir="ltr">
@@ -90,7 +128,6 @@ export default function PdfViewer({ url }: { url: string }) {
       {/* رقم الصفحة */}
       <div>
         {language === 'en' ? `Page ${pageNum} / ${numPages}` : `صفحة ${pageNum} / ${numPages}` }
-        
       </div>
 
       {/* أزرار التحكم */}
@@ -100,7 +137,6 @@ export default function PdfViewer({ url }: { url: string }) {
           disabled={pageNum <= 1}
           className="cursor-pointer px-5 sm:px-7 py-1 text-lg rounded-lg border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center mx-auto gap-2"
         >
-          
           {language === 'en' ? 'Prev' : 'رجوع'}
         </button>
         <button
