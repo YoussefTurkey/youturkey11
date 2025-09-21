@@ -19,6 +19,7 @@ interface InputProps {
       | ChangeEvent<HTMLSelectElement>
   ) => void;
   options?: Option[];
+  disabled? : boolean
 }
 
 const Input: React.FC<InputProps> = ({
@@ -29,6 +30,7 @@ const Input: React.FC<InputProps> = ({
   onChange,
   accept,
   options,
+  disabled
 }) => {
   if (type === "textarea") {
     return (
@@ -83,7 +85,8 @@ const Input: React.FC<InputProps> = ({
       {...register}
       value={value}
       onChange={onChange}
-      className={`col-span-2 sm:col-span-1 border border-[hsl(var(--third)_/_20%)] focus:border-[hsl(var(--secondary))] text-[hsl(var(--third))] rounded-lg p-3 w-full`}
+      disabled = {disabled}
+      className={`${disabled ? 'cursor-not-allowed' : 'cursor-auto'} col-span-2 sm:col-span-1 border border-[hsl(var(--third)_/_20%)] focus:border-[hsl(var(--secondary))] text-[hsl(var(--third))] rounded-lg p-3 w-full`}
     />
   );
 };

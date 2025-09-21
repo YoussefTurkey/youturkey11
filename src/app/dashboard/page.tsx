@@ -61,6 +61,15 @@ async function uploadToCloudinary(file: File): Promise<string> {
   return data.secure_url;
 }
 
+// 🟢 function to convert title to slug
+function generateSlug(text: string) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-") // anything not a-z0-9 يتحول "-"
+    .replace(/^-+|-+$/g, ""); // remove leading/trailing "-"
+}
+
 export default function Dashboard() {
   const { language } = useLanguage();
 
@@ -110,6 +119,16 @@ export default function Dashboard() {
 
     return () => unsub();
   }, [collectionName]);
+
+  // 🟢 كل ما يتغير الـtitleEn يتغير الـslug
+  useEffect(() => {
+    if (form.titleEn) {
+      setForm((prev) => ({
+        ...prev,
+        slug: generateSlug(prev.titleEn),
+      }));
+    }
+  }, [form.titleEn]);
 
   // --- Add or Update ---
   const handleSubmit = async (e: React.FormEvent) => {
@@ -316,22 +335,27 @@ export default function Dashboard() {
           </>
         )}
 
-        <Input
-          type="text"
-          placeholder={language === "en" ? "Preview Link" : "لينك المعينة"}
-          value={form.preview}
-          onChange={(e) =>
-            setForm({ ...form, preview: (e.target as HTMLInputElement).value })
-          }
-        />
+        {form.state !== "Q&A-Hub" && (
+          <Input
+            type="text"
+            placeholder={language === "en" ? "Preview Link" : "لينك المعينة"}
+            value={form.preview}
+            onChange={(e) =>
+              setForm({ ...form, preview: (e.target as HTMLInputElement).value })
+            }
+          />
+        )}
+
         <Input
           type="text"
           placeholder={language === "en" ? "Slug" : "لينك الURL"}
           value={form.slug}
+          disabled
           onChange={(e) =>
             setForm({ ...form, slug: (e.target as HTMLInputElement).value })
           }
         />
+
         <Input
           type="text"
           placeholder={
