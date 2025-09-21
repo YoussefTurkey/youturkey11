@@ -9,7 +9,7 @@ import { db } from "@/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import Titles from "@/app/components/ui/Titles";
 import Loading from "@/app/components/ui/Loading";
-import { FaHeart, FaRegHeart, FaLinkedin } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaLinkedin, FaLink  } from "react-icons/fa";
 
 
 type Blog = {
@@ -176,8 +176,18 @@ export default function BlogViewPage({ params }: BlogViewProps) {
               language === "en" ? "sm:text-left" : "sm:text-right"
             }`}
           >
-            <span><FaLinkedin size={30} /></span>
-            <span>{language === "en" ? "Preview post" : "شاهد المنشور"}</span>
+            {view.state === 'article' && (
+              <>
+                <span><FaLinkedin size={20} /></span>
+                <span>{language === "en" ? "Preview post" : "شاهد المنشور"}</span>
+              </>
+            )}
+            {view.state === 'project' && (
+              <>
+                <span><FaLink size={20} /></span>
+                <span>{language === "en" ? "Preview project" : "شاهد المشروع"}</span>
+              </>
+            )}
           </Link>
         )
       ) : (
