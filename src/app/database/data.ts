@@ -827,6 +827,38 @@ export const contents: TWorks[] = [
 export const experience: TExperience[] = [
   {
     id: "timeline-item-1",
+    img: "/images/company06.webp",
+    titleAr: "مهندس تطوير البرامج والمواقع @ Syles Dispatch EG",
+    titleEn: "Frontend Engineer @ Styles Dispatch EG",
+    type: "Full-Time",
+    duration: "9/2025 - Present",
+    icon: Code,
+    responsibilitiesAr: [
+      "العمل كـ Frontend Engineer مسئول عن تطوير الأنظمة الداخلية والمواقع الإلكترونية للشركة.",
+      "تصميم وبناء واجهات تفاعلية وسهلة الاستخدام تدعم تجربة المستخدم.",
+      "تطوير نظام تسجيل الحضور والانصراف بالبصمة لمتابعة الموظفين وتحسين دقة البيانات.",
+      "التعاون مع فريق الـ Backend لضمان تكامل الأنظمة وأداء عالي.",
+      "المساهمة في تحسين العمليات الرقمية وتقليل الاعتماد على الأعمال الورقية داخل الشركة.",
+    ],
+    responsibilitiesEn: [
+      "Working as a Frontend Engineer responsible for developing the company’s internal systems and web platforms.",
+      "Designing and building interactive, user-friendly interfaces that enhance the user experience.",
+      "Developing a fingerprint-based attendance and leave tracking system to improve accuracy and efficiency.",
+      "Collaborating with the backend team to ensure seamless integration and high performance.",
+      "Contributing to digital transformation by reducing manual processes and supporting operational efficiency.",
+    ],
+    skills: [
+      "Next.js",
+      "Tailwind",
+      "Typescript",
+      "Rest API",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+    ],
+  },
+  {
+    id: "timeline-item-2",
     img: "/images/company01.webp",
     titleAr: "محاضر تطوير وتصميم المواقع الإلكترونية ف NTI",
     titleEn: "Web Designer Instructor @ NTI",
@@ -859,7 +891,7 @@ export const experience: TExperience[] = [
     ],
   },
   {
-    id: "timeline-item-2",
+    id: "timeline-item-3",
     img: "/images/company02.webp",
     titleAr: "مطور ووردبريس متكامل في رواج",
     titleEn: "Full-Stack WordPress Developer @ Rawaj",
@@ -881,7 +913,7 @@ export const experience: TExperience[] = [
     skills: ["WordPress", "Elementor", "PHP", "CSS3", "JavaScript (ES6+)"],
   },
   {
-    id: "timeline-item-3",
+    id: "timeline-item-4",
     img: "/images/company03.webp",
 
     titleAr: "مدرّب تطوير المواقع الإلكترونية في سبيس تينز",
@@ -902,7 +934,7 @@ export const experience: TExperience[] = [
     skills: ["HTML5", "CSS3", "JavaScript (ES6+)", "Responsive Design"],
   },
   {
-    id: "timeline-item-4",
+    id: "timeline-item-5",
     titleAr: "مصمم جرافيك في رواج",
     img: "/images/company02.webp",
     titleEn: "Graphic Designer @ Rawaj",
@@ -922,7 +954,7 @@ export const experience: TExperience[] = [
     skills: ["Photoshop", "Illustrator", "CorelDraw"],
   },
   {
-    id: "timeline-item-5",
+    id: "timeline-item-6",
     img: "/images/company04.webp",
     titleAr: "مطور واجهة أمامية في الغرفة العربية الأمريكية للتجارة",
     titleEn: "Front-End Developer @ US Arab Chamber of Commerce",
@@ -940,7 +972,7 @@ export const experience: TExperience[] = [
     skills: ["HTML", "CSS", "Bootstrap", "jQuery", "handling Legacy Code"],
   },
   {
-    id: "timeline-item-6",
+    id: "timeline-item-7",
     img: "/images/company05.webp",
     titleAr: "Graphic Designer @ Herbal Globe",
     titleEn: "Graphic Designer @ Herbal Globe",
