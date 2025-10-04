@@ -1,17 +1,16 @@
 import Contact from "./Contact";
 
+type SearchParams = { [key: string]: string | string[] | undefined };
+
 export default function ContactPage({
   searchParams,
 }: {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams?: SearchParams;
 }) {
-  return (
-    <Contact
-      packageName={
-        typeof searchParams?.package === "string"
-          ? searchParams.package
-          : undefined
-      }
-    />
-  );
+  const packageName =
+    typeof searchParams?.package === "string"
+      ? searchParams.package
+      : undefined;
+
+  return <Contact packageName={packageName} />;
 }

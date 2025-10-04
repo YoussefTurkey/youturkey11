@@ -11,6 +11,7 @@
     "copy-pdf-worker": "node copy-worker.js"
   },
   "dependencies": {
+    "@emotion/is-prop-valid": "^1.4.0",
     "@hookform/resolvers": "^5.2.1",
     "@vercel/analytics": "^1.5.0",
     "emailjs-com": "^3.2.0",

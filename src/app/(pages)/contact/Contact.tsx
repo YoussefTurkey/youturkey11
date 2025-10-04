@@ -1,30 +1,25 @@
 "use client";
-// using Translation
 import { useLanguage } from "@/app/lang/LanguageProvider";
-// importing Validation Form libs
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, TContact } from "@/app/validation/contactSchema";
-// Importing Next Components
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-// Importing Data
 import { about } from "@/app/database/data";
-// Importing React-Icons
 import { SlEnvolope } from "react-icons/sl";
 import { ImWhatsapp } from "react-icons/im";
 import { IoCall } from "react-icons/io5";
-// Importing Components
 import Input from "@/app/components/ui/Input";
-// Importing Toast
+import Loading from "@/app/components/ui/Loading";
 import toast from "react-hot-toast";
-// Importing EmailJS
 import emailjs from "emailjs-com";
-// Importing Rect Hooks
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 
-const Contact = ({ packageName }: { packageName?: string }) => {
+type ContactProps = {
+  packageName?: string;
+};
+
+const Contact = ({ packageName }: ContactProps) => {
   const { language } = useLanguage();
 
   const {
@@ -41,8 +36,8 @@ const Contact = ({ packageName }: { packageName?: string }) => {
   const onSubmit: SubmitHandler<TContact> = async (data) => {
     try {
       const result = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!, // Service ID
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!, // Template ID
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
           from_fname: data.fname,
           from_lname: data.lname,
@@ -50,7 +45,7 @@ const Contact = ({ packageName }: { packageName?: string }) => {
           subject: data.subject,
           message: data.msg,
         },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! // Public Key
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       );
 
       if (result.status === 200) {
@@ -71,17 +66,19 @@ const Contact = ({ packageName }: { packageName?: string }) => {
     }
   };
 
-  // Get Package
+  // set default message if packageName exists
   useEffect(() => {
-    setValue(
-      "msg",
-      language === "en"
-        ? `I want this package: ${packageName}`
-        : `أنا أريد الباقة: ${packageName}`
-    );
+    if (packageName) {
+      setValue(
+        "msg",
+        language === "en"
+          ? `I want this package: ${packageName}`
+          : `أنا أريد الباقة: ${packageName}`
+      );
+    }
   }, [setValue, packageName, language]);
 
-  //   Data
+  // Inputs
   const inputData = [
     {
       type: "text",
@@ -116,7 +113,7 @@ const Contact = ({ packageName }: { packageName?: string }) => {
   ];
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <main className="container mx-auto mb-10 mt-30 md:my-20 px-5 md:px-10 xl:px-0">
         <section className="flex flex-col lg:flex-row items-start gap-5 md:gap-10">
           <div className="rounded-lg p-5 md:p-10 border border-[hsl(var(--third)_/_20%)] w-full">
@@ -148,7 +145,6 @@ const Contact = ({ packageName }: { packageName?: string }) => {
                     placeholder={input.placeholder}
                     register={input.register}
                   />
-                  {/* <InputError error={input.error} /> */}
                 </div>
               ))}
 
@@ -162,7 +158,7 @@ const Contact = ({ packageName }: { packageName?: string }) => {
             </form>
           </div>
 
-          {/* الجزء بتاع البيانات الجانبية */}
+          {/* Sidebar info */}
           <div className="flex flex-col gap-5 w-full">
             <div className="hidden lg:flex rounded-lg border border-[hsl(var(--third)_/_20%)] h-fit">
               <Image
@@ -228,7 +224,7 @@ const Contact = ({ packageName }: { packageName?: string }) => {
           </div>
         </section>
       </main>
-    </>
+    </Suspense>
   );
 };
 
