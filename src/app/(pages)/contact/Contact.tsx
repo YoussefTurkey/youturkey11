@@ -14,7 +14,6 @@ import Loading from "@/app/components/ui/Loading";
 import toast from "react-hot-toast";
 import emailjs from "emailjs-com";
 import { useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
 
 type ContactProps = {
   packageName?: string;
@@ -22,9 +21,6 @@ type ContactProps = {
 
 const Contact = ({ packageName }: ContactProps) => {
   const { language } = useLanguage();
-  const searchParams = useSearchParams();
-  const packageFromParams = searchParams?.get("package");
-  const finalPackageName = packageName || packageFromParams;
 
   const {
     handleSubmit,
@@ -71,16 +67,16 @@ const Contact = ({ packageName }: ContactProps) => {
   };
 
   // set default message if packageName exists
-   useEffect(() => {
-    if (finalPackageName) {
+  useEffect(() => {
+    if (packageName) {
       setValue(
         "msg",
         language === "en"
-          ? `I want this package: ${finalPackageName}`
-          : `أنا أريد الباقة: ${finalPackageName}`
+          ? `I want this package: ${packageName}`
+          : `أنا أريد الباقة: ${packageName}`
       );
     }
-  }, [setValue, finalPackageName, language]);
+  }, [setValue, packageName, language]);
 
   // Inputs
   const inputData = [

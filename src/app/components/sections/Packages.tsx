@@ -81,15 +81,9 @@ const Packages = () => {
             className="flex flex-col items-center justify-center my-5"
           >
             <h3 className="text-2xl sm:text-3xl lg:text-5xl text-center font-bold mb-2 text-[hsl(var(--foreground))]">
-              {pack.category === "coming-soon" ? (
-                <span>
-                  {language === "en" ? pack.titleEn : pack.titleAr} 🎉
-                </span>
-              ) : language === "en" ? (
-                pack.titleEn
-              ) : (
-                pack.titleAr
-              )}
+              {pack.category === 'coming-soon' ? (
+                <span>{language === "en" ? pack.titleEn : pack.titleAr} 🎉</span>
+              ): language === "en" ? pack.titleEn : pack.titleAr}
             </h3>
             <p className="text-sm text-center text-[hsl(var(--third))] my-2">
               {language === "en" ? pack.descriptionEn : pack.descriptionAr}
@@ -143,11 +137,7 @@ const Packages = () => {
                         : `${plan.price} ${plan.currencyAr}`}
                     </p>
                     <Btns
-                      href={`/contact?package=${encodeURIComponent(
-                        language === "en"
-                          ? plan?.nameEn || plan?.type || ""
-                          : plan?.nameAr || plan?.type || ""
-                      )}`}
+                      href={`/contact?package=${encodeURIComponent(language === 'en' ? plan?.nameEn || plan?.type || '' : plan?.nameAr || plan?.type || '')}`}
                       style="capitalize py-3 xl:px-10 text-md sm:text-lg lg:text-xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center mx-auto gap-2"
                     >
                       <span>
@@ -170,11 +160,7 @@ const Packages = () => {
                     key={i}
                     className="relative group p-10 rounded-lg hover:scale-102 border border-[hsl(var(--third)/20%)] hover:border-[hsl(var(--foreground))] transition-all duration-300"
                   >
-                    <div
-                      className={`flex items-center ${
-                        language === "en" ? "" : "flex-row-reverse"
-                      } gap-2 my-5`}
-                    >
+                    <div className={`flex items-center ${language === 'en' ? '' : 'flex-row-reverse'} gap-2 my-5`}>
                       <span className="p-3 border border-[hsl(var(--third)/20%)] group-hover:bg-[hsl(var(--third)/20%)] rounded-full transition-colors">
                         <FaStarOfLife size={15} />
                       </span>
@@ -183,20 +169,10 @@ const Packages = () => {
                       </h4>
                     </div>
                     <p className="text-xl text-[hsl(var(--foreground))] text-center my-4 p-2 border border-[hsl(var(--third)/20%)] group-hover:border-[hsl(var(--third))] transition-colors rounded-full">
-                      {language === "en"
-                        ? plan.availability
-                          ? "Available"
-                          : "Not Available"
-                        : plan.availability
-                        ? "متاح"
-                        : "غير متاح"}
+                      {language === 'en' ? plan.availability ? "Available" : "Not Available" : plan.availability ? "متاح" : "غير متاح"}
                     </p>
-                    <p
-                      className={`text-xl my-10 flex flex-col items-start gap-2`}
-                    >
-                      <span className="font-bold">
-                        {language === "en" ? "Skills:" : "مهاراتي:"}
-                      </span>
+                    <p className={`text-xl my-10 flex flex-col items-start gap-2`}>
+                      <span className="font-bold">{language === 'en' ? 'Skills:' : 'مهاراتي:'}</span>
                       <span>{plan.skills?.join(", ")}</span>
                     </p>
                     <p className="absolute -top-4 right-25 md:right-15 lg:right-15 xl:right-30 2xl:right-32.5 px-10 py-1 font-bold text-[hsl(var(--foreground))] border border-[hsl(var(--third)/20%)] group-hover:border-[hsl(var(--third))] bg-[hsl(var(--background))] rounded-full">
@@ -234,18 +210,12 @@ const Packages = () => {
                         {language === "en" ? plan.nameEn : plan.nameAr}
                       </h4>
                     </div>
-                    <p
-                      className={`absolute -top-4 ${
-                        language === "en"
-                          ? "right-30 md:right-25 lg:right-20 xl:right-30 2xl:right-37.5"
-                          : "right-35 md:right-30 lg:right-22.5 xl:right-35 2xl:right-45"
-                      } capitalize px-10 py-1 font-bold text-orange-500 border border-[hsl(var(--third)/20%)] group-hover:border-[hsl(var(--third))] bg-[hsl(var(--background))] rounded-full`}
-                    >
+                    <p className={`absolute -top-4 ${language === 'en' ? 'right-30 md:right-25 lg:right-20 xl:right-30 2xl:right-37.5' : 'right-35 md:right-30 lg:right-22.5 xl:right-35 2xl:right-45'} capitalize px-10 py-1 font-bold text-orange-500 border border-[hsl(var(--third)/20%)] group-hover:border-[hsl(var(--third))] bg-[hsl(var(--background))] rounded-full`}>
                       {language === "en" ? plan.statusEn : plan.statusAr}
                     </p>
                     <p className="text-xl my-10 flex flex-col items-start gap-2">
                       <span className="font-bold">
-                        {language === "en" ? "Topics:" : "مواضيع:"}
+                        {language === 'en' ? 'Topics:' : 'مواضيع:'}
                       </span>
                       <span>
                         {language === "en"
@@ -264,10 +234,7 @@ const Packages = () => {
   );
 
   return (
-    <main
-      className="container mx-auto my-30 sm:my-20 px-5 xl:px-0"
-      id="services"
-    >
+    <main className="container mx-auto my-30 sm:my-20 px-5 xl:px-0" id="services">
       {/* Titles */}
       <div>
         <div className="flex items-center">
@@ -301,7 +268,7 @@ const Packages = () => {
           <Swiper
             className="w-full!"
             spaceBetween={10}
-            slidesPerView="auto"
+            slidesPerView='auto'
             freeMode={true}
             dir={language === "en" ? "ltr" : "rtl"}
           >

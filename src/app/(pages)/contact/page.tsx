@@ -1,6 +1,17 @@
-// src/app/contact/page.tsx
 import Contact from "./Contact";
 
-export default function ContactPage() {
-  return <Contact />;
+type SearchParams = { [key: string]: string | string[] | undefined };
+
+interface ContactPageProps {
+  searchParams: Promise<SearchParams>;
+}
+
+export default async function ContactPage({ searchParams }: ContactPageProps) {
+  const resolvedSearchParams = await searchParams;
+  const packageName =
+    typeof resolvedSearchParams?.package === "string" 
+      ? resolvedSearchParams.package 
+      : undefined;
+
+  return <Contact packageName={packageName} />;
 }
