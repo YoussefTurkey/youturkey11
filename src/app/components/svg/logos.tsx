@@ -248,6 +248,24 @@ export const BlogIcon = ({ className = "w-5 h-5" }) => (
     />
   </svg>
 );
+export const BagIcon = ({ className = "w-5 h-5" }) => (
+  <svg
+    className={className}
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fillRule="evenodd"
+      d="M8 7V6a4 4 0 1 1 8 0v1h3a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3Zm2-1a2 2 0 1 1 4 0v1h-4V6Zm-3 5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H7Zm10 0a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
 export const ChevronDown = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     {...props}

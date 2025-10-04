@@ -4,14 +4,14 @@ import React, { useState, useRef, useEffect } from "react";
 // Importing Framer Motion
 import { AnimatePresence, motion } from "framer-motion";
 // Importing SVGs
-import { HomeIcon, UserIcon, WorksIcon, BlogIcon } from "../svg/logos";
+import { HomeIcon, UserIcon, WorksIcon, BlogIcon, BagIcon } from "../svg/logos";
 // using Translation
 import { useLanguage } from "@/app/lang/LanguageProvider";
 
 interface Tab {
   title: string;
   icon: React.ComponentType<{ className?: string }>;
-  targetId: string; // 👈 هنضيف id لكل تاب
+  targetId: string;
   type?: never;
 }
 
@@ -154,6 +154,11 @@ export default function MobileTabs() {
       icon: BlogIcon,
       targetId: "blog",
     },
+    {
+      title: language === 'en' ? 'Services' : 'خدمات',
+      icon: BagIcon,
+      targetId: "services"
+    }
   ];
 
   return <ExpandedTabs tabs={TABS} />;

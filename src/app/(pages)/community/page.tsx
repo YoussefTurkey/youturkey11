@@ -174,7 +174,7 @@ const CommunityPage = () => {
       <div className="my-10">
         {/* للشاشات الصغيرة: Swiper */}
         <div className="flex sm:hidden">
-          <Swiper className="w-full!" spaceBetween={10} slidesPerView={3} freeMode={true} dir={language === 'en' ? 'ltr': 'ltr'}>
+          <Swiper className="w-full!" spaceBetween={10} slidesPerView='auto' freeMode={true} dir={language === 'en' ? 'ltr': 'ltr'}>
             <SwiperSlide className="w-fit!">
               <Btns
                 action={() => setFilter("all")}

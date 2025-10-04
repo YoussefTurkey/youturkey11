@@ -8,6 +8,7 @@ import { contactSchema, TContact } from "@/app/validation/contactSchema";
 // Importing Next Components
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 // Importing Data
 import { about } from "@/app/database/data";
 // Importing React-Icons
@@ -21,13 +22,17 @@ import InputError from "@/app/components/ui/InputError";
 import toast from "react-hot-toast";
 // Importing EmailJS
 import emailjs from "emailjs-com";
+import { useEffect } from "react";
 
 const Contact = () => {
   const { language } = useLanguage();
+  const searchParams = useSearchParams()
+  const packageName = searchParams.get('package')
 
   const {
     handleSubmit,
     register,
+    setValue,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<TContact>({
@@ -67,6 +72,11 @@ const Contact = () => {
       );
     }
   };
+
+  // Get Package
+  useEffect(()=>{
+    setValue('msg', language === 'en' ? `I want this package: ${packageName}` : `أنا أريد الباقة: ${packageName}`)
+  }, [setValue, packageName, language])
 
   //   Data
   const inputData = [

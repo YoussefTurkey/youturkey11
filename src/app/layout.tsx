@@ -24,6 +24,7 @@ const inter = Inter({
 const cairo = Cairo({
   subsets: ["arabic"],
   weight: ["400", "500", "700"],
+  style: ["normal"],
   variable: "--font-cairo",
   display: "swap",
 });
