@@ -18,6 +18,7 @@ import { IoCall } from "react-icons/io5";
 // Importing Components
 import Input from "@/app/components/ui/Input";
 import InputError from "@/app/components/ui/InputError";
+import Loading from "@/app/components/ui/Loading";
 // Importing Toast
 import toast from "react-hot-toast";
 // Importing EmailJS
@@ -119,7 +120,7 @@ const Contact = () => {
   ];
 
   return (
-    <Suspense>
+    <Suspense fallback={<Loading />}>
       <main className="container mx-auto mb-10 mt-30 md:my-20 px-5 md:px-10 xl:px-0">
         <section className="flex flex-col lg:flex-row items-start gap-5 md:gap-10">
           <div className="rounded-lg p-5 md:p-10 border border-[hsl(var(--third)_/_20%)] w-full">
