@@ -8,9 +8,7 @@ export default function ContactPage({
   searchParams?: SearchParams;
 }) {
   const packageName =
-    typeof searchParams?.package === "string"
-      ? searchParams.package
-      : undefined;
+    typeof searchParams?.package === "string" ? searchParams.package : undefined;
 
   return <Contact packageName={packageName} />;
 }
