@@ -22,12 +22,13 @@ import InputError from "@/app/components/ui/InputError";
 import toast from "react-hot-toast";
 // Importing EmailJS
 import emailjs from "emailjs-com";
-import { useEffect } from "react";
+// Importing Rect Hooks
+import { useEffect, Suspense } from "react";
 
 const Contact = () => {
   const { language } = useLanguage();
-  const searchParams = useSearchParams()
-  const packageName = searchParams.get('package')
+  const searchParams = useSearchParams();
+  const packageName = searchParams.get("package");
 
   const {
     handleSubmit,
@@ -74,9 +75,14 @@ const Contact = () => {
   };
 
   // Get Package
-  useEffect(()=>{
-    setValue('msg', language === 'en' ? `I want this package: ${packageName}` : `أنا أريد الباقة: ${packageName}`)
-  }, [setValue, packageName, language])
+  useEffect(() => {
+    setValue(
+      "msg",
+      language === "en"
+        ? `I want this package: ${packageName}`
+        : `أنا أريد الباقة: ${packageName}`
+    );
+  }, [setValue, packageName, language]);
 
   //   Data
   const inputData = [
@@ -113,107 +119,119 @@ const Contact = () => {
   ];
 
   return (
-    <main className="container mx-auto mb-10 mt-30 md:my-20 px-5 md:px-10 xl:px-0">
-      <section className="flex flex-col lg:flex-row items-start gap-5 md:gap-10">
-        <div className="rounded-lg p-5 md:p-10 border border-[hsl(var(--third)_/_20%)] w-full">
-          <p className="text-xl sm:text-2xl lg:text-4xl capitalize text-[hsl(var(--secondary))]">
-            {language === "en" ? "Get in touch" : "تواصل معي"}
-          </p>
-          <h1 className="text-3xl sm:text-4xl lg:text-7xl font-bold capitalize py-3 bg-gradient-to-t from-[#b2b2b2] to-[hsl(var(--foreground))] bg-clip-text text-transparent relative after:absolute after:-bottom-5 after:left-0 after:w-full after:h-px after:bg-[hsl(var(--foreground)_/_20%)]">
-            {language === "en"
-              ? "Let's Chat, Reach Out to Us"
-              : "دعنا نتحدث، تواصل معي"}
-          </h1>
+    <Suspense>
+      <main className="container mx-auto mb-10 mt-30 md:my-20 px-5 md:px-10 xl:px-0">
+        <section className="flex flex-col lg:flex-row items-start gap-5 md:gap-10">
+          <div className="rounded-lg p-5 md:p-10 border border-[hsl(var(--third)_/_20%)] w-full">
+            <p className="text-xl sm:text-2xl lg:text-4xl capitalize text-[hsl(var(--secondary))]">
+              {language === "en" ? "Get in touch" : "تواصل معي"}
+            </p>
+            <h1 className="text-3xl sm:text-4xl lg:text-7xl font-bold capitalize py-3 bg-gradient-to-t from-[#b2b2b2] to-[hsl(var(--foreground))] bg-clip-text text-transparent relative after:absolute after:-bottom-5 after:left-0 after:w-full after:h-px after:bg-[hsl(var(--foreground)_/_20%)]">
+              {language === "en"
+                ? "Let's Chat, Reach Out to Us"
+                : "دعنا نتحدث، تواصل معي"}
+            </h1>
 
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-5 mt-15"
-          >
-            {inputData.map((input, i) => (
-              <div key={i} className="flex flex-col gap-2">
-                <Input
-                  type={input.type as "text" | "textarea" | "select" | "file" | "email" | "password"}
-                  placeholder={input.placeholder}
-                  register={input.register}
-                />
-                {/* <InputError error={input.error} /> */}
-              </div>
-            ))}
-
-            <button
-              disabled={isSubmitting}
-              type="submit"
-              className="w-full py-3 my-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2 rounded-lg cursor-pointer transition-colors"
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-5 mt-15"
             >
-              {language === "en" ? "Send" : "إرسال"}
-            </button>
-          </form>
-        </div>
+              {inputData.map((input, i) => (
+                <div key={i} className="flex flex-col gap-2">
+                  <Input
+                    type={
+                      input.type as
+                        | "text"
+                        | "textarea"
+                        | "select"
+                        | "file"
+                        | "email"
+                        | "password"
+                    }
+                    placeholder={input.placeholder}
+                    register={input.register}
+                  />
+                  {/* <InputError error={input.error} /> */}
+                </div>
+              ))}
 
-        {/* الجزء بتاع البيانات الجانبية */}
-        <div className="flex flex-col gap-5 w-full">
-          <div className="hidden lg:flex rounded-lg border border-[hsl(var(--third)_/_20%)] h-fit">
-            <Image
-              src={about.img}
-              width={1000}
-              height={1000}
-              alt={about.titleEn}
-              loading="lazy"
-              className="object-cover w-full h-110 rounded-lg"
-            />
+              <button
+                disabled={isSubmitting}
+                type="submit"
+                className="w-full py-3 my-5 text-xl sm:text-2xl lg:text-3xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center gap-2 rounded-lg cursor-pointer transition-colors"
+              >
+                {language === "en" ? "Send" : "إرسال"}
+              </button>
+            </form>
           </div>
 
-          <div className="flex flex-col gap-5">
-            <div className="group hover:bg-[hsl(var(--secondary))] transition-colors rounded-lg border border-[hsl(var(--third)_/_20%)]">
-              <Link
-                href={"mailto:you.turkey11@gmail.com"}
-                target="_blank"
-                className="cursor-pointer flex items-center gap-2 md:gap-5 p-5"
-              >
-                <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--secondary))] text-[hsl(var(--background))] md:text-2xl">
-                  <SlEnvolope />
-                </span>
-                <span className="md:text-2xl group-hover:text-white">you.turkey11@gmail.com</span>
-              </Link>
+          {/* الجزء بتاع البيانات الجانبية */}
+          <div className="flex flex-col gap-5 w-full">
+            <div className="hidden lg:flex rounded-lg border border-[hsl(var(--third)_/_20%)] h-fit">
+              <Image
+                src={about.img}
+                width={1000}
+                height={1000}
+                alt={about.titleEn}
+                loading="lazy"
+                className="object-cover w-full h-110 rounded-lg"
+              />
             </div>
 
-            <div className="group hover:bg-[hsl(var(--secondary))] transition-colors rounded-lg border border-[hsl(var(--third)_/_20%)]">
-              <Link
-                href={"https://wa.me/201273451052"}
-                target="_blank"
-                className="cursor-pointer flex items-center gap-2 md:gap-5 p-5"
-              >
-                <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--secondary))] text-[hsl(var(--background))] md:text-2xl">
-                  <ImWhatsapp />
-                </span>
-                <span className="md:text-2xl group-hover:text-white">
-                  {language === "en"
-                    ? "(+20) 127 345 1052"
-                    : "1052 345 127 (20+)"}
-                </span>
-              </Link>
-            </div>
+            <div className="flex flex-col gap-5">
+              <div className="group hover:bg-[hsl(var(--secondary))] transition-colors rounded-lg border border-[hsl(var(--third)_/_20%)]">
+                <Link
+                  href={"mailto:you.turkey11@gmail.com"}
+                  target="_blank"
+                  className="cursor-pointer flex items-center gap-2 md:gap-5 p-5"
+                >
+                  <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--secondary))] text-[hsl(var(--background))] md:text-2xl">
+                    <SlEnvolope />
+                  </span>
+                  <span className="md:text-2xl group-hover:text-white">
+                    you.turkey11@gmail.com
+                  </span>
+                </Link>
+              </div>
 
-            <div className="group hover:bg-[hsl(var(--secondary))] transition-colors rounded-lg border border-[hsl(var(--third)_/_20%)]">
-              <Link
-                href={"tel:+201154102459"}
-                target="_blank"
-                className="cursor-pointer flex items-center gap-2 md:gap-5 p-5"
-              >
-                <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--secondary))] text-[hsl(var(--background))] md:text-2xl">
-                  <IoCall />
-                </span>
-                <span className="md:text-2xl group-hover:text-white">
-                  {language === "en"
-                    ? "(+20) 115 410 2459"
-                    : "2459 410 115 (20+)"}
-                </span>
-              </Link>
+              <div className="group hover:bg-[hsl(var(--secondary))] transition-colors rounded-lg border border-[hsl(var(--third)_/_20%)]">
+                <Link
+                  href={"https://wa.me/201273451052"}
+                  target="_blank"
+                  className="cursor-pointer flex items-center gap-2 md:gap-5 p-5"
+                >
+                  <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--secondary))] text-[hsl(var(--background))] md:text-2xl">
+                    <ImWhatsapp />
+                  </span>
+                  <span className="md:text-2xl group-hover:text-white">
+                    {language === "en"
+                      ? "(+20) 127 345 1052"
+                      : "1052 345 127 (20+)"}
+                  </span>
+                </Link>
+              </div>
+
+              <div className="group hover:bg-[hsl(var(--secondary))] transition-colors rounded-lg border border-[hsl(var(--third)_/_20%)]">
+                <Link
+                  href={"tel:+201154102459"}
+                  target="_blank"
+                  className="cursor-pointer flex items-center gap-2 md:gap-5 p-5"
+                >
+                  <span className="group-hover:bg-[hsl(var(--background))] bg-[hsl(var(--secondary))] rounded-full p-2 md:p-3 group-hover:text-[hsl(var(--secondary))] text-[hsl(var(--background))] md:text-2xl">
+                    <IoCall />
+                  </span>
+                  <span className="md:text-2xl group-hover:text-white">
+                    {language === "en"
+                      ? "(+20) 115 410 2459"
+                      : "2459 410 115 (20+)"}
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </Suspense>
   );
 };
 
