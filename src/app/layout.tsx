@@ -45,12 +45,12 @@ export default function RootLayout({
         <LoaderWrapper>
           <ClientThemeProvider>
             <ClientLanguageProvider defaultLanguage="en">
-              <Header />
-              {children}
-              <Toaster position="top-right" reverseOrder={false} />
-              <ScrollUp />
-              <Footer />
-              <Analytics />
+                <Header />
+                {children}
+                <Toaster position="top-right" reverseOrder={false} />
+                <ScrollUp />
+                <Footer />
+                <Analytics />
             </ClientLanguageProvider>
           </ClientThemeProvider>
         </LoaderWrapper>

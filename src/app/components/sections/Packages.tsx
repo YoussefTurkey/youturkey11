@@ -24,7 +24,6 @@ import { TPackages } from "@/types/globalTypes";
 const Packages = () => {
   const { language } = useLanguage();
   const [allPackages, setAllPackages] = useState<TPackages[]>([]);
-
   const [loading, setLoading] = useState(true);
   const [filterPackage, setFilterPackage] = useState<
     "training" | "freelancing" | "hiring" | "sessions" | "coming-soon"
@@ -33,7 +32,6 @@ const Packages = () => {
   // Fetching Collections
   useEffect(() => {
     const fetchData = async () => {
-      // fetching traning
       const packagesSnap = await getDocs(collection(db, "packages"));
       const packagesData = packagesSnap.docs.map((doc) => ({
         id: doc.id,
@@ -46,6 +44,14 @@ const Packages = () => {
 
     fetchData();
   }, []);
+
+  // دالة لحفظ الباقة في local storage والانتقال لصفحة الاتصال
+  const handlePackageSelect = (packageName: string) => {
+    // حفظ الباقة في local storage
+    localStorage.setItem('selectedPackage', packageName);
+    // الانتقال لصفحة الاتصال
+    window.location.href = '/contact';
+  };
 
   // set Loading
   if (loading) return <Loading />;
@@ -136,9 +142,11 @@ const Packages = () => {
                         ? `${plan.price} ${plan.currencyEn}`
                         : `${plan.price} ${plan.currencyAr}`}
                     </p>
-                    <Btns
-                      href={`/contact?package=${encodeURIComponent(language === 'en' ? plan?.nameEn || plan?.type || '' : plan?.nameAr || plan?.type || '')}`}
-                      style="capitalize py-3 xl:px-10 text-md sm:text-lg lg:text-xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center mx-auto gap-2"
+                    <button
+                      onClick={() => handlePackageSelect(
+                        language === 'en' ? plan?.nameEn || plan?.type || '' : plan?.nameAr || plan?.type || ''
+                      )}
+                      className="w-full capitalize py-3 xl:px-10 text-md sm:text-lg lg:text-xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center mx-auto gap-2 rounded-lg cursor-pointer transition-colors"
                     >
                       <span>
                         {language === "en"
@@ -146,7 +154,7 @@ const Packages = () => {
                           : "اختار هذه الباقة"}
                       </span>
                       <MdArrowOutward size={20} />
-                    </Btns>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -178,9 +186,9 @@ const Packages = () => {
                     <p className="absolute -top-4 right-25 md:right-15 lg:right-15 xl:right-30 2xl:right-32.5 px-10 py-1 font-bold text-[hsl(var(--foreground))] border border-[hsl(var(--third)/20%)] group-hover:border-[hsl(var(--third))] bg-[hsl(var(--background))] rounded-full">
                       {plan.net_salary}
                     </p>
-                    <Btns
-                      href={"/"}
-                      style="capitalize py-3 xl:px-10 text-md sm:text-lg lg:text-xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center mx-auto gap-2"
+                    <button
+                      onClick={() => handlePackageSelect(plan.type || '')}
+                      className="w-full capitalize py-3 xl:px-10 text-md sm:text-lg lg:text-xl border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] hover:text-white flex items-center justify-center mx-auto gap-2 rounded-lg cursor-pointer transition-colors"
                     >
                       <span>
                         {language === "en"
@@ -188,7 +196,7 @@ const Packages = () => {
                           : "اختار هذه الباقة"}
                       </span>
                       <MdArrowOutward size={20} />
-                    </Btns>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -273,144 +281,144 @@ const Packages = () => {
             dir={language === "en" ? "ltr" : "rtl"}
           >
             <SwiperSlide className="w-fit!">
-              <Btns
-                action={() => setFilterPackage("training")}
-                style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+              <button
+                onClick={() => setFilterPackage("training")}
+                className={`py-1 px-4 text-md rounded-full border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
                   filterPackage === "training"
                     ? "bg-[hsl(var(--secondary))]! text-white"
                     : ""
-                } hover:text-white`}
+                } hover:text-white transition-colors`}
               >
                 {language === "en"
                   ? "Training & Mentorship Packages"
                   : "باقات التدريب والتوجيه"}
-              </Btns>
+              </button>
             </SwiperSlide>
 
             <SwiperSlide className="w-fit!">
-              <Btns
-                action={() => setFilterPackage("freelancing")}
-                style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+              <button
+                onClick={() => setFilterPackage("freelancing")}
+                className={`py-1 px-4 text-md rounded-full border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
                   filterPackage === "freelancing"
                     ? "bg-[hsl(var(--secondary))]! text-white"
                     : ""
-                } hover:text-white`}
+                } hover:text-white transition-colors`}
               >
                 {language === "en"
                   ? "Freelancing Projects Packages"
                   : "باقات مشاريع العمل الحر"}
-              </Btns>
+              </button>
             </SwiperSlide>
 
             <SwiperSlide className="w-fit!">
-              <Btns
-                action={() => setFilterPackage("hiring")}
-                style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+              <button
+                onClick={() => setFilterPackage("hiring")}
+                className={`py-1 px-4 text-md rounded-full border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
                   filterPackage === "hiring"
                     ? "bg-[hsl(var(--secondary))]! text-white"
                     : ""
-                } hover:text-white`}
+                } hover:text-white transition-colors`}
               >
                 {language === "en"
                   ? "Work Opportunities Packages"
                   : "باقات مشاريع العمل الحر"}
-              </Btns>
+              </button>
             </SwiperSlide>
 
             <SwiperSlide className="w-fit!">
-              <Btns
-                action={() => setFilterPackage("sessions")}
-                style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+              <button
+                onClick={() => setFilterPackage("sessions")}
+                className={`py-1 px-4 text-md rounded-full border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
                   filterPackage === "sessions"
                     ? "bg-[hsl(var(--secondary))]! text-white"
                     : ""
-                } hover:text-white`}
+                } hover:text-white transition-colors`}
               >
                 {language === "en"
                   ? "Workshops & Talks Packages"
                   : "باقات ورش العمل والمحادثات"}
-              </Btns>
+              </button>
             </SwiperSlide>
 
             <SwiperSlide className="w-fit!">
-              <Btns
-                action={() => setFilterPackage("coming-soon")}
-                style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+              <button
+                onClick={() => setFilterPackage("coming-soon")}
+                className={`py-1 px-4 text-md rounded-full border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
                   filterPackage === "coming-soon"
                     ? "bg-[hsl(var(--secondary))]! text-white"
                     : ""
-                } hover:text-white`}
+                } hover:text-white transition-colors`}
               >
                 {language === "en" ? "Coming Soon" : "سيُصدر قريبًا"}
-              </Btns>
+              </button>
             </SwiperSlide>
           </Swiper>
         </div>
 
         {/* للشاشات الكبيرة: ثابت */}
         <div className="hidden sm:flex items-center justify-start flex-wrap gap-5">
-          <Btns
-            action={() => setFilterPackage("training")}
-            style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+          <button
+            onClick={() => setFilterPackage("training")}
+            className={`py-1 px-4 text-md rounded-full border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
               filterPackage === "training"
                 ? "bg-[hsl(var(--secondary))]! text-white"
                 : ""
-            } hover:text-white`}
+            } hover:text-white transition-colors`}
           >
             {language === "en"
               ? "Training & Mentorship Packages"
               : "باقات التدريب والتوجيه"}
-          </Btns>
+          </button>
 
-          <Btns
-            action={() => setFilterPackage("freelancing")}
-            style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+          <button
+            onClick={() => setFilterPackage("freelancing")}
+            className={`py-1 px-4 text-md rounded-full border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
               filterPackage === "freelancing"
                 ? "bg-[hsl(var(--secondary))]! text-white"
                 : ""
-            } hover:text-white`}
+            } hover:text-white transition-colors`}
           >
             {language === "en"
               ? "Freelancing Projects Packages"
               : "باقات مشاريع العمل الحر"}
-          </Btns>
+          </button>
 
-          <Btns
-            action={() => setFilterPackage("hiring")}
-            style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+          <button
+            onClick={() => setFilterPackage("hiring")}
+            className={`py-1 px-4 text-md rounded-full border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
               filterPackage === "hiring"
                 ? "bg-[hsl(var(--secondary))]! text-white"
                 : ""
-            } hover:text-white`}
+            } hover:text-white transition-colors`}
           >
             {language === "en"
               ? "Work Opportunities Packages"
               : "باقات مشاريع العمل الحر"}
-          </Btns>
+          </button>
 
-          <Btns
-            action={() => setFilterPackage("sessions")}
-            style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+          <button
+            onClick={() => setFilterPackage("sessions")}
+            className={`py-1 px-4 text-md rounded-full border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
               filterPackage === "sessions"
                 ? "bg-[hsl(var(--secondary))]! text-white"
                 : ""
-            } hover:text-white`}
+            } hover:text-white transition-colors`}
           >
             {language === "en"
               ? "Workshops & Talks Packages"
               : "باقات ورش العمل والمحادثات"}
-          </Btns>
+          </button>
 
-          <Btns
-            action={() => setFilterPackage("coming-soon")}
-            style={`py-1 text-md rounded-full! border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
+          <button
+            onClick={() => setFilterPackage("coming-soon")}
+            className={`py-1 px-4 text-md rounded-full border border-[hsl(var(--secondary))] bg-transparent hover:bg-[hsl(var(--secondary))] ${
               filterPackage === "coming-soon"
                 ? "bg-[hsl(var(--secondary))]! text-white"
                 : ""
-            } hover:text-white`}
+            } hover:text-white transition-colors`}
           >
             {language === "en" ? "Coming Soon" : "سيُصدر قريبًا"}
-          </Btns>
+          </button>
         </div>
       </div>
 
