@@ -31,9 +31,7 @@ const ScrollUp = () => {
       {pathname === "/" ? (
         <button
           onClick={scrollToTop}
-          className={`hidden sm:block fixed bottom-15 md:bottom-15 z-1 ${
-            language === "en" ? "right-4 sm:right-10" : "left-7 sm:left-10"
-          } bg-[hsl(var(--secondary))] text-[hsl(var(--background))] p-3 rounded-full shadow-lg transition-opacity duration-300 cursor-pointer ${
+          className={`hidden sm:block fixed bottom-15 md:bottom-15 z-1 left-7 sm:left-10 bg-[hsl(var(--secondary))] text-[hsl(var(--background))] p-3 rounded-full shadow-lg transition-opacity duration-300 cursor-pointer ${
             isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
@@ -42,9 +40,7 @@ const ScrollUp = () => {
       ) : 
         <button
           onClick={scrollToTop}
-          className={`block fixed bottom-15 md:bottom-15 z-1 ${
-            language === "en" ? "right-4 sm:right-10" : "left-7 sm:left-10"
-          } bg-[hsl(var(--secondary))] text-[hsl(var(--background))] p-3 rounded-full shadow-lg transition-opacity duration-300 cursor-pointer ${
+          className={`block fixed bottom-15 md:bottom-15 z-1 left-7 sm:left-10 bg-[hsl(var(--secondary))] text-[hsl(var(--background))] p-3 rounded-full shadow-lg transition-opacity duration-300 cursor-pointer ${
             isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >

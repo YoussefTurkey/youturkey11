@@ -15,6 +15,7 @@ import LoaderWrapper from "./components/ui/LoaderWrapper";
 import { Toaster } from "react-hot-toast";
 // Vercel Analytics
 import { Analytics } from "@vercel/analytics/next";
+import ChatbaseWidget from "./components/sections/ChatbaseWidget";
 // Fonts
 const inter = Inter({
   subsets: ["latin"],
@@ -49,6 +50,7 @@ export default function RootLayout({
                 {children}
                 <Toaster position="top-right" reverseOrder={false} />
                 <ScrollUp />
+                <ChatbaseWidget />
                 <Footer />
                 <Analytics />
             </ClientLanguageProvider>

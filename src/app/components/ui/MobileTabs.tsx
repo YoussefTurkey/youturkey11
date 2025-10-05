@@ -77,7 +77,7 @@ function ExpandedTabs({ tabs, onChange }: ExpandedTabsProps) {
   return (
     <div
       ref={containerRef}
-      className={`z-1 sticky bottom-10 mx-auto w-fit sm:hidden flex items-center justify-center gap-1 rounded-full py-1 px-4 shadow-md backdrop-blur-sm bg-[hsl(var(--background))] border border-[hsl(var(--secondary)_/_50%)]`}
+      className={`z-1 sticky bottom-20 mx-auto w-fit sm:hidden flex items-center justify-center gap-1 rounded-full py-1 px-4 shadow-md backdrop-blur-sm bg-[hsl(var(--background))] border border-[hsl(var(--secondary)_/_50%)]`}
     >
       {tabs.map((tab, index) => {
         if (tab.type === "separator") {
@@ -90,7 +90,7 @@ function ExpandedTabs({ tabs, onChange }: ExpandedTabsProps) {
         return (
           <button
             key={tab.title}
-            onClick={() => handleSelect(index, tab.targetId)} // 👈 تمرير id
+            onClick={() => handleSelect(index, tab.targetId)} 
             className={`relative z-10 flex items-center rounded-full px-4 py-3 text-sm font-medium transition-colors focus:outline-none 
               ${
                 isSelected
